@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f0cb432-988b-4266-b297-4ae9df164cf2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/LMS/.gitignore" afterPath="$PROJECT_DIR$/LMS/.gitignore" />
       <change beforePath="$PROJECT_DIR$/LMS/app/Http/Controllers/Auth/LoginController.php" afterPath="$PROJECT_DIR$/LMS/app/Http/Controllers/Auth/LoginController.php" />
       <change beforePath="$PROJECT_DIR$/LMS/app/Http/Controllers/Auth/RegisterController.php" afterPath="$PROJECT_DIR$/LMS/app/Http/Controllers/Auth/RegisterController.php" />
@@ -15,33 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LMS/app/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-              <folding>
-                <element signature="e#23#63#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Student.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LMS/app/Student.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LMS/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -136,12 +115,6 @@
               <item name="LMS" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="LMS" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="LMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LMS" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="LMS" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -178,12 +151,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520572302688</updated>
-      <workItem from="1520572308393" duration="14978000" />
+      <workItem from="1520572308393" duration="15277000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14978000" />
+    <option name="totallyTimeSpent" value="15277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1276" height="777" extended-state="6" />
@@ -587,14 +560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LMS/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LMS/app/Student.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -603,10 +568,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LMS/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/LMS/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
