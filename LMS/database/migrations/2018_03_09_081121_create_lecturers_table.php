@@ -18,7 +18,7 @@ class CreateLecturersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->integer('phone');
+            $table->string('phone');
             $table->integer('user_id');
             $table->integer('position_id');
             $table->timestamps();
