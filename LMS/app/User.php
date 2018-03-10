@@ -12,7 +12,7 @@ class User extends Authenticatable
     protected $fillable = [
         'id', 'username', 'password'
     ];
-    protected $guarded = ['id'];
+    protected $guarded = ['id','admin'];
     protected $hidden = [
         'password', 'remember_token',
     ];

@@ -14,7 +14,8 @@ class UserTableSeeder extends Seeder
         $adminUser = new \App\User([
             'id' => '1',
             'username' => 'admin',
-            'password' => Hash::make('123456')
+            'password' => Hash::make('123456'),
+            'type' => 'admin'
         ]);
         $adminUser->save();
     }

@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+/** Home Controller */
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+/** Admin Controller */
+Route::get('/announcements', 'AdminController@announcements')->name('announcements');
+Route::get('/create-announcement', 'AdminController@getAnnounce')->name('create-announcement');
+Route::post('/create-announcement', 'AdminController@postAnnounce')->name('create-announcement');
