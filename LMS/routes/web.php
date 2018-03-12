@@ -33,3 +33,4 @@ Route::get('/admin/courses', 'AdminController@coursesList')->name('admin-courses
 
 /** Lecturer Controller */
 Route::get('/lecturer/courses', 'LecturerController@courses')->name('lecturer-courses');
+Route::get('/lecturer/course/{id}', 'LecturerController@getCourse')->name('lecturer-course');

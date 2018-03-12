@@ -12,16 +12,20 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <style>
+
+    </style>
 </head>
 <body>
 <div id="app">
     @include('layouts.nav')
-    <div style="margin-top: 25px">
+    <div style="margin-top: 25px; margin-bottom: 20px">
         @yield('content')
     </div>
 </div>
 
 <!-- Scripts -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 </body>
