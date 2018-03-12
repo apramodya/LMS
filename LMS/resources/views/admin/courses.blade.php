@@ -15,6 +15,7 @@
                     <th scope="col">Enrollment Key</th>
                     <th scope="col">Year</th>
                     <th scope="col">Degree</th>
+                    <th scope="col">Semester</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,7 @@
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
+                        <td>{{ $course->degree }}</td>
                         <td>{{ $course->degree }}</td>
                     </tr>
                 @endforeach

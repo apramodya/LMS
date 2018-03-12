@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Announcement;
 use App\Course;
+use App\EnrollLecturer;
+use App\Lecturer;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -57,4 +59,20 @@ class AdminController extends Controller
         $course->save();
         return redirect(route('dashboard'));
     }
+
+    public function getEnrollCourse(){
+        $courses = Course::all();
+        $lecturers = Lecturer::all();
+        return view('admin/enroll-course', ['courses' => $courses, 'lecturers' => $lecturers]);
+    }
+
+    public function postEnrollCourse(Request $request){
+        $enroll = new EnrollLecturer([
+            'course_id' => $request->input('course_id'),
+            'lecturer_id' => $request->input('lecturer_id'),
+        ]);
+        $enroll->save();
+        return redirect(route('dashboard'));
+    }
+
 }

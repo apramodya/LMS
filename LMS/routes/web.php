@@ -30,6 +30,8 @@ Route::get('/admin/students', 'AdminController@studentsList')->name('admin-stude
 Route::get('/admin/add-course', 'AdminController@getAddCourse')->name('add-course');
 Route::post('/admin/add-course', 'AdminController@postAddCourse')->name('add-course');
 Route::get('/admin/courses', 'AdminController@coursesList')->name('admin-courses');
+Route::get('/admin/enroll-courses', 'AdminController@getEnrollCourse')->name('enroll-course');
+Route::post('/admin/enroll-courses', 'AdminController@postEnrollCourse')->name('enroll-course');
 
 /** Lecturer Controller */
 Route::get('/lecturer/courses', 'LecturerController@courses')->name('lecturer-courses');

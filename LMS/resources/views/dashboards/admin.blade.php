@@ -13,6 +13,7 @@
                     <a href="{{ route('create-announcement') }}" class="list-group-item list-group-item-action">Post Announcement</a>
                     <a href="{{ route('register') }}" class="list-group-item list-group-item-action">Register User</a>
                     <a href="{{ route('add-course') }}" class="list-group-item list-group-item-action">Add Course</a>
+                    <a href="{{ route('enroll-course') }}" class="list-group-item list-group-item-action">Enroll Course</a>
                 </div>
             </div>
         </div>
