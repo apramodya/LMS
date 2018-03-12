@@ -11,12 +11,28 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $adminUser = new \App\User([
+        $admin = new \App\User([
             'id' => '1',
             'username' => 'admin',
             'password' => Hash::make('123456'),
             'type' => 'admin'
         ]);
-        $adminUser->save();
+        $admin->save();
+
+        $lecturer = new \App\User([
+            'id' => '2',
+            'username' => 'lecturer',
+            'password' => Hash::make('123456'),
+            'type' => 'lecturer'
+        ]);
+        $lecturer->save();
+
+        $student = new \App\User([
+            'id' => '3',
+            'username' => 'student',
+            'password' => Hash::make('123456'),
+            'type' => 'student'
+        ]);
+        $student->save();
     }
 }

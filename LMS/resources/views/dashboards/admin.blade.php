@@ -12,7 +12,7 @@
                 <div class="list-group">
                     <a href="{{ route('create-announcement') }}" class="list-group-item list-group-item-action">Post Announcement</a>
                     <a href="{{ route('register') }}" class="list-group-item list-group-item-action">Register User</a>
-                    <a href="#" class="list-group-item list-group-item-action">...</a>
+                    <a href="{{ route('add-course') }}" class="list-group-item list-group-item-action">Add Course</a>
                 </div>
             </div>
         </div>
@@ -25,8 +25,9 @@
             <div class="card-body">
                 <div class="list-group">
                     <a href="{{ route('announcements') }}" class="list-group-item list-group-item-action">Announcements</a>
-                    <a href="#" class="list-group-item list-group-item-action">Lecturers</a>
-                    <a href="#" class="list-group-item list-group-item-action">Students</a>
+                    <a href="{{ route('admin-lectures') }}" class="list-group-item list-group-item-action">Lecturers</a>
+                    <a href="{{ route('admin-students') }}" class="list-group-item list-group-item-action">Students</a>
+                    <a href="{{ route('admin-courses') }}" class="list-group-item list-group-item-action">Courses</a>
                 </div>
             </div>
         </div>
