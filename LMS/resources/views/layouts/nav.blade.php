@@ -11,9 +11,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                 </li>
-                @if(auth()->user()->type != 'admin')
+                @if(auth()->user()->type == 'lecturer')
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Courses</a>
+                        <a class="nav-link" href="{{ route('lecturer-courses') }}">My Courses</a>
                     </li>
                 @endif
             @endauth
