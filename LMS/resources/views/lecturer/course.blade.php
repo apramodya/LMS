@@ -51,11 +51,11 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div class="btn-group-vertical" role="group" aria-label="Actions">
-                                    <button type="button" class="btn btn-primary">Add Lecture Notes</button>
-                                    <button type="button" class="btn btn-primary">Add Assignment</button>
-                                    <button type="button" class="btn btn-primary">Add Submission</button>
-                                    <button type="button" class="btn btn-primary">Add Quiz</button>
-                                    <button type="button" class="btn btn-primary">Add Notice</button>
+                                    <a href="{{ route('lecturer-addLectureNotes',$course->course_id) }}"  class="btn btn-primary">Add Lecture Notes</a>
+                                    <a href="{{ route('lecturer-addAssignment',$course->course_id) }}" class="btn btn-primary" >Add Assignment</a>
+                                    <a href="{{ route('lecturer-addSubmission',$course->course_id) }}" class="btn btn-primary">Add Submission</a>
+                                    <a href="{{ route('lecturer-addQuiz',$course->course_id) }}" class="btn btn-primary">Add Quiz</a>
+                                    <a href="{{ route('lecturer-addNotice',$course->course_id) }}" class="btn btn-primary">Add Notice</a>
                                 </div>
                             </div>
                         </div>

@@ -34,3 +34,8 @@ Route::get('/admin/courses', 'AdminController@coursesList')->name('admin-courses
 /** Lecturer Controller */
 Route::get('/lecturer/courses', 'LecturerController@courses')->name('lecturer-courses');
 Route::get('/lecturer/course/{id}', 'LecturerController@getCourse')->name('lecturer-course');
+Route::get('/lecturer/course/{id}/add-assignment', 'LecturerController@addAssignment')->name('lecturer-addAssignment');
+Route::get('/lecturer/course/{id}/add-lecturenotes', 'LecturerController@addLectureNotes')->name('lecturer-addLectureNotes');
+Route::get('/lecturer/course/{id}/add-notice', 'LecturerController@addNotice')->name('lecturer-addNotice');
+Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name('lecturer-addQuiz');
+Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
