@@ -95,6 +95,13 @@
                                 <div class="row">
                                     <div id="assignments">
                                         <h4>Assignments</h4>
+
+                                        @foreach($assignments as $assignment)
+
+                                            <li class="list-group-item">{{ $assignment->assignment_id }}</li>
+
+                                        @endforeach
+
                                     </div>
                                 </div>
                                 <hr class="bg-dark">

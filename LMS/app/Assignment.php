@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
+    protected $fillable = ['course_id', 'assignment_id', 'lecturer_id', 'deadline'];
+
     public function course(){
         return $this->belongsTo(Course::class);
     }
