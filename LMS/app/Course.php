@@ -9,7 +9,7 @@ class Course extends Model
     protected $fillable = ['course_id', 'name', 'enrollment_key', 'year', 'degree'];
 
     public function lecturers(){
-        return $this->hasMany(Lecturer::class);
+        return $this->hasMany(EnrollLecturer::class,'course_id', 'course_id');
     }
     public function students(){
         return $this->hasMany(Student::class);

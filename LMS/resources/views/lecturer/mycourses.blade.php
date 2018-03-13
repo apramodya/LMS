@@ -1,3 +1,5 @@
+<?php
+?>
 @extends('layouts.app')
 @section('title')
     My Courses
@@ -20,15 +22,20 @@
                 </thead>
                 <tbody>
                 @foreach($courses as $course)
-                    <tr>
-                        <th scope="row">{{ $course->id }}</th>
-                        <td><a href="{{ route('lecturer-course',$course->course_id) }}">{{ $course->name }}</a></td>
-                        <td>{{ $course->course_id }}</td>
-                        <td>{{ $course->enrollment_key }}</td>
-                        <td>{{ $course->year }}</td>
-                        <td>{{ $course->degree }}</td>
-                        <td><i class="fas fa-ban"></i></td>
-                    </tr>
+                    @foreach($enrolls as $enroll)
+                        @if($enroll->course_id == $course->course_id)
+                            <tr>
+                                <th scope="row">{{ $course->id }}</th>
+                                <td><a href="{{ route('lecturer-course',$course->course_id) }}">{{ $course->name }}</a>
+                                </td>
+                                <td>{{ $course->course_id }}</td>
+                                <td>{{ $course->enrollment_key }}</td>
+                                <td>{{ $course->year }}</td>
+                                <td>{{ $course->degree }}</td>
+                                <td><i class="fas fa-ban"></i></td>
+                                @endif
+                            </tr>
+                            @endforeach
                 @endforeach
                 </tbody>
             </table>

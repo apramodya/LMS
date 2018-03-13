@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
+
     <style>
 
     </style>
@@ -27,6 +29,8 @@
 <!-- Scripts -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/mdb.min.js') }}"></script>
 </body>
 </html>

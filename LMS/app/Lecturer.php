@@ -10,10 +10,10 @@ class Lecturer extends Model
         return $this->belongsTo(User::class);
     }
     public function position(){
-        return $this->hasOne(Position::class);
+        return $this->hasOne(Position::class,'id','position_id');
     }
     public function courses(){
-        return $this->hasMany(Course::class);
+        return $this->hasMany(EnrollLecturer::class,'lecturer_id','user_id');
     }
     public function assignments(){
         return $this->hasMany(Assignment::class);

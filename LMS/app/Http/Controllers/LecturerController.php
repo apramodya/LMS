@@ -4,22 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\Course;
+use App\EnrollLecturer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LecturerController extends Controller
 {
-    public function courses(){
+    public function courses(Request $request){
         $courses = Course::all();
-        return view('lecturer/mycourses', ['courses' => $courses]);
+        $user_id = $request->user()->id;
+        $enrolls = EnrollLecturer::where('lecturer_id', '=', $user_id)->get();
+        return view('lecturer/mycourses', ['courses' => $courses, 'enrolls' => $enrolls]);
     }
 
     public function getCourse($id){
         $course = Course::where('course_id', '=', $id)->first();
+
         $assignments = Assignment::where('course_id', '=', $id)->get();
-        $data = array('course' => $course,
-            'assignments' => $assignments);
-        return view('lecturer/course')->with($data);
+
+        $lecturers = EnrollLecturer::where('course_id', '=', $id)->get();
+        return view('lecturer/course', ['course' => $course, 'lecturers' => $lecturers, 'course' => $course, 'assignments' => $assignments]);
     }
 
     public function addAssignment($id){
