@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('enrollment_key');
             $table->string('year');
+            $table->string('semester');
             $table->string('degree');
             $table->timestamps();
         });

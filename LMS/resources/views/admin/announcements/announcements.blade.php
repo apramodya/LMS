@@ -14,15 +14,15 @@
                         <div class="card-body">
                             <dl class="row">
                                 <dt class="col-sm-3">Description</dt>
-                                <dd class="col-sm-9">{{ $announcement->content }}</dd>
+                                <dd class="col-sm-9"><span class="text-capitalize">{{ $announcement->content }}</span></dd>
 
                                 <dt class="col-sm-3">Year</dt>
                                 <dd class="col-sm-9">{{ $announcement->year }}</dd>
 
                                 <dt class="col-sm-3">Degree</dt>
-                                <dd class="col-sm-9">{{ $announcement->degree }}</dd>
+                                <dd class="col-sm-9"><span class="text-uppercase">{{ $announcement->degree }}</span></dd>
 
-                                <dt class="col-sm-3">Published</dt>
+                                <dt class="col-sm-3">Published On</dt>
                                 <dd class="col-sm-9">{{ $announcement->created_at }}</dd>
                             </dl>
                             @if(($announcement->attachment) != null)

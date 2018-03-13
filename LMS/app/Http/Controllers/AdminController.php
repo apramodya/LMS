@@ -48,6 +48,13 @@ class AdminController extends Controller
         return view('admin/courses', ['courses' => $courses]);
     }
 
+    public function course($id){
+        $course = Course::where('course_id', '=', $id)->first();
+        $lecturers = EnrollLecturer::where('course_id', '=', $id)->get();
+
+        return view('admin/course', ['course' => $course, 'lecturers' => $lecturers]);
+    }
+
     public function getAddCourse(){
         return view('admin/addCourse');
     }

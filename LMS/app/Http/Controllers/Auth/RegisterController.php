@@ -68,6 +68,7 @@ class RegisterController extends Controller
             $student->phone = $data['phone'];
             $student->registration_year = $data['registration_year'];
             $student->index_number = $data['index_number'];
+            $student->degree = $data['degree'];
             $student->user_id = $user->id;
 
             $student->save();
