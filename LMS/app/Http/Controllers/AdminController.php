@@ -6,12 +6,14 @@ use App\Announcement;
 use App\Course;
 use App\EnrollLecturer;
 use App\Lecturer;
+use App\Position;
+use App\Student;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function getAnnounce(){
-        return view('announcements/create-announcement');
+        return view('admin/announcements/create-announcement');
     }
     public function postAnnounce(Request $request){
         $announcement = new Announcement([
@@ -28,15 +30,17 @@ class AdminController extends Controller
     public function announcements()
     {
         $announcements = Announcement::all();
-        return view('announcements/announcements',['announcements' => $announcements]);
+        return view('admin/announcements/announcements',['announcements' => $announcements]);
     }
 
     public function lecturersList(){
-        return view('admin/list-lecturers');
+        $lecturers = Lecturer::orderBy('position_id')->get();
+        return view('admin/list-lecturers', ['lecturers' => $lecturers]);
     }
 
     public function studentsList(){
-        return view('admin/list-students');
+        $students = Student::all();
+        return view('admin/list-students', ['students' => $students]);
     }
 
     public function coursesList(){

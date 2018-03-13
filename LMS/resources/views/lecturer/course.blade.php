@@ -41,8 +41,10 @@
                             <dd class="col-md-8">
                                 <ul>
                                     @foreach($lecturers as $lecturer)
-                                        @if($lecturer->lecturer[0]->position_id < 5)
+                                        @if($lecturer->lecturer[0]->position_id == 5)
                                             <li class="list-group-item">{{ $lecturer->lecturer[0]->first_name }} {{ $lecturer->lecturer[0]->last_name }}</li>
+                                        @else
+                                            No Instructors Assigned Yet
                                         @endif
                                     @endforeach
                                 </ul>
