@@ -132,12 +132,12 @@
 
                                             <li class="list-group-item">
                                                 <strong>{{ $assignment->assignment_id }}</strong>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                                <p>{{ $assignment->description }}</p>
                                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
                                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                                <p class="font-italic">Published on {{ now() }}</p>
-                                                <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
+                                                <p class="font-italic">Published on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
+                                                <p class="font-italic">Deadline <span class="red-text">{{ $assignment->end_date }} {{ $assignment->end_time }}</span></p>
                                             </li>
                                                 @endforeach
                                         </ul>

@@ -7,7 +7,7 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('lecturer-addAssignment',$course->course_id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -24,8 +24,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+                            <label for="assignment_id">Assignment ID</label>
+                            <input type="text" class="form-control" id="assignment_id" name="assignment_id" required>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
