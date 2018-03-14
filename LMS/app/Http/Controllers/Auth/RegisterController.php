@@ -27,6 +27,7 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/dashboard';
 
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -95,4 +96,5 @@ class RegisterController extends Controller
 
         return $user;
     }
+
 }

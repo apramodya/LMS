@@ -15,6 +15,13 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('course_id');
+            $table->string('lecturer_id');
+            $table->string('title');
+            $table->text('description');
+            $table->string('attachment')->nullable();
+            $table->integer('sms'); // 1 or 0
+            $table->integer('email'); // 1 or 0
             $table->timestamps();
         });
     }

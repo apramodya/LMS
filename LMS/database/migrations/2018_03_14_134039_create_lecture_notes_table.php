@@ -15,6 +15,11 @@ class CreateLectureNotesTable extends Migration
     {
         Schema::create('lecture_notes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('course_id');
+            $table->string('lecturer_id');
+            $table->string('title');
+            $table->text('description');
+            $table->string('attachment');
             $table->timestamps();
         });
     }

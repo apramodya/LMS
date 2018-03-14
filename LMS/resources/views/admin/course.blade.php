@@ -27,8 +27,8 @@
                             <dt class="col-md-4">Lecturers Assigned</dt>
                             <dd class="col-md-8">
                                 <ul>
-                                    @if()
-                                        <li class="list-group-item">No lecturers assigned yet</li>
+                                    @if(true)
+                                        <li class="list-group-item">{{ $course->lecturerCount($course->course_id) }}</li>
                                     @endif
                                     @foreach($lecturers as $lecturer)
                                         @if($lecturer->lecturer[0]->position_id < 5)

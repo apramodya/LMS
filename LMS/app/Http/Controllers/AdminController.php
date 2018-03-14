@@ -15,6 +15,7 @@ class AdminController extends Controller
     public function getAnnounce(){
         return view('admin/announcements/create-announcement');
     }
+
     public function postAnnounce(Request $request){
         $announcement = new Announcement([
             'year' => $request->input('year'),
