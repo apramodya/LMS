@@ -20,7 +20,7 @@
                 @foreach($lecturers as $lecturer)
                     <tr>
                         <th scope="row">{{ $loop->index + 1 }}</th>
-                        <td><a href=""><span class="text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</span></a></td>
+                        <td class="font-weight-bold"><a href="{{ route('admin-lecturer', $lecturer->user_id) }}"><span class="text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</span></a></td>
                         <td>{{ $lecturer->email }}</td>
                         <td>{{ $lecturer->phone }}</td>
                         <td>{{ $lecturer->position_id }}</td>

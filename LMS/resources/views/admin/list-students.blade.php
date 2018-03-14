@@ -21,7 +21,7 @@
                 @foreach($students as $student)
                     <tr>
                         <th scope="row">{{ $loop->index + 1 }}</th>
-                        <td><a href="" class="blue-"><span class="text-capitalize">{{ $student->first_name }} {{ $student->last_name }}</span></a></td>
+                        <td class="font-weight-bold"><a href="{{ route('admin-student', $student->index_number) }}" class="blue-"><span class="text-capitalize">{{ $student->first_name }} {{ $student->last_name }}</span></a></td>
                         <td>{{ $student->index_number }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone }}</td>

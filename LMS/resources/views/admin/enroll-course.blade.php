@@ -26,7 +26,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="lecturer">Lecturer</label>
-                                    <select class="form-control" id="lecturer" name="lecturer_id">
+                                    <select class="form-control text-capitalize" id="lecturer" name="lecturer_id">
                                         <option>Choose</option>
                                         @foreach($lecturers as $lecturer)
                                             <option value="{{ $lecturer->user_id }}">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</option>

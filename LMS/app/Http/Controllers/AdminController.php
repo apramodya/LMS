@@ -39,9 +39,21 @@ class AdminController extends Controller
         return view('admin/list-lecturers', ['lecturers' => $lecturers]);
     }
 
+    public function lecturer($id){
+        $lecturer = Lecturer::where('user_id', '=', $id)->get();
+
+        return view('admin/lecturer', ['lecturer' => $lecturer[0]]);
+    }
+
     public function studentsList(){
         $students = Student::all();
         return view('admin/list-students', ['students' => $students]);
+    }
+
+    public function student($id){
+        $student = Student::where('index_number', '=', $id)->get();
+
+        return view('admin/student', ['student' => $student[0]]);
     }
 
     public function coursesList(){

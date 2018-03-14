@@ -26,7 +26,9 @@ Route::get('/admin/announcements', 'AdminController@announcements')->name('annou
 Route::get('/admin/create-announcement', 'AdminController@getAnnounce')->name('create-announcement');
 Route::post('/admin/create-announcement', 'AdminController@postAnnounce')->name('create-announcement');
 Route::get('/admin/lectures', 'AdminController@lecturersList')->name('admin-lectures');
+Route::get('/admin/lecture/{id}', 'AdminController@lecturer')->name('admin-lecturer');
 Route::get('/admin/students', 'AdminController@studentsList')->name('admin-students');
+Route::get('/admin/student/{id}', 'AdminController@student')->name('admin-student');
 Route::get('/admin/add-course', 'AdminController@getAddCourse')->name('add-course');
 Route::post('/admin/add-course', 'AdminController@postAddCourse')->name('add-course');
 Route::get('/admin/courses', 'AdminController@coursesList')->name('admin-courses');

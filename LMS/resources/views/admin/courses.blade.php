@@ -22,7 +22,7 @@
                 @foreach($courses as $course)
                     <tr class="text-center">
                         <th scope="row">{{ $loop->index + 1 }}</th>
-                        <td><a href="{{ route('admin-course',$course->course_id) }}">{{ $course->name }}</a></td>
+                        <td class="font-weight-bold"><a href="{{ route('admin-course',$course->course_id) }}">{{ $course->name }}</a></td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
