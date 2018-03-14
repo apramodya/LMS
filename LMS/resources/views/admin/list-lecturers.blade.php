@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('title')
-    Lecturers list
+    Lecturers' List
 @endsection
 @section('content')
     <div class="container">
         <div class="table-responsive">
             <table class="table table-hover">
-                <caption>List of Lecturers</caption>
+                <caption>List of Lecturers ({{ count($lecturers) }})</caption>
                 <thead>
-                <tr>
+                <tr >
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
@@ -20,7 +20,7 @@
                 @foreach($lecturers as $lecturer)
                     <tr>
                         <th scope="row">{{ $loop->index + 1 }}</th>
-                        <td><a href="" class="blue-">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</a></td>
+                        <td><a href=""><span class="text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</span></a></td>
                         <td>{{ $lecturer->email }}</td>
                         <td>{{ $lecturer->phone }}</td>
                         <td>{{ $lecturer->position_id }}</td>

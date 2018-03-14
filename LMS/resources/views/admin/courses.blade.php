@@ -6,27 +6,27 @@
     <div class="container">
         <div class="table-responsive">
             <table class="table table-hover">
-                <caption>List of courses</caption>
+                <caption>List of courses ({{count($courses)}})</caption>
                 <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Course ID</th>
                     <th scope="col">Enrollment Key</th>
                     <th scope="col">Year</th>
-                    <th scope="col">Degree</th>
                     <th scope="col">Semester</th>
+                    <th scope="col">Degree</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($courses as $course)
-                    <tr>
-                        <th scope="row">{{ $course->id }}</th>
-                        <td>{{ $course->name }}</td>
+                    <tr class="text-center">
+                        <th scope="row">{{ $loop->index + 1 }}</th>
+                        <td><a href="{{ route('admin-course',$course->course_id) }}">{{ $course->name }}</a></td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
-                        <td>{{ $course->degree }}</td>
+                        <td>{{ $course->semester }}</td>
                         <td>{{ $course->degree }}</td>
                     </tr>
                 @endforeach
