@@ -45,9 +45,8 @@ Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name
 Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
 
 /** Student Controller  */
-
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');
 Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student-course');
-Route::get('/student/course/{id}/submit-assignment', 'StudentController@submitAssignment')->name('student-submitAssignment');
-Route::post('/student/course/{id}/submit-assignment', 'StudentController@submitAssignment')->name('student-submitAssignment');
+Route::get('/student/course/{id}/submit-assignment', 'StudentController@getSubmitAssignment')->name('student-submitAssignment');
+Route::post('/student/course/{id}/submit-assignment', 'StudentController@postSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');

@@ -15,13 +15,19 @@
     <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
 
     <style>
-
+        .btn-group-lg .btn, .btn-group-sm .btn {
+            border-radius: 15px;
+            margin: 3px;
+        }
+        #myContainer{
+            margin-top: 25px; margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
     @include('layouts.nav')
-    <div style="margin-top: 25px; margin-bottom: 20px">
+    <div id="myContainer">
         @yield('content')
     </div>
 </div>
