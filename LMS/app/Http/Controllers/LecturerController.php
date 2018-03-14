@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 class LecturerController extends Controller
 {
     public function courses(Request $request){
+        //dd($request->user());
         $courses = Course::all();
         $user_id = $request->user()->id;
         $enrolls = EnrollLecturer::where('lecturer_id', '=', $user_id)->get();

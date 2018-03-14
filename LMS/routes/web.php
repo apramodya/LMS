@@ -43,3 +43,7 @@ Route::get('/lecturer/course/{id}/add-lecture-notes', 'LecturerController@addLec
 Route::get('/lecturer/course/{id}/add-notice', 'LecturerController@addNotice')->name('lecturer-addNotice');
 Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name('lecturer-addQuiz');
 Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
+
+/** Student Controller  */
+
+Route::get('/student/courses', 'StudentController@courses')->name('student-courses');

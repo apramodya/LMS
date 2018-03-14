@@ -15,6 +15,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('lecturer-courses') }}">My Courses</a>
                     </li>
+                    @elseif(auth()->user()->type == 'student')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('student-courses') }}">My Courses</a>
+                    </li>
                 @endif
             @endauth
         </ul>
