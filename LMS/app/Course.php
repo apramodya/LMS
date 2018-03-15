@@ -10,10 +10,10 @@ class Course extends Model
 
     // ORM
     public function lecturers(){
-        return $this->hasMany(EnrollLecturer::class,'course_id', 'course_id');
+        return $this->belongsToMany( Lecturer::class,'lecturers_courses', 'course_id', 'lecturer_id');
     }
     public function students(){
-        return $this->hasMany(Student::class);
+        return $this->belongsToMany( Student::class,'courses_students', 'course_id', 'student_id');
     }
     public function quizzes(){
         return $this->hasMany(Quiz::class);
@@ -25,14 +25,4 @@ class Course extends Model
         return $this->hasOne(Forum::class);
     }
 
-    public function lecturerCount($course_id){
-        $enrolled = EnrollLecturer::where('course_id', '=', $course_id)->get();
-//        dd($enrolled);
-        $count = 0;
-        foreach ($enrolled as $item)
-            if (Lecturer::where('user_id', '=',$item->lecturer_id )->get() && Lecturer::where('position_id', '=', 5)->get())
-                $count+=1;
-
-        return $count;
-    }
 }

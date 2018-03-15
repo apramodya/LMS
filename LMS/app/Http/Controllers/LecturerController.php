@@ -7,6 +7,7 @@ use App\Course;
 use App\EnrollLecturer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LecturerController extends Controller
 {
@@ -15,39 +16,39 @@ class LecturerController extends Controller
         $this->middleware('lecturer');
     }
 
-    public function courses(Request $request){
-        //dd($request->user());
-        $courses = Course::all();
-        $user_id = $request->user()->id;
-        $enrolls = EnrollLecturer::where('lecturer_id', '=', $user_id)->get();
-        return view('lecturer/mycourses', ['courses' => $courses, 'enrolls' => $enrolls]);
+    public function courses(){
+        $courses = Auth::user()->lecturers->first()->courses;
+
+        return view('lecturer/mycourses', ['courses' => $courses]);
 }
 
     public function getCourse($id){
         $course = Course::where('course_id','=',$id)->first();
-
         $assignments = Assignment::where('course_id', '=', $id)->get();
 
-        $lecturers = EnrollLecturer::where('course_id', '=', $id)->get();
-        return view('lecturer/course', ['course' => $course, 'lecturers' => $lecturers, 'course' => $course, 'assignments' => $assignments]);
+        return view('lecturer/course', ['course' => $course, 'assignments' => $assignments]);
     }
 
     public function addAssignment($id){
         $course = Course::where('course_id', '=', $id)->first();
         return view('lecturer/addAssignment', ['course' => $course]);
     }
+
     public function addLectureNotes($id){
         $course = Course::where('course_id', '=', $id)->first();
         return view('lecturer/addLectureNotes', ['course' => $course]);
     }
+
     public function addNotice($id){
         $course = Course::where('course_id', '=', $id)->first();
         return view('lecturer/addNotice', ['course' => $course]);
     }
+
     public function addQuiz($id){
         $course = Course::where('course_id', '=', $id)->first();
         return view('lecturer/addQuiz', ['course' => $course]);
     }
+
     public function addSubmission($id){
         $course = Course::where('course_id', '=', $id)->first();
         return view('lecturer/addSubmission', ['course' => $course]);
@@ -56,7 +57,6 @@ class LecturerController extends Controller
     public function storeAssignment(Request $request,$id)
     {
         $course = Course::where('course_id', '=', $id)->first();
-
 
         $assignment = new Assignment;
         $assignment->course_id    = $course->course_id;

@@ -24,7 +24,7 @@ $positions = \App\Position::all();
                              aria-labelledby="reg-student-tab">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('register') }}">
+                                    <form method="POST" action="{{ route('register-user') }}">
                                         @csrf
                                         <input type="hidden" name="type" value="student">
                                         <div class="form-group row">
@@ -122,7 +122,7 @@ $positions = \App\Position::all();
                         <div class="tab-pane fade" id="reg-lecturer" role="tabpanel" aria-labelledby="reg-lecturer-tab">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('register') }}">
+                                    <form method="POST" action="{{ route('register-user') }}">
                                         @csrf
                                         <input type="hidden" name="type" value="lecturer">
                                         <div class="form-group row">

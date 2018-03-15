@@ -155,7 +155,6 @@
                     <div class="tab-pane fade" id="assignments" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($assignments as $assignment)
-
                                 <li class="list-group-item">
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>

@@ -4,17 +4,83 @@ namespace App\Http\Controllers;
 
 use App\Announcement;
 use App\Course;
-use App\EnrollLecturer;
 use App\Lecturer;
-use App\Position;
 use App\Student;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('admin');
+    }
+
+    public function registerUser(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|string|max:255',
+            'phone' => 'required|min:9|max:11',
+            'registration_year' => 'min:4|max:4',
+            'index_number' => 'min:8|max:8',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->to('/register')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // if a lecturer registration
+        if ($request->type == 'student') {
+            $user = new User();
+            $user->username = $request->index_number;
+            $user->password = Hash::make($request->index_number);
+            $user->type = 'student';
+
+            $user->save();
+
+            $student = new Student();
+            $student->first_name = $request->first_name;
+            $student->last_name = $request->last_name;
+            $student->email = $request->email;
+            $student->phone = $request->phone;
+            $student->registration_year = $request->registration_year;
+            $student->index_number = $request->index_number;
+            $student->degree = $request->degree;
+            $student->user_id = $user->id;
+
+            $student->save();
+
+            return redirect(route('admin-students'));
+        }
+
+        // if a lecturer registration
+        elseif ($request->type == 'lecturer') {
+            $user = new User();
+            $user->username = $request->username;
+            $user->password = Hash::make($request->username);
+            $user->type = 'lecturer';
+
+            $user->save();
+
+            $lecturer = new Lecturer();
+            $lecturer->first_name = $request->first_name;
+            $lecturer->last_name = $request->last_name;
+            $lecturer->email = $request->email;
+            $lecturer->phone = $request->phone;
+            $lecturer->user_id = $user->id;
+            $lecturer->position_id = $request->position_id;
+
+            $lecturer->save();
+
+            return redirect(route('admin-lectures'));
+        }
+
     }
 
     public function getAnnounce(){
@@ -45,9 +111,10 @@ class AdminController extends Controller
     }
 
     public function lecturer($id){
-        $lecturer = Lecturer::where('user_id', '=', $id)->get();
+        $lecturer = Lecturer::where('id', '=', $id)->first();
+        $courses = Course::all();
 
-        return view('admin/lecturer', ['lecturer' => $lecturer[0]]);
+        return view('admin/lecturer', ['lecturer' => $lecturer, 'courses' => $courses]);
     }
 
     public function studentsList(){
@@ -56,9 +123,10 @@ class AdminController extends Controller
     }
 
     public function student($id){
-        $student = Student::where('index_number', '=', $id)->get();
+        $student = Student::where('index_number', '=', $id)->first();
+        $enrolledCourses = EnrollStudent::where('student_id', '=', $id)->get();
 
-        return view('admin/student', ['student' => $student[0]]);
+        return view('admin/student', ['student' => $student, 'courses' => $enrolledCourses]);
     }
 
     public function coursesList(){
@@ -96,11 +164,11 @@ class AdminController extends Controller
     }
 
     public function postEnrollCourse(Request $request){
-        $enroll = new EnrollLecturer([
-            'course_id' => $request->input('course_id'),
-            'lecturer_id' => $request->input('lecturer_id'),
-        ]);
-        $enroll->save();
+
+        $lecturer = Lecturer::findOrFail($request->lecturer_id);
+
+        $lecturer->courses()->attach($request->course_id);
+
         return redirect(route('dashboard'));
     }
 

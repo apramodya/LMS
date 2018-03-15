@@ -1,5 +1,3 @@
-<?php
-?>
 @extends('layouts.app')
 @section('title')
     My Courses
@@ -17,15 +15,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td scope="row"></td>
-                    <td scope="row"></td>
-                </tr>
+                @foreach($courses as $course)
+                    <tr>
+                        <th scope="row">{{ $loop->index + 1}}</th>
+                        <td><a href="{{ route('student-course',$course->course_id) }}">{{ $course->name }}</a></td>
+                        <td>{{ $course->course_id }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-
 @endsection

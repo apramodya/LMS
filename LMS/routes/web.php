@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 /** Admin Controller */
+Route::post('/admin/register-user', 'AdminController@registerUser')->name('register-user');
+
 Route::get('/admin/announcements', 'AdminController@announcements')->name('announcements');
 Route::get('/admin/create-announcement', 'AdminController@getAnnounce')->name('create-announcement');
 Route::post('/admin/create-announcement', 'AdminController@postAnnounce')->name('create-announcement');
