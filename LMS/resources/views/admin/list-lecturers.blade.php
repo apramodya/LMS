@@ -23,7 +23,7 @@
                         <td class="font-weight-bold"><a href="{{ route('admin-lecturer', $lecturer->id) }}"><span class="text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</span></a></td>
                         <td>{{ $lecturer->email }}</td>
                         <td>{{ $lecturer->phone }}</td>
-                        <td>{{ $lecturer->position_id }}</td>
+                        <td>{{ $lecturer->position->position }}</td>
                     </tr>
                 @endforeach
                 </tbody>

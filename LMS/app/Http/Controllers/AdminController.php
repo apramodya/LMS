@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Announcement;
 use App\Course;
+use App\Forum;
 use App\Lecturer;
 use App\Student;
 use App\User;
@@ -56,7 +57,7 @@ class AdminController extends Controller
 
             $student->save();
 
-            return redirect(route('admin-students'));
+            return redirect(route('admin-student', $student->id));
         }
 
         // if a lecturer registration
@@ -78,7 +79,7 @@ class AdminController extends Controller
 
             $lecturer->save();
 
-            return redirect(route('admin-lectures'));
+            return redirect(route('admin-lecture', $lecturer->id));
         }
 
     }
@@ -123,10 +124,9 @@ class AdminController extends Controller
     }
 
     public function student($id){
-        $student = Student::where('index_number', '=', $id)->first();
-        $enrolledCourses = EnrollStudent::where('student_id', '=', $id)->get();
+        $student = Student::where('id', '=', $id)->first();
 
-        return view('admin/student', ['student' => $student, 'courses' => $enrolledCourses]);
+        return view('admin/student', ['student' => $student]);
     }
 
     public function coursesList(){
@@ -136,9 +136,8 @@ class AdminController extends Controller
 
     public function course($id){
         $course = Course::where('course_id', '=', $id)->first();
-        $lecturers = EnrollLecturer::where('course_id', '=', $id)->get();
 
-        return view('admin/course', ['course' => $course, 'lecturers' => $lecturers]);
+        return view('admin/course', ['course' => $course]);
     }
 
     public function getAddCourse(){
@@ -146,14 +145,24 @@ class AdminController extends Controller
     }
 
     public function postAddCourse(Request $request){
+        // create new course
         $course = new Course([
             'course_id' => $request->input('course_id'),
             'name' => $request->input('name'),
             'enrollment_key' => $request->input('enrollment_key'),
             'year' => $request->input('year'),
+            'semester' => $request->input('semester'),
             'degree' => $request->input('degree'),
         ]);
         $course->save();
+
+        // create the forum relevant to the course
+        $forum = new Forum([
+            'forum_id' => $request->input('course_id'),
+            'course_id' => $course->id,
+        ]);
+        $forum->save();
+
         return redirect(route('dashboard'));
     }
 
@@ -164,12 +173,15 @@ class AdminController extends Controller
     }
 
     public function postEnrollCourse(Request $request){
-
         $lecturer = Lecturer::findOrFail($request->lecturer_id);
-
         $lecturer->courses()->attach($request->course_id);
 
         return redirect(route('dashboard'));
+    }
+
+    public function forum($id){
+        $forum = Forum::where('course_id', '=', $id)->first();
+        return view('admin/forum', ['forum' => $forum]);
     }
 
 }

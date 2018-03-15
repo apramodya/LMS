@@ -57,10 +57,10 @@
 
                             <!--Table body-->
                             <tbody>
-                            @foreach($courses as $course)
+                            @foreach($student->courses as $course)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>{{ $course->id }}</td>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $course->name }}</td>
                                     <td>{{ $course->course_id }}</td>
                                 </tr>
                             @endforeach
