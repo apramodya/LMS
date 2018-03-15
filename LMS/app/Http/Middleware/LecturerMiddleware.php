@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class LecturerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +18,7 @@ class AdminMiddleware
     {
         $type = $request->user()->type;
 //        dd($type);
-        if ($type != 'admin')
+        if ($type != 'lecturer')
             redirect(route('login'));
         return $next($request);
     }

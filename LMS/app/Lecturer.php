@@ -28,4 +28,5 @@ class Lecturer extends Model
         return $this->hasMany(Answer::class);
     }
 
+
 }

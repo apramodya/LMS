@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminMiddleware
+class StudentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class AdminMiddleware
     {
         $type = $request->user()->type;
 //        dd($type);
-        if ($type != 'admin')
+        if ($type != 'student')
             redirect(route('login'));
         return $next($request);
     }

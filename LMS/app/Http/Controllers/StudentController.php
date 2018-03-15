@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('student');
+    }
+
     public function courses(Request $request){
         $courses = Course::all();
         $user_id = $request->user()->id;
