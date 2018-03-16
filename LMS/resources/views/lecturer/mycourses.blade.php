@@ -24,7 +24,7 @@
                 @foreach($courses as $course)
                     <tr>
                         <th scope="row">{{ $loop->index + 1}}</th>
-                        <td><a href="{{ route('lecturer-course',$course->course_id) }}">{{ $course->name }}</a>
+                        <td><a href="{{ route('lecturer-course',$course->id) }}">{{ $course->name }}</a>
                         </td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>

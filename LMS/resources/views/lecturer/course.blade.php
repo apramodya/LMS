@@ -39,7 +39,9 @@
                                     <dt class="col-md-3">Lecturers Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item">Name</li>
+                                            @foreach($course->lecturers as $lecturer)
+                                            <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                            @endforeach
                                         </ul>
                                     </dd>
                                 </dl>
@@ -75,15 +77,15 @@
                                 <div class="row">
                                     <div class="col-md-10 offset-1">
                                         <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                                            <a href="{{ route('lecturer-addLectureNotes',$course->course_id) }}"
+                                            <a href="{{ route('lecturer-addLectureNotes',$course->id) }}"
                                                class="btn btn-primary">Add Lecture Notes</a>
-                                            <a href="{{ route('lecturer-addAssignment',$course->course_id) }}"
+                                            <a href="{{ route('lecturer-addAssignment',$course->id) }}"
                                                class="btn btn-primary">Add Assignment</a>
-                                            <a href="{{ route('lecturer-addSubmission',$course->course_id) }}"
+                                            <a href="{{ route('lecturer-addSubmission',$course->id) }}"
                                                class="btn btn-primary">Add Submission</a>
-                                            <a href="{{ route('lecturer-addQuiz',$course->course_id) }}"
+                                            <a href="{{ route('lecturer-addQuiz',$course->id) }}"
                                                class="btn btn-primary">Add Quiz</a>
-                                            <a href="{{ route('lecturer-addNotice',$course->course_id) }}"
+                                            <a href="{{ route('lecturer-addNotice',$course->id) }}"
                                                class="btn btn-primary">Add Notice</a>
                                             <a href=""
                                                class="btn btn-indigo">Forum</a>
@@ -154,7 +156,7 @@
                     <!--Panel 3-->
                     <div class="tab-pane fade" id="assignments" role="tabpanel">
                         <ul class="list-group list-group-flush">
-                            @foreach($assignments as $assignment)
+                            @foreach($course->assignments as $assignment)
                                 <li class="list-group-item">
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>
