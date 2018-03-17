@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use File;
 
 class AdminController extends Controller
 {
@@ -155,6 +156,9 @@ class AdminController extends Controller
             'degree' => $request->input('degree'),
         ]);
         $course->save();
+        $folder = $request->course_id;
+        $path = base_path() . '/public/uploads/' . $folder;
+        File::makeDirectory($path, 0775, true, true);
 
         // create the forum relevant to the course
         $forum = new Forum([

@@ -27,6 +27,9 @@ class Lecturer extends Model
     public function answers(){
         return $this->hasMany(Answer::class);
     }
+    public function lecturenotes(){
+        return $this->hasMany(LectureNote::class);
+    }
 
 
 }

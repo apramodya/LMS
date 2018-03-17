@@ -7,7 +7,7 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('lecturer-addLectureNotes',$course->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

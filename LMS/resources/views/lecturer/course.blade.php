@@ -40,7 +40,9 @@
                                     <dd class="col-md-8">
                                         <ul>
                                             @foreach($course->lecturers as $lecturer)
-                                            <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                @if(($lecturer->position_id) < 5)
+                                                    <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     </dd>
@@ -50,7 +52,11 @@
                                     <dt class="col-md-3">Instructors Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item">Name</li>
+                                            @foreach($course->lecturers as $lecturer)
+                                                @if(($lecturer->position_id)==5)
+                                                    <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </dd>
                                 </dl>
@@ -141,14 +147,16 @@
                     <!--Panel 2-->
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($course->lecturenotes as $lecturenote)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                <strong>{{ $lecturenote->title }}</strong>
+                                <p>{{ $lecturenote->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
+                                <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
                             </li>
+                            @endforeach
                         </ul>
 
                     </div>

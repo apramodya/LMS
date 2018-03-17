@@ -24,5 +24,8 @@ class Course extends Model
     public function forum(){
         return $this->hasOne(Forum::class);
     }
+    public function lecturenotes(){
+        return $this->hasMany(LectureNote::class);
+    }
 
 }
