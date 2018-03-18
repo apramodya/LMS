@@ -18,7 +18,6 @@ class StudentController extends Controller
 
     public function courses(){
         $courses = Auth::user()->students->first()->courses;
-
         return view('student/mycourses' , ['courses' => $courses]);
     }
 
