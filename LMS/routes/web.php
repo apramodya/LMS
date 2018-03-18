@@ -48,8 +48,11 @@ Route::post('/lecturer/course/{id}/add-assignment', 'LecturerController@storeAss
 Route::get('/lecturer/course/{id}/add-lecture-notes', 'LecturerController@addLectureNotes')->name('lecturer-addLectureNotes');
 Route::post('/lecturer/course/{id}/add-lecture-notes', 'LecturerController@storeLectureNotes')->name('lecturer-addLectureNotes');
 Route::get('/lecturer/course/{id}/add-notice', 'LecturerController@addNotice')->name('lecturer-addNotice');
+Route::post('/lecturer/course/{id}/add-notice', 'LecturerController@storeNotice')->name('lecturer-addNotice');
 Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name('lecturer-addQuiz');
 Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
+Route::post('/lecturer/course/{id}/add-submission', 'LecturerController@storeSubmission')->name('lecturer-addSubmission');
+
 
 /** Student Controller  */
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');

@@ -19,11 +19,13 @@ class CreateAssignmentsTable extends Migration
             $table->text('description');
             $table->string('course_id');
             $table->string('lecturer_id');
-            $table->string('attachment');
+            $table->string('attachment')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->string('email');
+            $table->string('sms');
             $table->timestamps();
         });
 

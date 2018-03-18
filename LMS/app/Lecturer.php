@@ -30,6 +30,12 @@ class Lecturer extends Model
     public function lecturenotes(){
         return $this->hasMany(LectureNote::class);
     }
+    public function submissions(){
+        return $this->hasMany(Submission::class);
+    }
+    public function notices(){
+        return $this->hasMany(Notice::class);
+    }
 
 
 }

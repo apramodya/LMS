@@ -7,7 +7,7 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('lecturer-addSubmission',$course->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -64,11 +64,13 @@
                             <input name="attachment" type="file" class="form-control-file" id="attachment">
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="sms" name="sms">
+                            <input type="hidden"  id="sms" name="sms" value="0">
+                            <input type="checkbox" class="form-check-input" id="sms" name="sms" value="1">
                             <label class="form-check-label" for="sms">SMS</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="email" checked="checked" name="email">
+                            <input type="hidden"  id="email"  name="email" value="0">
+                            <input type="checkbox" class="form-check-input" id="email" checked="checked" name="email" value="1">
                             <label class="form-check-label" for="email">Email</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>

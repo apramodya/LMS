@@ -133,14 +133,16 @@
                     <!--Panel 1-->
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($course->notices as $notice)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                <strong>{{ $notice->title }}</strong>
+                                <p>{{ $notice->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
+                                <p class="font-italic">Published on {{ $notice->created_at }}</p>
                             </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!--/.Panel 1-->
@@ -181,15 +183,17 @@
                     <!--Panel 4-->
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($course->submissions as $submission)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                <strong>{{ $submission->title }}</strong>
+                                <p>{{ $submission->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
-                                <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
+                                <p class="font-italic">Published on {{ $submission->start_date }} {{ $submission->start_time }}</p>
+                                <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} {{ $submission->end_time }}</span></p>
                             </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!--/.Panel 4-->
