@@ -52,6 +52,24 @@ Route::post('/lecturer/course/{id}/add-notice', 'LecturerController@storeNotice'
 Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name('lecturer-addQuiz');
 Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
 Route::post('/lecturer/course/{id}/add-submission', 'LecturerController@storeSubmission')->name('lecturer-addSubmission');
+Route::get('/lecturer/course/{id}/edit-assignment/{id1}', 'LecturerController@editAssignment')->name('lecturer-editAssignment');
+Route::post('/lecturer/course/{id}/edit-assignment/{id1}', 'LecturerController@changeAssignment')->name('lecturer-editAssignment');
+Route::get('/lecturer/course/{id}/get-assignment-file/{id1}', 'LecturerController@getFileAssignment')->name('lecturer-getFileAssignment');
+Route::get('/lecturer/course/{id}/delete-assignment-file/{id1}', 'LecturerController@deleteFileAssignment')->name('lecturer-deleteFileAssignment');
+Route::get('/lecturer/course/{id}/edit-lecturenote/{id1}', 'LecturerController@editLectureNotes')->name('lecturer-editLectureNotes');
+Route::post('/lecturer/course/{id}/edit-lecturenote/{id1}', 'LecturerController@changeLectureNotes')->name('lecturer-editLectureNotes');
+Route::get('/lecturer/course/{id}/get-lecturenote-file/{id1}', 'LecturerController@getFileLectureNote')->name('lecturer-getFileLectureNote');
+Route::get('/lecturer/course/{id}/delete-lecturenote-file/{id1}', 'LecturerController@deleteFileLectureNote')->name('lecturer-deleteFileLectureNote');
+Route::get('/lecturer/course/{id}/edit-notice/{id1}', 'LecturerController@editNotice')->name('lecturer-editNotice');
+Route::post('/lecturer/course/{id}/edit-notice/{id1}', 'LecturerController@changeNotice')->name('lecturer-editNotice');
+Route::get('/lecturer/course/{id}/get-notice-file/{id1}', 'LecturerController@getFileNotice')->name('lecturer-getFileNotice');
+Route::get('/lecturer/course/{id}/delete-notice-file/{id1}', 'LecturerController@deleteFileNotice')->name('lecturer-deleteFileNotice');
+Route::get('/lecturer/course/{id}/edit-Submission/{id1}', 'LecturerController@editSubmission')->name('lecturer-editSubmission');
+Route::post('/lecturer/course/{id}/edit-Submission/{id1}', 'LecturerController@changeSubmission')->name('lecturer-editSubmission');
+Route::get('/lecturer/course/{id}/get-Submission-file/{id1}', 'LecturerController@getFileSubmission')->name('lecturer-getFileSubmission');
+Route::get('/lecturer/course/{id}/delete-Submission-file/{id1}', 'LecturerController@deleteFileSubmission')->name('lecturer-deleteFileSubmission');
+
+
 
 
 /** Student Controller  */

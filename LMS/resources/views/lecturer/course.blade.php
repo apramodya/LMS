@@ -138,7 +138,7 @@
                                 <strong>{{ $notice->title }}</strong>
                                 <p>{{ $notice->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="{{ route('lecturer-editNotice',['id' => $course->id, 'id1' => $notice->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
                                 <p class="font-italic">Published on {{ $notice->created_at }}</p>
                             </li>
@@ -154,7 +154,7 @@
                                 <strong>{{ $lecturenote->title }}</strong>
                                 <p>{{ $lecturenote->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="{{ route('lecturer-editLectureNotes',['id' => $course->id, 'id1' => $lecturenote->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
                                 <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
                             </li>
@@ -171,8 +171,8 @@
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>
                                     <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <a href="{{ route('lecturer-editAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="" class="btn btn-outline-danger btn-sm">Delete</a>
                                     <p class="font-italic">Published on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
                                     <p class="font-italic">Deadline <span class="red-text">{{ $assignment->end_date }} {{ $assignment->end_time }}</span></p>
                                 </li>
@@ -188,7 +188,7 @@
                                 <strong>{{ $submission->title }}</strong>
                                 <p>{{ $submission->description }}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="{{ route('lecturer-editSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
                                 <p class="font-italic">Published on {{ $submission->start_date }} {{ $submission->start_time }}</p>
                                 <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} {{ $submission->end_time }}</span></p>

@@ -19,7 +19,7 @@ class CreateLectureNotesTable extends Migration
             $table->string('lecturer_id');
             $table->string('title');
             $table->text('description');
-            $table->string('attachment');
+            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }
