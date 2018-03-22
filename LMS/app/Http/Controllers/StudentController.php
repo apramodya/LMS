@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\Course;
 use App\EnrollStudent;
+use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,19 @@ class StudentController extends Controller
         $course = Course::where('course_id', '=', $id)->first();
 
         return view('student/submitQuiz', ['course' => $course]);
+    }
+
+    public function getEnrollCourse(){
+        $courses = Course::all();
+        $students = Student::all();
+        return view('student/student-enroll-course', ['courses' => $courses, 'students' => $students]);
+    }
+
+    public function postEnrollCourse(Request $request){
+        $student = Student::findOrFail($request->student_id);
+        $student->courses()->sync($request->course_id);
+
+        return redirect(route('dashboard'));
     }
 
 

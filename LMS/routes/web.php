@@ -21,6 +21,8 @@ Auth::routes();
 /** Home Controller */
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+
+
 /** Admin Controller */
 Route::post('/admin/register-user', 'AdminController@registerUser')->name('register-user');
 
@@ -78,3 +80,8 @@ Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student
 Route::get('/student/course/{id}/submit-assignment', 'StudentController@getSubmitAssignment')->name('student-submitAssignment');
 Route::post('/student/course/{id}/submit-assignment', 'StudentController@postSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');
+
+Route::get('/student/enroll-courses', 'StudentController@getEnrollCourse')->name('student-enroll-course');
+Route::post('/student/enroll-courses', 'StudentController@postEnrollCourse')->name('student-enroll-course');
+
+
