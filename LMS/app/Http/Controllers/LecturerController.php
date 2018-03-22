@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\Course;
-use App\EnrollLecturer;
 
 use App\LectureNote;
 use App\Lecturer;
@@ -14,6 +13,7 @@ use Illuminate\Http\Request;
 use File;
 
 use Illuminate\Support\Facades\Auth;
+use Softon\Sms\Sms;
 
 class LecturerController extends Controller
 {
@@ -367,6 +367,7 @@ class LecturerController extends Controller
             $notice->save();
         }
 
+        Sms::send('719990807','sms.test');
         return redirect(route('lecturer-course', $id));
     }
 
