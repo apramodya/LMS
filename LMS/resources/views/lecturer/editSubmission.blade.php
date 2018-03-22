@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Add Submission
+    Edit Submission
 @endsection
 @section('content')
     <div class="container">

@@ -103,7 +103,7 @@ class AdminController extends Controller
 
     public function announcements()
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::all()->sortByDesc('created_at');
         return view('admin/announcements/announcements',['announcements' => $announcements]);
     }
 
