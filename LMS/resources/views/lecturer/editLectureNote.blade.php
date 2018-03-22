@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Edit Lecture Notes
+    Add Lecture Notes
 @endsection
 @section('content')
     <div class="container">

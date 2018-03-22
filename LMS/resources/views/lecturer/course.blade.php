@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ $course->name }}
+    Course Name
 @endsection
 @section('content')
     <div class="container">
@@ -30,8 +30,7 @@
                                     <dt class="col-md-3">Course Details</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item"><strong>{{ $course->name }}</strong>
-                                                | {{ $course->course_id }}</li>
+                                            <li class="list-group-item"><strong>Course Name</strong> | Course ID</li>
                                         </ul>
                                     </dd>
                                 </dl>
@@ -40,15 +39,11 @@
                                     <dt class="col-md-3">Lecturers Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            @if(countLecturers($course->course_id) >= 1)
-                                                @foreach($course->lecturers as $lecturer)
-                                                    @if(($lecturer->position_id) < 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
-                                            @endif
+                                            @foreach($course->lecturers as $lecturer)
+                                                @if(($lecturer->position_id) < 5)
+                                                    <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </dd>
                                 </dl>
@@ -57,15 +52,11 @@
                                     <dt class="col-md-3">Instructors Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            @if(countInstructors($course->course_id) >= 1)
-                                                @foreach($course->lecturers as $lecturer)
-                                                    @if(($lecturer->position_id) == 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                <li class="list-group-item text-capitalize">No Instructors Assigned Yet</li>
-                                            @endif
+                                            @foreach($course->lecturers as $lecturer)
+                                                @if(($lecturer->position_id)==5)
+                                                    <li class="list-group-item">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </dd>
                                 </dl>
@@ -79,8 +70,7 @@
 
                         <!-- Card header -->
                         <div class="card-header" role="tab" id="headingTwo">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo"
-                               aria-expanded="false" aria-controls="collapseTwo">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <h5 class="mb-0">
                                     Actions <i class="fa fa-angle-down rotate-icon"></i>
                                 </h5>
@@ -88,8 +78,7 @@
                         </div>
 
                         <!-- Card body -->
-                        <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo"
-                             data-parent="#accordionEx">
+                        <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-10 offset-1">
@@ -145,15 +134,14 @@
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($course->notices as $notice)
-                                <li class="list-group-item">
-                                    <strong>{{ $notice->title }}</strong>
-                                    <p>{{ $notice->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                    <a href="{{ route('lecturer-editNotice',['id' => $course->id, 'id1' => $notice->id]) }}"
-                                       class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                    <p class="font-italic">Published on {{ $notice->created_at }}</p>
-                                </li>
+                            <li class="list-group-item">
+                                <strong>{{ $notice->title }}</strong>
+                                <p>{{ $notice->description }}</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                <a href="{{ route('lecturer-editNotice',['id' => $course->id, 'id1' => $notice->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <p class="font-italic">Published on {{ $notice->created_at }}</p>
+                            </li>
                             @endforeach
                         </ul>
                     </div>
@@ -162,15 +150,14 @@
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($course->lecturenotes as $lecturenote)
-                                <li class="list-group-item">
-                                    <strong>{{ $lecturenote->title }}</strong>
-                                    <p>{{ $lecturenote->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                    <a href="{{ route('lecturer-editLectureNotes',['id' => $course->id, 'id1' => $lecturenote->id]) }}"
-                                       class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                    <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
-                                </li>
+                            <li class="list-group-item">
+                                <strong>{{ $lecturenote->title }}</strong>
+                                <p>{{ $lecturenote->description }}</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                <a href="{{ route('lecturer-editLectureNotes',['id' => $course->id, 'id1' => $lecturenote->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
+                            </li>
                             @endforeach
                         </ul>
 
@@ -184,14 +171,10 @@
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>
                                     <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                    <a href="{{ route('lecturer-editAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}"
-                                       class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="{{ route('lecturer-editAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="" class="btn btn-outline-danger btn-sm">Delete</a>
-                                    <p class="font-italic">Published
-                                        on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
-                                    <p class="font-italic">Deadline <span
-                                                class="red-text">{{ $assignment->end_date }} {{ $assignment->end_time }}</span>
-                                    </p>
+                                    <p class="font-italic">Published on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
+                                    <p class="font-italic">Deadline <span class="red-text">{{ $assignment->end_date }} {{ $assignment->end_time }}</span></p>
                                 </li>
                             @endforeach
                         </ul>
@@ -201,19 +184,15 @@
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($course->submissions as $submission)
-                                <li class="list-group-item">
-                                    <strong>{{ $submission->title }}</strong>
-                                    <p>{{ $submission->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                    <a href="{{ route('lecturer-editSubmission',['id' => $course->id, 'id1' => $submission->id]) }}"
-                                       class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                    <p class="font-italic">Published
-                                        on {{ $submission->start_date }} {{ $submission->start_time }}</p>
-                                    <p class="font-italic">Deadline <span
-                                                class="red-text">{{ $submission->end_date }} {{ $submission->end_time }}</span>
-                                    </p>
-                                </li>
+                            <li class="list-group-item">
+                                <strong>{{ $submission->title }}</strong>
+                                <p>{{ $submission->description }}</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                <a href="{{ route('lecturer-editSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <p class="font-italic">Published on {{ $submission->start_date }} {{ $submission->start_time }}</p>
+                                <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} {{ $submission->end_time }}</span></p>
+                            </li>
                             @endforeach
                         </ul>
                     </div>
@@ -223,9 +202,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Go to</a>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>

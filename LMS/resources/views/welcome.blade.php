@@ -21,18 +21,11 @@
                     <div class="card-header">
                         Site Announcements
                     </div>
-                    @foreach($announcements as $announcement)
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $announcement->title }}
-                                @if(isNew($announcement->created_at))
-                                    <span class="badge badge-pill badge-danger ">New</span>
-                                @endif
-                            </h5>
-                            <p class="card-text">{{ $announcement->content }}</p>
-                            <p>Published on {{ $announcement->created_at }}</p>
-                        </div>
-                        <hr class="black">
-                    @endforeach
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3">

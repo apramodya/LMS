@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Edit Notice
+    Add Notice
 @endsection
 @section('content')
     <div class="container">
