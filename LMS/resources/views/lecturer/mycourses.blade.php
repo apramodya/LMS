@@ -24,13 +24,12 @@
                 @foreach($courses as $course)
                     <tr>
                         <th scope="row">{{ $loop->index + 1}}</th>
-                        <td><a href="{{ route('lecturer-course',$course->id) }}">{{ $course->name }}</a>
-                        </td>
+                        <td><a href="{{ route('lecturer-course',$course->id) }}" class="font-weight-bold">{{ $course->name }}</a></td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
                         <td>{{ $course->degree }}</td>
-                        <td><i class="fas fa-ban"></i></td>
+                        <td><a href="#" class="btn btn-sm btn-outline-danger">un enroll</a></td>
                     </tr>
                 @endforeach
                 </tbody>
