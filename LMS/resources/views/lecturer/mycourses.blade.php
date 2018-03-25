@@ -30,7 +30,7 @@
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
                         <td>{{ $course->degree }}</td>
-                        <td><a href="#" class="btn btn-sm btn-outline-danger">un enroll</a></td>
+                        <td><a href="{{ route('lecturer-unenroll-courses',['id' => $course->id]) }}" class="btn btn-sm btn-outline-danger">un enroll</a></td>
                     </tr>
                 @endforeach
                 </tbody>

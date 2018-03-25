@@ -610,6 +610,16 @@ class LecturerController extends Controller
 
     }
 
+    public function unenrollCourse(Request $request,$id){
+
+        $userid = $request->user()->id;
+        $lecturer = Lecturer::where('user_id', '=',$userid)->first();
+        $course = Course::findOrFail($id);
+        $course->lecturers()->detach($lecturer->id);
+
+        return redirect(route('lecturer-courses'));
+    }
+
 
 
 
