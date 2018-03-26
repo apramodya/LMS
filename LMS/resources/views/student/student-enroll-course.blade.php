@@ -22,8 +22,11 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary">Enroll Course</button>
+                        <div class="row">
+                            <div class="col-md-4 offset-4">
+                                <button type="submit" class="btn btn-sm btn-primary">Enroll Course</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

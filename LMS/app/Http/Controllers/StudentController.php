@@ -43,13 +43,13 @@ class StudentController extends Controller
 
     public function getEnrollCourse(){
         $courses = Course::all();
-        $students = Student::all();
-        return view('student/student-enroll-course', ['courses' => $courses, 'students' => $students]);
+        return view('student/student-enroll-course', ['courses' => $courses]);
     }
 
     public function postEnrollCourse(Request $request){
-        $student = Student::findOrFail($request->student_id);
-        $student->courses()->sync($request->course_id);
+        $student_id = Auth::user()->students->first()->id;
+        $student = Student::findOrFail($student_id);
+        $student->courses()->attach($request->course_id);
 
         return redirect(route('dashboard'));
     }
