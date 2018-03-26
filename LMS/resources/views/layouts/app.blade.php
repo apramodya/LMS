@@ -38,5 +38,6 @@
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/mdb.min.js') }}"></script>
+@yield('scripts')
 </body>
 </html>

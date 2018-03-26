@@ -1,5 +1,3 @@
-<?php
-?>
 @extends('layouts.app')
 @section('title')
     My Courses
@@ -24,19 +22,68 @@
                 @foreach($courses as $course)
                     <tr>
                         <th scope="row">{{ $loop->index + 1}}</th>
-                        <td><a href="{{ route('lecturer-course',$course->id) }}" class="font-weight-bold">{{ $course->name }}</a>
+                        <td><a href="{{ route('lecturer-course',$course->id) }}"
+                               class="font-weight-bold">{{ $course->name }}</a>
                         </td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{ $course->enrollment_key }}</td>
                         <td>{{ $course->year }}</td>
                         <td>{{ $course->degree }}</td>
-                        <td><a href="{{ route('lecturer-unenroll-courses',['id' => $course->id]) }}" class="btn btn-sm btn-outline-danger">un enroll</a></td>
+                        <td><a class="btn btn-sm btn-outline-danger waves-effect passID" data-toggle="modal"
+                        data-target="#unenrollmodel" data-id="{{ $course->id }}">un enroll</a></td>
+                        {{--<td><a href="{{ route('lecturer-unenroll-courses',['id' => $course->id]) }}"--}}
+                               {{--class="btn btn-sm btn-outline-danger waves-effect">un enroll</a></td>--}}
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Central Modal Medium Danger -->
+    <div class="modal fade" id="unenrollmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Un Enroll ?</p>
 
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
 
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-question fa-4x animated rotateInDownLeft"></i>
+                        <p>Are you sure you want to un enroll this course?</p>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <form action="{{ route('lecturer-unenroll-courses') }}" method="post">
+                        <input type="hidden" name="course_id" id="course_id" value=""/>
+                        <button type="submit" class="btn btn-outline-danger waves-effect">Yes</button>
+                        {{--<a href="{{ route('lecturer-unenroll-courses') }}" class="btn btn-outline-danger waves-effect">Yes</a>--}}
+                        <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
+                    </form>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!-- Central Modal Medium Danger-->
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).on("click", ".passID", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $(".modal-footer #course_id").val( id );
+        });
+    </script>
 @endsection

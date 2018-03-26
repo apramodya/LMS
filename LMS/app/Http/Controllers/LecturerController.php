@@ -102,7 +102,6 @@ class LecturerController extends Controller
         return redirect(route('lecturer-course', $id));
     }
 
-
     public function editAssignment($id ,$id1){
         $course = Course::where('id', '=', $id)->first();
         $assignment = Assignment::where('id', '=', $id1)->first();
@@ -449,8 +448,6 @@ class LecturerController extends Controller
 
     }
 
-
-
     public function addQuiz($id){
         $course = Course::where('id', '=', $id)->first();
         return view('lecturer/addQuiz', ['course' => $course]);
@@ -610,22 +607,13 @@ class LecturerController extends Controller
 
     }
 
-    public function unenrollCourse(Request $request,$id){
-
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=',$userid)->first();
-        $course = Course::findOrFail($id);
+    public function unenrollCourse(Request $request){
+//        dd($request);
+        $lecturer_id = Auth::user()->lecturers->first()->id;
+        $lecturer = Lecturer::findOrFail($lecturer_id);
+        $course = Course::findOrFail($request->course_id);
         $course->lecturers()->detach($lecturer->id);
 
         return redirect(route('lecturer-courses'));
     }
-
-
-
-
-
-
-
-
-
 }
