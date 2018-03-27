@@ -78,4 +78,9 @@ Route::post('/student/enroll-courses', 'StudentController@postEnrollCourse')->na
 /** Exam Controller  */
 Route::get('/add-results', 'ExamController@getAddResults')->name('add-results');
 Route::post('/add-results', 'ExamController@postAddResults')->name('add-results');
-Route::get('/add-results-to/{id}', 'ExamController@addResultsTo')->name('add-results-to');
+Route::get('/add-results-manually', 'ExamController@getAddResults')->name('add-results-manually');
+Route::post('/add-results-manually', 'ExamController@postAddResults')->name('add-results-manually');
+Route::get('/add-results-using-csv', 'ExamController@getAddResultsUsingCSV')->name('add-results-using-csv');
+Route::post('/add-results-using-csv', 'ExamController@postAddResultsUsingCSV')->name('add-results-using-csv');
+Route::get('/add-results-to/{id}', 'ExamController@getAddResultsTo')->name('add-results-to');
+Route::post('/add-results-to/{id}', 'ExamController@postAddResultsTo')->name('add-results-to');
