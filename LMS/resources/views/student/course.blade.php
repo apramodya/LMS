@@ -30,7 +30,8 @@
                                     <dt class="col-md-3">Course Details</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item"><strong>Course Name</strong> | Course ID</li>
+                                            <li class="list-group-item"><strong>{{ $course->name }}</strong>
+                                                | {{ $course->course_id }}</li>
                                         </ul>
                                     </dd>
                                 </dl>
@@ -39,7 +40,15 @@
                                     <dt class="col-md-3">Lecturers Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item">Name</li>
+                                            @if(countLecturers($course->course_id) >= 1)
+                                                @foreach($course->lecturers as $lecturer)
+                                                    @if(($lecturer->position_id) < 5)
+                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
+                                            @endif
                                         </ul>
                                     </dd>
                                 </dl>
@@ -48,7 +57,15 @@
                                     <dt class="col-md-3">Instructors Assigned</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item">Name</li>
+                                            @if(countInstructors($course->course_id) >= 1)
+                                                @foreach($course->lecturers as $lecturer)
+                                                    @if(($lecturer->position_id) == 5)
+                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <li class="list-group-item text-capitalize">No Instructors Assigned Yet</li>
+                                            @endif
                                         </ul>
                                     </dd>
                                 </dl>

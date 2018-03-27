@@ -9,6 +9,8 @@
                 @include('dashboards.lecturer')
             @elseif(Auth()->user()->type == 'student' )
                 @include('dashboards.student')
+            @elseif(Auth()->user()->type == 'exam' )
+                @include('dashboards.exam')
             @endif
         @endauth
     </div>

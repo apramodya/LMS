@@ -82,5 +82,13 @@ class UserTableSeeder extends Seeder
             'type' => 'student'
         ]);
         $student->save();
+
+        $exam = new \App\User([
+            'id' => '10',
+            'username' => 'exam',
+            'password' => Hash::make('123456'),
+            'type' => 'exam'
+        ]);
+        $exam->save();
     }
 }

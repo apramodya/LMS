@@ -19,7 +19,7 @@
                 @foreach($courses as $course)
                     <tr>
                         <th scope="row">{{ $loop->index + 1}}</th>
-                        <td><a href="{{ route('student-course',$course->course_id) }}">{{ $course->name }}</a></td>
+                        <td class="font-weight-bold"><a href="{{ route('student-course',$course->course_id) }}">{{ $course->name }}</a></td>
                         <td>{{ $course->course_id }}</td>
                         <td><a class="btn btn-sm btn-outline-danger waves-effect" data-toggle="modal"
                                data-target="#unenrollmodel">un enroll</a></td>

@@ -36,7 +36,6 @@ Route::get('/admin/course/forum/{id}', 'AdminController@forum')->name('admin-for
 Route::get('/admin/enroll-courses', 'AdminController@getEnrollCourse')->name('enroll-course');
 Route::post('/admin/enroll-courses', 'AdminController@postEnrollCourse')->name('enroll-course');
 
-
 /** Lecturer Controller */
 Route::get('/lecturer/courses', 'LecturerController@courses')->name('lecturer-courses');
 Route::post('/lecturer/courses/unenroll-course', 'LecturerController@unenrollCourse')->name('lecturer-unenroll-courses');
@@ -67,17 +66,16 @@ Route::post('/lecturer/course/{id}/edit-Submission/{id1}', 'LecturerController@c
 Route::get('/lecturer/course/{id}/get-Submission-file/{id1}', 'LecturerController@getFileSubmission')->name('lecturer-getFileSubmission');
 Route::get('/lecturer/course/{id}/delete-Submission-file/{id1}', 'LecturerController@deleteFileSubmission')->name('lecturer-deleteFileSubmission');
 
-
-
-
 /** Student Controller  */
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');
 Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student-course');
 Route::get('/student/course/{id}/submit-assignment', 'StudentController@getSubmitAssignment')->name('student-submitAssignment');
 Route::post('/student/course/{id}/submit-assignment', 'StudentController@postSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');
-
 Route::get('/student/enroll-courses', 'StudentController@getEnrollCourse')->name('student-enroll-course');
 Route::post('/student/enroll-courses', 'StudentController@postEnrollCourse')->name('student-enroll-course');
 
-
+/** Exam Controller  */
+Route::get('/add-results', 'ExamController@getAddResults')->name('add-results');
+Route::post('/add-results', 'ExamController@postAddResults')->name('add-results');
+Route::get('/add-results-to/{id}', 'ExamController@addResultsTo')->name('add-results-to');

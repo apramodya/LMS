@@ -17,6 +17,7 @@ class CreateCoursesStudentsTable extends Migration
             $table->increments('id');
             $table->string('student_id');
             $table->string('course_id');
+            $table->string('final_grade')->nullable();
             $table->timestamps();
 
         });
