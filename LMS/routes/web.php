@@ -38,7 +38,7 @@ Route::post('/admin/enroll-courses', 'AdminController@postEnrollCourse')->name('
 
 /** Lecturer Controller */
 Route::get('/lecturer/courses', 'LecturerController@courses')->name('lecturer-courses');
-Route::post('/lecturer/courses/unenroll-course', 'LecturerController@unenrollCourse')->name('lecturer-unenroll-courses');
+Route::get('/lecturer/courses/unenroll-course', 'LecturerController@unenrollCourse')->name('lecturer-unenroll-courses');
 Route::get('/lecturer/course/{id}', 'LecturerController@getCourse')->name('lecturer-course');
 Route::get('/lecturer/course/{id}/add-assignment', 'LecturerController@addAssignment')->name('lecturer-addAssignment');
 Route::post('/lecturer/course/{id}/add-assignment', 'LecturerController@storeAssignment')->name('lecturer-addAssignment');

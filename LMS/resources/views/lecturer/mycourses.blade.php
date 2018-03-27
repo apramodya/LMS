@@ -64,12 +64,14 @@
 
                 <!--Footer-->
                 <div class="modal-footer justify-content-center">
-                    <form action="{{ route('lecturer-unenroll-courses') }}" method="post">
+
+                    <form action="{{ route('lecturer-unenroll-courses') }}" method="get">
                         <input type="hidden" name="course_id" id="course_id" value=""/>
                         <button type="submit" class="btn btn-outline-danger waves-effect">Yes</button>
                         {{--<a href="{{ route('lecturer-unenroll-courses') }}" class="btn btn-outline-danger waves-effect">Yes</a>--}}
                         <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
                     </form>
+
                 </div>
             </div>
             <!--/.Content-->
