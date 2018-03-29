@@ -72,8 +72,14 @@ Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student
 Route::get('/student/course/{id}/submit-assignment', 'StudentController@getSubmitAssignment')->name('student-submitAssignment');
 Route::post('/student/course/{id}/submit-assignment', 'StudentController@postSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');
-Route::get('/student/enroll-courses', 'StudentController@getEnrollCourse')->name('student-enroll-course');
-Route::post('/student/enroll-courses', 'StudentController@postEnrollCourse')->name('student-enroll-course');
+
+#course actions
+Route::get('/student/course-action', 'StudentController@courseAction')->name('student-course-action');
+#Enroll
+Route::get('/student/enroll-course/{id}', 'StudentController@enrollCourse')->name('student-enroll-course');
+#UnEnroll
+Route::get('/student/unenroll-course', 'StudentController@unEnrollCourse')->name('student-unenroll-course');
+
 
 /** Exam Controller  */
 Route::get('/add-results', 'ExamController@getAddResults')->name('add-results');

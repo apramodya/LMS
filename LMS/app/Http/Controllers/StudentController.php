@@ -41,19 +41,38 @@ class StudentController extends Controller
         return view('student/submitQuiz', ['course' => $course]);
     }
 
-    public function getEnrollCourse(){
+    public function courseAction(){
         $courses = Course::all();
         return view('student/student-enroll-course', ['courses' => $courses]);
     }
 
-    public function postEnrollCourse(Request $request){
-        $student_id = Auth::user()->students->first()->id;
-        $student = Student::findOrFail($student_id);
-        $student->courses()->attach($request->course_id);
+//    public function postEnrollCourse(Request $request){
+//        $student_id = Auth::user()->students->first()->id;
+//        $student = Student::findOrFail($student_id);
+//        $student->courses()->attach($request->course_id);
+//
+//        return redirect(route('dashboard'));
+//    }
 
-        return redirect(route('dashboard'));
+
+    public function enrollCourse(Request $request,$id){
+
+        $userid = $request->user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+        $course = Course::findOrFail($id);
+        $course->students()->attach($student->id);
+        return redirect(route('student-course-action'));
     }
 
+    public function unEnrollCourse(Request $request){
+
+        $userid = $request->user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+        $course = Course::findOrFail($request->course_id);
+        $course->students()->detach($student->id);
+
+        return redirect(route('student-course-action'));
+    }
 
 
 }
