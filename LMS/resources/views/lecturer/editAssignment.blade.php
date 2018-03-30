@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label for="assignment_id">Assignment ID</label>
-                            <input type="text" class="form-control" id="assignment_id" name="assignment_id" disabled value="{{ $assignment->assignment_id }}" required >
+                            <input type="text" class="form-control" id="assignment_id" name="assignment_id" value="{{ $assignment->assignment_id }}" required >
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>

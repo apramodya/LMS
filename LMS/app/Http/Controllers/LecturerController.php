@@ -129,7 +129,7 @@ class LecturerController extends Controller
 
         if (File::exists($path)) {
 
-            File::delete($path,$folder2);
+            File::delete($path,$folder3);
             $assignment =Assignment::find($id1);
             $assignment->attachment  = $request->attachment1;
             $assignment->save();
@@ -201,7 +201,16 @@ class LecturerController extends Controller
         $folder2 = $assignment->assignment_id;
         $folder3 = $assignment->attachment;
         $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2 .'/' .$folder3;
-        return response()->download($pathToFile);
+
+        if (!empty ( $folder3 )){
+            return response()->download($pathToFile);
+
+        }
+        else{
+
+            return redirect(route('lecturer-course', $id));
+        }
+
 
     }
 
@@ -337,7 +346,13 @@ class LecturerController extends Controller
         $folder = $course->course_id;
         $folder2 = $lecturenote->attachment;
         $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
-        return response()->download($pathToFile);
+        if(!empty ($folder2)){
+            return response()->download($pathToFile);
+        }
+        else{
+            return redirect(route('lecturer-course', $id));
+        }
+
 
     }
 
@@ -477,7 +492,13 @@ class LecturerController extends Controller
         $folder = $course->course_id;
         $folder2 = $notice->attachment;
         $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
-        return response()->download($pathToFile);
+        if(!empty($folder2)){
+
+            return response()->download($pathToFile);
+        }
+        else{
+            return redirect(route('lecturer-course', $id));
+        }
 
     }
 
@@ -648,7 +669,14 @@ class LecturerController extends Controller
         $folder2 = $submission->title;
         $folder3 = $submission->attachment;
         $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2 .'/' .$folder3;
-        return response()->download($pathToFile);
+        if(!empty ($folder3)){
+
+            return response()->download($pathToFile);
+        }
+        else{
+            return redirect(route('lecturer-course', $id));
+        }
+
 
     }
 
