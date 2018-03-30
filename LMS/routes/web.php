@@ -65,6 +65,13 @@ Route::get('/lecturer/course/{id}/edit-Submission/{id1}', 'LecturerController@ed
 Route::post('/lecturer/course/{id}/edit-Submission/{id1}', 'LecturerController@changeSubmission')->name('lecturer-editSubmission');
 Route::get('/lecturer/course/{id}/get-Submission-file/{id1}', 'LecturerController@getFileSubmission')->name('lecturer-getFileSubmission');
 Route::get('/lecturer/course/{id}/delete-Submission-file/{id1}', 'LecturerController@deleteFileSubmission')->name('lecturer-deleteFileSubmission');
+Route::get('/lecturer/course/{id}/down-lecturenote/{id1}', 'LecturerController@downLectureNote')->name('lecturer-downlecturenote');
+Route::get('/lecturer/course/{id}/down-notice/{id1}', 'LecturerController@downNotice')->name('lecturer-downnotice');
+Route::get('/lecturer/course/{id}/down-Submission/{id1}', 'LecturerController@downSubmission')->name('lecturer-downSubmission');
+Route::get('/lecturer/course/{id}/down-assignment/{id1}', 'LecturerController@downAssignment')->name('lecturer-downAssignment');
+
+
+
 
 /** Student Controller  */
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');

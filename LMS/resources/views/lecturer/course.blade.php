@@ -148,7 +148,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ $notice->title }}</strong>
                                     <p>{{ $notice->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                    <a href="{{ route('lecturer-downnotice',['id' => $course->id, 'id1' => $notice->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
                                     <a href="{{ route('lecturer-editNotice',['id' => $course->id, 'id1' => $notice->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
@@ -165,7 +165,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ $lecturenote->title }}</strong>
                                     <p>{{ $lecturenote->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                    <a href="{{ route('lecturer-downlecturenote',['id' => $course->id, 'id1' => $lecturenote->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
                                     <a href="{{ route('lecturer-editLectureNotes',['id' => $course->id, 'id1' => $lecturenote->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
@@ -183,7 +183,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                    <a href="{{ route('lecturer-downAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Download Info</a>
                                     <a href="{{ route('lecturer-editAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="" class="btn btn-outline-danger btn-sm">Delete</a>
@@ -204,7 +204,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ $submission->title }}</strong>
                                     <p>{{ $submission->description }}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                    <a href="{{ route('lecturer-downSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" class="btn btn-outline-primary btn-sm">Download Info</a>
                                     <a href="{{ route('lecturer-editSubmission',['id' => $course->id, 'id1' => $submission->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>

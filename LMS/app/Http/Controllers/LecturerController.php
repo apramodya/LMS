@@ -193,6 +193,18 @@ class LecturerController extends Controller
         return redirect(route('lecturer-course', $id));
     }
 
+    public function downAssignment($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $assignment = Assignment::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $assignment->assignment_id;
+        $folder3 = $assignment->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2 .'/' .$folder3;
+        return response()->download($pathToFile);
+
+    }
+
     public function addLectureNotes($id){
         $course = Course::where('id', '=', $id)->first();
         return view('lecturer/addLectureNotes', ['course' => $course]);
@@ -318,6 +330,17 @@ class LecturerController extends Controller
 
     }
 
+    public function downLectureNote($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $lecturenote = LectureNote::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $lecturenote->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
+        return response()->download($pathToFile);
+
+    }
+
     public function addNotice($id){
         $course = Course::where('id', '=', $id)->first();
         return view('lecturer/addNotice', ['course' => $course]);
@@ -366,7 +389,6 @@ class LecturerController extends Controller
             $notice->save();
         }
 
-        Sms::send('719990807','sms.test');
         return redirect(route('lecturer-course', $id));
     }
 
@@ -445,6 +467,17 @@ class LecturerController extends Controller
 
 
         return redirect(route('lecturer-course', $id));
+
+    }
+
+    public function downNotice($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $notice = Notice::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $notice->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
+        return response()->download($pathToFile);
 
     }
 
@@ -604,6 +637,18 @@ class LecturerController extends Controller
 
 
         return redirect(route('lecturer-course', $id));
+
+    }
+
+    public function downSubmission($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $submission = Submission::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $submission->title;
+        $folder3 = $submission->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2 .'/' .$folder3;
+        return response()->download($pathToFile);
 
     }
 
