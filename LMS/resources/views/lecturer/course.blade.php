@@ -47,7 +47,8 @@
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
+                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet
+                                                </li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -64,7 +65,9 @@
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Instructors Assigned Yet</li>
+                                                <li class="list-group-item text-capitalize">No Instructors Assigned
+                                                    Yet
+                                                </li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -148,12 +151,56 @@
                                 <li class="list-group-item">
                                     <strong>{{ $notice->title }}</strong>
                                     <p>{{ $notice->description }}</p>
-                                    <a href="{{ route('lecturer-downnotice',['id' => $course->id, 'id1' => $notice->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
+                                    <a href="{{ route('lecturer-downnotice',['id' => $course->id, 'id1' => $notice->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">Download</a>
                                     <a href="{{ route('lecturer-editNotice',['id' => $course->id, 'id1' => $notice->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <a class="btn btn-outline-danger btn-sm noticeID" data-toggle="modal"
+                                       data-target="#deleteNotice-{{ $notice->id }}"
+                                       data-id="{{ $notice->id }}">Delete</a>
                                     <p class="font-italic">Published on {{ $notice->created_at }}</p>
                                 </li>
+                                {{--delete notice modal--}}
+                                <div class="modal fade" id="deleteNotice-{{ $notice->id }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Delete</p>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fas fa-question fa-4x animated rotateInDownLeft"></i>
+                                                    <p>Are you sure you want to delete this notice?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+
+                                                <form action="#" method="get">
+                                                    <input type="hidden" name="notice_id" id="notice_id" value=""/>
+                                                    <button type="submit" class="btn btn-outline-danger waves-effect">
+                                                        Yes
+                                                    </button>
+                                                    <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
                             @endforeach
                         </ul>
                     </div>
@@ -165,12 +212,56 @@
                                 <li class="list-group-item">
                                     <strong>{{ $lecturenote->title }}</strong>
                                     <p>{{ $lecturenote->description }}</p>
-                                    <a href="{{ route('lecturer-downlecturenote',['id' => $course->id, 'id1' => $lecturenote->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
+                                    <a href="{{ route('lecturer-downlecturenote',['id' => $course->id, 'id1' => $lecturenote->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">Download</a>
                                     <a href="{{ route('lecturer-editLectureNotes',['id' => $course->id, 'id1' => $lecturenote->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <a class="btn btn-outline-danger btn-sm lectureNoteID" data-toggle="modal"
+                                       data-target="#deleteLectureNote-{{ $lecturenote->id }}"
+                                       data-id="{{ $lecturenote->id }}">Delete</a>
                                     <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
                                 </li>
+                                {{--delete notice modal--}}
+                                <div class="modal fade" id="deleteLectureNote-{{ $lecturenote->id }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Delete</p>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fas fa-question fa-4x animated rotateInDownLeft"></i>
+                                                    <p>Are you sure you want to delete this lecture note?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+
+                                                <form action="#" method="get">
+                                                    <input type="hidden" name="lecture_note_id" id="lecture_note_id" value=""/>
+                                                    <button type="submit" class="btn btn-outline-danger waves-effect">
+                                                        Yes
+                                                    </button>
+                                                    <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
                             @endforeach
                         </ul>
 
@@ -183,16 +274,60 @@
                                 <li class="list-group-item">
                                     <strong>{{ $assignment->assignment_id }}</strong>
                                     <p>{{ $assignment->description }}</p>
-                                    <a href="{{ route('lecturer-downAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                    <a href="{{ route('lecturer-downAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">Download Info</a>
                                     <a href="{{ route('lecturer-editAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <a class="btn btn-outline-danger btn-sm assignmentID" data-toggle="modal"
+                                       data-target="#deleteAssignment-{{ $assignment->id }}"
+                                       data-id="{{ $assignment->id }}">Delete</a>
                                     <p class="font-italic">Published
                                         on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
                                     <p class="font-italic">Deadline <span
                                                 class="red-text">{{ $assignment->end_date }} {{ $assignment->end_time }}</span>
                                     </p>
                                 </li>
+                                {{--delete assignment modal--}}
+                                <div class="modal fade" id="deleteAssignment-{{ $assignment->id }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Delete</p>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fas fa-question fa-4x animated rotateInDownLeft"></i>
+                                                    <p>Are you sure you want to delete this assignment?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+
+                                                <form action="#" method="get">
+                                                    <input type="hidden" name="assignment_id" id="assignment_id" value=""/>
+                                                    <button type="submit" class="btn btn-outline-danger waves-effect">
+                                                        Yes
+                                                    </button>
+                                                    <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
                             @endforeach
                         </ul>
                     </div>
@@ -204,16 +339,60 @@
                                 <li class="list-group-item">
                                     <strong>{{ $submission->title }}</strong>
                                     <p>{{ $submission->description }}</p>
-                                    <a href="{{ route('lecturer-downSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                    <a href="{{ route('lecturer-downSubmission',['id' => $course->id, 'id1' => $submission->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">Download Info</a>
                                     <a href="{{ route('lecturer-editSubmission',['id' => $course->id, 'id1' => $submission->id]) }}"
                                        class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <a class="btn btn-outline-danger btn-sm submissionID" data-toggle="modal"
+                                       data-target="#deleteSubmission-{{ $submission->id }}"
+                                       data-id="{{ $submission->id }}">Delete</a>
                                     <p class="font-italic">Published
                                         on {{ $submission->start_date }} {{ $submission->start_time }}</p>
                                     <p class="font-italic">Deadline <span
                                                 class="red-text">{{ $submission->end_date }} {{ $submission->end_time }}</span>
                                     </p>
                                 </li>
+                                {{--delete submission modal--}}
+                                <div class="modal fade" id="deleteSubmission-{{ $submission->id }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Delete</p>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fas fa-question fa-4x animated rotateInDownLeft"></i>
+                                                    <p>Are you sure you want to delete this submission?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+
+                                                <form action="#" method="get">
+                                                    <input type="hidden" name="submission_id" id="submission_id" value=""/>
+                                                    <button type="submit" class="btn btn-outline-danger waves-effect">
+                                                        Yes
+                                                    </button>
+                                                    <a class="btn btn-outline-green waves-effect" data-dismiss="modal">No</a>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
                             @endforeach
                         </ul>
                     </div>
@@ -239,4 +418,29 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).on("click", ".noticeID", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $(".modal-footer #notice_id").val(id);
+        });
+        $(document).on("click", ".lectureNoteID", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $(".modal-footer #lecture_note_id").val(id);
+        });
+        $(document).on("click", ".assignmentID", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $(".modal-footer #assignment_id").val(id);
+        });
+        $(document).on("click", ".submissionID", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $(".modal-footer #submission_id").val(id);
+        });
+    </script>
 @endsection
