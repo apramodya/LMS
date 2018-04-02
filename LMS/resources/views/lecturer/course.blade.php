@@ -188,7 +188,7 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="#" method="get">
+                                                <form action="{{ route('lecturer-deleteNotice',['id' => $course->id, 'id1' => $notice->id]) }}" method="get">
                                                     <input type="hidden" name="notice_id" id="notice_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
@@ -249,7 +249,7 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="#" method="get">
+                                                <form action="{{ route('lecturer-deleteLectureNote',['id' => $course->id, 'id1' => $lecturenote->id]) }}" method="get">
                                                     <input type="hidden" name="lecture_note_id" id="lecture_note_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
@@ -315,7 +315,7 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="#" method="get">
+                                                <form action="{{ route('lecturer-deleteAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" method="get">
                                                     <input type="hidden" name="assignment_id" id="assignment_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
@@ -345,7 +345,7 @@
                                        class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a class="btn btn-outline-danger btn-sm submissionID" data-toggle="modal"
                                        data-target="#deleteSubmission-{{ $submission->id }}"
-                                       data-id="{{ $submission->id }}">Delete</a>
+                                       data-id1="{{ $submission->id }}" data-id="{{ $course->id }}">Delete</a>
                                     <p class="font-italic">Published
                                         on {{ $submission->start_date }} {{ $submission->start_time }}</p>
                                     <p class="font-italic">Deadline <span
@@ -380,8 +380,9 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="#" method="get">
+                                                <form action="{{ route('lecturer-deleteSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" method="get">
                                                     <input type="hidden" name="submission_id" id="submission_id" value=""/>
+                                                    <input type="hidden" name="course_id" id="course_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
                                                     </button>
@@ -438,9 +439,12 @@
             $(".modal-footer #assignment_id").val(id);
         });
         $(document).on("click", ".submissionID", function () {
+            var id1 = $(this).data('id1');
             var id = $(this).data('id');
+            console.log(id1);
             console.log(id);
-            $(".modal-footer #submission_id").val(id);
+            $(".modal-footer #submission_id").val(id1);
+            $(".modal-footer #course_id").val(id);
         });
     </script>
 @endsection

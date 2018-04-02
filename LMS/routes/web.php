@@ -69,9 +69,10 @@ Route::get('/lecturer/course/{id}/down-lecturenote/{id1}', 'LecturerController@d
 Route::get('/lecturer/course/{id}/down-notice/{id1}', 'LecturerController@downNotice')->name('lecturer-downnotice');
 Route::get('/lecturer/course/{id}/down-Submission/{id1}', 'LecturerController@downSubmission')->name('lecturer-downSubmission');
 Route::get('/lecturer/course/{id}/down-assignment/{id1}', 'LecturerController@downAssignment')->name('lecturer-downAssignment');
-
-
-
+Route::get('/lecturer/course/{id}/delete-Submission/{id1}', 'LecturerController@deleteSubmission')->name('lecturer-deleteSubmission');
+Route::get('/lecturer/course/{id}/delete-assignment/{id1}', 'LecturerController@deleteAssignment')->name('lecturer-deleteAssignment');
+Route::get('/lecturer/course/{id}/delete-notice/{id1}', 'LecturerController@deleteNotice')->name('lecturer-deleteNotice');
+Route::get('/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerController@deleteLectureNote')->name('lecturer-deleteLectureNote');
 
 /** Student Controller  */
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');

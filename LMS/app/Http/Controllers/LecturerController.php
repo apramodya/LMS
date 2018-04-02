@@ -11,9 +11,7 @@ use App\Notice;
 use App\Submission;
 use Illuminate\Http\Request;
 use File;
-
 use Illuminate\Support\Facades\Auth;
-use Softon\Sms\Sms;
 
 class LecturerController extends Controller
 {
@@ -214,6 +212,20 @@ class LecturerController extends Controller
 
     }
 
+    public function deleteAssignment($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $assignment = Assignment::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $assignment->assignment_id;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2;
+        File::deleteDirectory($pathToFile);
+
+        $assignment->delete();
+        return redirect(route('lecturer-course', $id));
+
+    }
+
     public function addLectureNotes($id){
         $course = Course::where('id', '=', $id)->first();
         return view('lecturer/addLectureNotes', ['course' => $course]);
@@ -353,6 +365,22 @@ class LecturerController extends Controller
             return redirect(route('lecturer-course', $id));
         }
 
+
+    }
+
+    public function deleteLectureNote($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $lecturenote = LectureNote::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $lecturenote->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
+        if(!empty($folder2)){
+
+            File::delete($pathToFile,$folder2);
+        }
+        $lecturenote->delete();
+        return redirect(route('lecturer-course', $id));
 
     }
 
@@ -499,6 +527,22 @@ class LecturerController extends Controller
         else{
             return redirect(route('lecturer-course', $id));
         }
+
+    }
+
+    public function deleteNotice($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $notice = Notice::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $notice->attachment;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
+        if(!empty($folder2)){
+
+            File::delete($pathToFile,$folder2);
+        }
+        $notice->delete();
+        return redirect(route('lecturer-course', $id));
 
     }
 
@@ -679,6 +723,22 @@ class LecturerController extends Controller
 
 
     }
+
+    public function deleteSubmission($id,$id1){
+
+        $course = Course::where('id', '=', $id)->first();
+        $submission = Submission::where('id', '=', $id1)->first();
+        $folder = $course->course_id;
+        $folder2 = $submission->title;
+        $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2;
+        File::deleteDirectory($pathToFile);
+
+        $submission->delete();
+        return redirect(route('lecturer-course', $id));
+
+    }
+
+
 
     public function unenrollCourse(Request $request){
 
