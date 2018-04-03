@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\Course;
 
+use App\Forum;
 use App\LectureNote;
 use App\Lecturer;
 use App\Notice;
@@ -13,740 +14,748 @@ use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
 
-class LecturerController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('lecturer');
-    }
+class LecturerController extends Controller {
+	public function __construct() {
+		$this->middleware( 'lecturer' );
+	}
 
-    public function courses(){
-        $courses = Auth::user()->lecturers->first()->courses;
-
-        return view('lecturer/mycourses', ['courses' => $courses]);
-}
+	public function courses() {
+		$courses = Auth::user()->lecturers->first()->courses;
 
-    public function getCourse($id){
-        $course = Course::where('id','=',$id)->first();
+		return view( 'lecturer/mycourses', [ 'courses' => $courses ] );
+	}
 
-        return view('lecturer/course', ['course' => $course]);
-    }
-
-    public function addAssignment($id){
-        $course = Course::where('id', '=', $id)->first();
-        return view('lecturer/addAssignment', ['course' => $course]);
-    }
+	public function getCourse( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
-    public function storeAssignment(Request $request,$id){
+		return view( 'lecturer/course', [ 'course' => $course ] );
+	}
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
+	public function addAssignment( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
-        if ($request->hasFile('attachment')) {
+		return view( 'lecturer/addAssignment', [ 'course' => $course ] );
+	}
 
-            $assignment = new Assignment;
-            $assignment->course_id    = $id;
-            $assignment->lecturer_id   = $lecturer->id;
-            $assignment->assignment_id = $request->assignment_id;
-            $assignment->description  = $request->description;
-            $assignment->start_date   = $request->start_date;
-            $assignment->end_date     = $request->end_date;
-            $assignment->start_time   = $request->start_time;
-            $assignment->end_time     = $request->end_time;
-            $assignment->sms     = $request->sms;
-            $assignment->email     = $request->email;
-
-            $folder  = $course->course_id;
-            $folder2 = $request->assignment_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2;
-            $fileName = $request->file('attachment')->getClientOriginalName();
-            $request->file('attachment')->move($path,$fileName);
-            File::makeDirectory($path, 0775, true, true);
-
-            $assignment->attachment  = $fileName;
-            $assignment->save();
-
-        }
-        else{
+	public function storeAssignment( Request $request, $id ) {
 
-            $assignment = new Assignment;
-            $assignment->course_id    = $id;
-            $assignment->lecturer_id   = $lecturer->id;
-            $assignment->assignment_id = $request->assignment_id;
-            $assignment->description  = $request->description;
-            $assignment->start_date   = $request->start_date;
-            $assignment->end_date     = $request->end_date;
-            $assignment->start_time   = $request->start_time;
-            $assignment->end_time     = $request->end_time;
-            $assignment->sms     = $request->sms;
-            $assignment->email     = $request->email;
-
-
-
-            $folder  = $course->course_id;
-            $folder2 = $request->assignment_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2;
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
 
+		if ( $request->hasFile( 'attachment' ) ) {
 
-            File::makeDirectory($path, 0775, true, true);
+			$assignment                = new Assignment;
+			$assignment->course_id     = $id;
+			$assignment->lecturer_id   = $lecturer->id;
+			$assignment->assignment_id = $request->assignment_id;
+			$assignment->description   = $request->description;
+			$assignment->start_date    = $request->start_date;
+			$assignment->end_date      = $request->end_date;
+			$assignment->start_time    = $request->start_time;
+			$assignment->end_time      = $request->end_time;
+			$assignment->sms           = $request->sms;
+			$assignment->email         = $request->email;
 
+			$folder   = $course->course_id;
+			$folder2  = $request->assignment_id;
+			$path     = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2;
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
+			$request->file( 'attachment' )->move( $path, $fileName );
+			File::makeDirectory( $path, 0775, true, true );
 
-            $assignment->save();
-        }
+			$assignment->attachment = $fileName;
+			$assignment->save();
 
+		} else {
 
+			$assignment                = new Assignment;
+			$assignment->course_id     = $id;
+			$assignment->lecturer_id   = $lecturer->id;
+			$assignment->assignment_id = $request->assignment_id;
+			$assignment->description   = $request->description;
+			$assignment->start_date    = $request->start_date;
+			$assignment->end_date      = $request->end_date;
+			$assignment->start_time    = $request->start_time;
+			$assignment->end_time      = $request->end_time;
+			$assignment->sms           = $request->sms;
+			$assignment->email         = $request->email;
 
-        return redirect(route('lecturer-course', $id));
-    }
 
-    public function editAssignment($id ,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('id', '=', $id1)->first();
-        return view('lecturer/editAssignment', ['course' => $course ,'assignment' => $assignment]);
-    }
+			$folder  = $course->course_id;
+			$folder2 = $request->assignment_id;
+			$path    = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2;
 
-    public function getFileAssignment($id,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $assignment->assignment_id;
-        $folder3 = $assignment->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2 .'/' .$folder3;
-        return response()->file($pathToFile);
-    }
 
-    public function deleteFileAssignment(Request $request,$id,$id1){
+			File::makeDirectory( $path, 0775, true, true );
 
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $assignment->assignment_id;
-        $folder3 = $assignment->attachment;
-        $path = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2 .'/' .$folder3;
 
-        if (File::exists($path)) {
+			$assignment->save();
+		}
 
-            File::delete($path,$folder3);
-            $assignment =Assignment::find($id1);
-            $assignment->attachment  = $request->attachment1;
-            $assignment->save();
 
-        }
-        return redirect(route('lecturer-editAssignment', ['id' => $course->id, 'id1' => $assignment->id]));
+		return redirect( route( 'lecturer-course', $id ) );
+	}
 
-    }
+	public function editAssignment( $id, $id1 ) {
+		$course     = Course::where( 'id', '=', $id )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
 
-    public function changeAssignment(Request $request,$id,$id1){
+		return view( 'lecturer/editAssignment', [ 'course' => $course, 'assignment' => $assignment ] );
+	}
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
+	public function getFileAssignment( $id, $id1 ) {
+		$course     = Course::where( 'id', '=', $id )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $assignment->assignment_id;
+		$folder3    = $assignment->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2 . '/' . $folder3;
 
-        if ($request->hasFile('attachment')) {
+		return response()->file( $pathToFile );
+	}
 
-            $assignment =Assignment::find($id1);
-            $assignment->course_id    = $id;
-            $assignment->lecturer_id   = $lecturer->id;
-            $assignment->assignment_id = $request->assignment_id;
-            $assignment->description  = $request->description;
-            $assignment->start_date   = $request->start_date;
-            $assignment->end_date     = $request->end_date;
-            $assignment->start_time   = $request->start_time;
-            $assignment->end_time     = $request->end_time;
-            $assignment->sms     = $request->sms;
-            $assignment->email     = $request->email;
+	public function deleteFileAssignment( Request $request, $id, $id1 ) {
 
-            $folder  = $course->course_id;
-            $folder2 = $request->assignment_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2;
-            $fileName = $request->file('attachment')->getClientOriginalName();
-            $request->file('attachment')->move($path,$fileName);
+		$course     = Course::where( 'id', '=', $id )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $assignment->assignment_id;
+		$folder3    = $assignment->attachment;
+		$path       = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2 . '/' . $folder3;
 
+		if ( File::exists( $path ) ) {
 
-            $assignment->attachment  = $fileName;
-            $assignment->save();
+			File::delete( $path, $folder3 );
+			$assignment             = Assignment::find( $id1 );
+			$assignment->attachment = $request->attachment1;
+			$assignment->save();
 
-        }
-        else{
+		}
 
-            $assignment =Assignment::find($id1);
-            $assignment->course_id    = $id;
-            $assignment->lecturer_id   = $lecturer->id;
-            $assignment->assignment_id = $request->assignment_id;
-            $assignment->description  = $request->description;
-            $assignment->start_date   = $request->start_date;
-            $assignment->end_date     = $request->end_date;
-            $assignment->start_time   = $request->start_time;
-            $assignment->end_time     = $request->end_time;
-            $assignment->sms     = $request->sms;
-            $assignment->email     = $request->email;
+		return redirect( route( 'lecturer-editAssignment', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 
+	}
 
-            $assignment->save();
-        }
+	public function changeAssignment( Request $request, $id, $id1 ) {
 
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
 
+		if ( $request->hasFile( 'attachment' ) ) {
 
-        return redirect(route('lecturer-course', $id));
-    }
+			$assignment                = Assignment::find( $id1 );
+			$assignment->course_id     = $id;
+			$assignment->lecturer_id   = $lecturer->id;
+			$assignment->assignment_id = $request->assignment_id;
+			$assignment->description   = $request->description;
+			$assignment->start_date    = $request->start_date;
+			$assignment->end_date      = $request->end_date;
+			$assignment->start_time    = $request->start_time;
+			$assignment->end_time      = $request->end_time;
+			$assignment->sms           = $request->sms;
+			$assignment->email         = $request->email;
 
-    public function downAssignment($id,$id1){
+			$folder   = $course->course_id;
+			$folder2  = $request->assignment_id;
+			$path     = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2;
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
+			$request->file( 'attachment' )->move( $path, $fileName );
 
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $assignment->assignment_id;
-        $folder3 = $assignment->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2 .'/' .$folder3;
 
-        if (!empty ( $folder3 )){
-            return response()->download($pathToFile);
+			$assignment->attachment = $fileName;
+			$assignment->save();
 
-        }
-        else{
+		} else {
 
-            return redirect(route('lecturer-course', $id));
-        }
+			$assignment                = Assignment::find( $id1 );
+			$assignment->course_id     = $id;
+			$assignment->lecturer_id   = $lecturer->id;
+			$assignment->assignment_id = $request->assignment_id;
+			$assignment->description   = $request->description;
+			$assignment->start_date    = $request->start_date;
+			$assignment->end_date      = $request->end_date;
+			$assignment->start_time    = $request->start_time;
+			$assignment->end_time      = $request->end_time;
+			$assignment->sms           = $request->sms;
+			$assignment->email         = $request->email;
 
 
-    }
+			$assignment->save();
+		}
 
-    public function deleteAssignment($id,$id1){
 
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $assignment->assignment_id;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/assignments/' . $folder2;
-        File::deleteDirectory($pathToFile);
+		return redirect( route( 'lecturer-course', $id ) );
+	}
 
-        $assignment->delete();
-        return redirect(route('lecturer-course', $id));
+	public function downAssignment( $id, $id1 ) {
 
-    }
+		$course     = Course::where( 'id', '=', $id )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $assignment->assignment_id;
+		$folder3    = $assignment->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2 . '/' . $folder3;
 
-    public function addLectureNotes($id){
-        $course = Course::where('id', '=', $id)->first();
-        return view('lecturer/addLectureNotes', ['course' => $course]);
-    }
+		if ( ! empty ( $folder3 ) ) {
+			return response()->download( $pathToFile );
 
-    public function storeLectureNotes(Request $request,$id){
+		} else {
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        if ($request->hasFile('attachment')){
+			return redirect( route( 'lecturer-course', $id ) );
+		}
 
-            $lecturenote = new LectureNote;
-            $lecturenote->course_id    = $id;
-            $lecturenote->lecturer_id   = $lecturer->id;
-            $lecturenote->description  = $request->description;
-            $lecturenote->title        = $request->title;
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/lecturenotes';
+	}
 
-            $fileName = $request->file('attachment')->getClientOriginalName();
+	public function deleteAssignment( $id, $id1 ) {
 
-            $request->file('attachment')->move($path,$fileName);
-            File::makeDirectory($path, 0775, true, true);
+		$course     = Course::where( 'id', '=', $id )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $assignment->assignment_id;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/assignments/' . $folder2;
+		File::deleteDirectory( $pathToFile );
 
-            $lecturenote->attachment  = $fileName;
-            $lecturenote->save();
+		$assignment->delete();
 
-        }
-        else{
-            $lecturenote = new LectureNote;
-            $lecturenote->course_id    = $id;
-            $lecturenote->lecturer_id   = $lecturer->id;
-            $lecturenote->description  = $request->description;
-            $lecturenote->title        = $request->title;
+		return redirect( route( 'lecturer-course', $id ) );
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/lecturenotes';
+	}
 
-            File::makeDirectory($path, 0775, true, true);
+	public function addLectureNotes( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
-            $lecturenote->save();
-        }
+		return view( 'lecturer/addLectureNotes', [ 'course' => $course ] );
+	}
 
+	public function storeLectureNotes( Request $request, $id ) {
 
-        return redirect(route('lecturer-course', $id));
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		if ( $request->hasFile( 'attachment' ) ) {
 
-    }
+			$lecturenote              = new LectureNote;
+			$lecturenote->course_id   = $id;
+			$lecturenote->lecturer_id = $lecturer->id;
+			$lecturenote->description = $request->description;
+			$lecturenote->title       = $request->title;
 
-    public function editLectureNotes($id ,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $lecturenote = LectureNote::where('id', '=', $id1)->first();
-        return view('lecturer/editLectureNote', ['course' => $course ,'lecturenote' => $lecturenote]);
-    }
+			$folder = $course->course_id;
+			$path   = base_path() . '/public/uploads/' . $folder . '/lecturenotes';
 
-    public function getFileLectureNote($id,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $lecturenote = LectureNote::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $lecturenote->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
-        return response()->file($pathToFile);
-    }
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
 
-    public function deleteFileLectureNote(Request $request,$id,$id1){
+			$request->file( 'attachment' )->move( $path, $fileName );
+			File::makeDirectory( $path, 0775, true, true );
 
-        $course = Course::where('id', '=', $id)->first();
-        $lecturenote = LectureNote::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $lecturenote->attachment;
-        $path = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
+			$lecturenote->attachment = $fileName;
+			$lecturenote->save();
 
-        if (File::exists($path)) {
+		} else {
+			$lecturenote              = new LectureNote;
+			$lecturenote->course_id   = $id;
+			$lecturenote->lecturer_id = $lecturer->id;
+			$lecturenote->description = $request->description;
+			$lecturenote->title       = $request->title;
 
-            File::delete($path,$folder2);
-            $lecturenote =LectureNote::find($id1);
-            $lecturenote->attachment  = $request->attachment1;
-            $lecturenote->save();
+			$folder = $course->course_id;
+			$path   = base_path() . '/public/uploads/' . $folder . '/lecturenotes';
 
+			File::makeDirectory( $path, 0775, true, true );
 
-        }
-        return redirect(route('lecturer-editLectureNotes', ['id' => $course->id, 'id1' => $lecturenote->id]));
+			$lecturenote->save();
+		}
 
-    }
 
-    public function changeLectureNotes(Request $request,$id,$id1){
+		return redirect( route( 'lecturer-course', $id ) );
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        if ($request->hasFile('attachment')){
-            $lecturenote = LectureNote::find($id1);
-            $lecturenote->course_id    = $id;
-            $lecturenote->lecturer_id   = $lecturer->id;
-            $lecturenote->description  = $request->description;
-            $lecturenote->title        = $request->title;
+	}
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/lecturenotes';
+	public function editLectureNotes( $id, $id1 ) {
+		$course      = Course::where( 'id', '=', $id )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $id1 )->first();
 
-            $fileName = $request->file('attachment')->getClientOriginalName();
+		return view( 'lecturer/editLectureNote', [ 'course' => $course, 'lecturenote' => $lecturenote ] );
+	}
 
-            $request->file('attachment')->move($path,$fileName);
+	public function getFileLectureNote( $id, $id1 ) {
+		$course      = Course::where( 'id', '=', $id )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $id1 )->first();
+		$folder      = $course->course_id;
+		$folder2     = $lecturenote->attachment;
+		$pathToFile  = base_path() . '/public/uploads/' . $folder . '/lecturenotes/' . $folder2;
 
-            $lecturenote->attachment  = $fileName;
-            $lecturenote->save();
+		return response()->file( $pathToFile );
+	}
 
-        }
-        else{
+	public function deleteFileLectureNote( Request $request, $id, $id1 ) {
 
-            $lecturenote = LectureNote::find($id1);
-            $lecturenote->course_id    = $id;
-            $lecturenote->lecturer_id   = $lecturer->id;
-            $lecturenote->description  = $request->description;
-            $lecturenote->title        = $request->title;
+		$course      = Course::where( 'id', '=', $id )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $id1 )->first();
+		$folder      = $course->course_id;
+		$folder2     = $lecturenote->attachment;
+		$path        = base_path() . '/public/uploads/' . $folder . '/lecturenotes/' . $folder2;
 
-            $lecturenote->save();
-        }
+		if ( File::exists( $path ) ) {
 
+			File::delete( $path, $folder2 );
+			$lecturenote             = LectureNote::find( $id1 );
+			$lecturenote->attachment = $request->attachment1;
+			$lecturenote->save();
 
-        return redirect(route('lecturer-course', $id));
 
-    }
+		}
 
-    public function downLectureNote($id,$id1){
+		return redirect( route( 'lecturer-editLectureNotes', [ 'id' => $course->id, 'id1' => $lecturenote->id ] ) );
 
-        $course = Course::where('id', '=', $id)->first();
-        $lecturenote = LectureNote::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $lecturenote->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
-        if(!empty ($folder2)){
-            return response()->download($pathToFile);
-        }
-        else{
-            return redirect(route('lecturer-course', $id));
-        }
+	}
 
+	public function changeLectureNotes( Request $request, $id, $id1 ) {
 
-    }
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		if ( $request->hasFile( 'attachment' ) ) {
+			$lecturenote              = LectureNote::find( $id1 );
+			$lecturenote->course_id   = $id;
+			$lecturenote->lecturer_id = $lecturer->id;
+			$lecturenote->description = $request->description;
+			$lecturenote->title       = $request->title;
 
-    public function deleteLectureNote($id,$id1){
+			$folder = $course->course_id;
+			$path   = base_path() . '/public/uploads/' . $folder . '/lecturenotes';
 
-        $course = Course::where('id', '=', $id)->first();
-        $lecturenote = LectureNote::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $lecturenote->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/lecturenotes/' .$folder2;
-        if(!empty($folder2)){
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
 
-            File::delete($pathToFile,$folder2);
-        }
-        $lecturenote->delete();
-        return redirect(route('lecturer-course', $id));
+			$request->file( 'attachment' )->move( $path, $fileName );
 
-    }
+			$lecturenote->attachment = $fileName;
+			$lecturenote->save();
 
-    public function addNotice($id){
-        $course = Course::where('id', '=', $id)->first();
-        return view('lecturer/addNotice', ['course' => $course]);
-    }
+		} else {
 
-    public function storeNotice(Request $request,$id){
+			$lecturenote              = LectureNote::find( $id1 );
+			$lecturenote->course_id   = $id;
+			$lecturenote->lecturer_id = $lecturer->id;
+			$lecturenote->description = $request->description;
+			$lecturenote->title       = $request->title;
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
+			$lecturenote->save();
+		}
 
-        if ($request->hasFile('attachment')) {
 
-            $notice = new Notice;
-            $notice->course_id    = $id;
-            $notice->lecturer_id   = $lecturer->id;
-            $notice->title        = $request->title;
-            $notice->description  = $request->description;
-            $notice->sms     = $request->sms;
-            $notice->email     = $request->email;
+		return redirect( route( 'lecturer-course', $id ) );
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/notices';
-            $fileName = $request->file('attachment')->getClientOriginalName();
-            $request->file('attachment')->move($path,$fileName);
-            File::makeDirectory($path, 0775, true, true);
+	}
 
-            $notice->attachment  = $fileName;
-            $notice->save();
+	public function downLectureNote( $id, $id1 ) {
 
-        }
-        else{
+		$course      = Course::where( 'id', '=', $id )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $id1 )->first();
+		$folder      = $course->course_id;
+		$folder2     = $lecturenote->attachment;
+		$pathToFile  = base_path() . '/public/uploads/' . $folder . '/lecturenotes/' . $folder2;
+		if ( ! empty ( $folder2 ) ) {
+			return response()->download( $pathToFile );
+		} else {
+			return redirect( route( 'lecturer-course', $id ) );
+		}
 
-            $notice = new Notice;
-            $notice->course_id    = $id;
-            $notice->lecturer_id   = $lecturer->id;
-            $notice->title        = $request->title;
-            $notice->description  = $request->description;
-            $notice->sms     = $request->sms;
-            $notice->email     = $request->email;
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/notices';
+	}
 
-            File::makeDirectory($path, 0775, true, true);
-            $notice->save();
-        }
+	public function deleteLectureNote( $id, $id1 ) {
 
-        return redirect(route('lecturer-course', $id));
-    }
+		$course      = Course::where( 'id', '=', $id )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $id1 )->first();
+		$folder      = $course->course_id;
+		$folder2     = $lecturenote->attachment;
+		$pathToFile  = base_path() . '/public/uploads/' . $folder . '/lecturenotes/' . $folder2;
+		if ( ! empty( $folder2 ) ) {
 
-    public function editNotice($id ,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $notice = Notice::where('id', '=', $id1)->first();
-        return view('lecturer/editNotice', ['course' => $course ,'notice' => $notice]);
-    }
+			File::delete( $pathToFile, $folder2 );
+		}
+		$lecturenote->delete();
 
-    public function getFileNotice($id,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $notice = Notice::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $notice->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
-        return response()->file($pathToFile);
-    }
+		return redirect( route( 'lecturer-course', $id ) );
 
-    public function deleteFileNotice(Request $request,$id,$id1){
+	}
 
-        $course = Course::where('id', '=', $id)->first();
-        $notice = Notice::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $notice->attachment;
-        $path = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
+	public function addNotice( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
-        if (File::exists($path)) {
+		return view( 'lecturer/addNotice', [ 'course' => $course ] );
+	}
 
-            File::delete($path,$folder2);
-            $notice =Notice::find($id1);
-            $notice->attachment  = $request->attachment1;
-            $notice->save();
+	public function storeNotice( Request $request, $id ) {
 
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
 
-        }
-        return redirect(route('lecturer-editNotice', ['id' => $course->id, 'id1' => $notice->id]));
+		if ( $request->hasFile( 'attachment' ) ) {
 
-    }
+			$notice              = new Notice;
+			$notice->course_id   = $id;
+			$notice->lecturer_id = $lecturer->id;
+			$notice->title       = $request->title;
+			$notice->description = $request->description;
+			$notice->sms         = $request->sms;
+			$notice->email       = $request->email;
 
-    public function changeNotice(Request $request,$id,$id1){
+			$folder   = $course->course_id;
+			$path     = base_path() . '/public/uploads/' . $folder . '/notices';
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
+			$request->file( 'attachment' )->move( $path, $fileName );
+			File::makeDirectory( $path, 0775, true, true );
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        if ($request->hasFile('attachment')){
-            $notice =Notice::find($id1);
-            $notice->course_id    = $id;
-            $notice->lecturer_id   = $lecturer->id;
-            $notice->description  = $request->description;
-            $notice->title        = $request->title;
-            $notice->sms     = $request->sms;
-            $notice->email     = $request->email;
+			$notice->attachment = $fileName;
+			$notice->save();
 
-            $folder  = $course->course_id;
-            $path = base_path() . '/public/uploads/'. $folder .'/notices';
+		} else {
 
-            $fileName = $request->file('attachment')->getClientOriginalName();
+			$notice              = new Notice;
+			$notice->course_id   = $id;
+			$notice->lecturer_id = $lecturer->id;
+			$notice->title       = $request->title;
+			$notice->description = $request->description;
+			$notice->sms         = $request->sms;
+			$notice->email       = $request->email;
 
-            $request->file('attachment')->move($path,$fileName);
+			$folder = $course->course_id;
+			$path   = base_path() . '/public/uploads/' . $folder . '/notices';
 
-            $notice->attachment  = $fileName;
-            $notice->save();
+			File::makeDirectory( $path, 0775, true, true );
+			$notice->save();
+		}
 
-        }
-        else{
-            $notice =Notice::find($id1);
-            $notice->course_id    = $id;
-            $notice->lecturer_id   = $lecturer->id;
-            $notice->description  = $request->description;
-            $notice->title        = $request->title;
-            $notice->sms     = $request->sms;
-            $notice->email     = $request->email;
+		return redirect( route( 'lecturer-course', $id ) );
+	}
 
-            $notice->save();
-        }
+	public function editNotice( $id, $id1 ) {
+		$course = Course::where( 'id', '=', $id )->first();
+		$notice = Notice::where( 'id', '=', $id1 )->first();
 
+		return view( 'lecturer/editNotice', [ 'course' => $course, 'notice' => $notice ] );
+	}
 
-        return redirect(route('lecturer-course', $id));
+	public function getFileNotice( $id, $id1 ) {
+		$course     = Course::where( 'id', '=', $id )->first();
+		$notice     = Notice::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $notice->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
 
-    }
+		return response()->file( $pathToFile );
+	}
 
-    public function downNotice($id,$id1){
+	public function deleteFileNotice( Request $request, $id, $id1 ) {
 
-        $course = Course::where('id', '=', $id)->first();
-        $notice = Notice::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $notice->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
-        if(!empty($folder2)){
+		$course  = Course::where( 'id', '=', $id )->first();
+		$notice  = Notice::where( 'id', '=', $id1 )->first();
+		$folder  = $course->course_id;
+		$folder2 = $notice->attachment;
+		$path    = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
 
-            return response()->download($pathToFile);
-        }
-        else{
-            return redirect(route('lecturer-course', $id));
-        }
+		if ( File::exists( $path ) ) {
 
-    }
+			File::delete( $path, $folder2 );
+			$notice             = Notice::find( $id1 );
+			$notice->attachment = $request->attachment1;
+			$notice->save();
 
-    public function deleteNotice($id,$id1){
 
-        $course = Course::where('id', '=', $id)->first();
-        $notice = Notice::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $notice->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/notices/' .$folder2;
-        if(!empty($folder2)){
+		}
 
-            File::delete($pathToFile,$folder2);
-        }
-        $notice->delete();
-        return redirect(route('lecturer-course', $id));
+		return redirect( route( 'lecturer-editNotice', [ 'id' => $course->id, 'id1' => $notice->id ] ) );
 
-    }
+	}
 
-    public function addQuiz($id){
-        $course = Course::where('id', '=', $id)->first();
-        return view('lecturer/addQuiz', ['course' => $course]);
-    }
+	public function changeNotice( Request $request, $id, $id1 ) {
 
-    public function addSubmission($id){
-        $course = Course::where('id', '=', $id)->first();
-        return view('lecturer/addSubmission', ['course' => $course]);
-    }
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		if ( $request->hasFile( 'attachment' ) ) {
+			$notice              = Notice::find( $id1 );
+			$notice->course_id   = $id;
+			$notice->lecturer_id = $lecturer->id;
+			$notice->description = $request->description;
+			$notice->title       = $request->title;
+			$notice->sms         = $request->sms;
+			$notice->email       = $request->email;
 
-    public function storeSubmission(Request $request,$id){
+			$folder = $course->course_id;
+			$path   = base_path() . '/public/uploads/' . $folder . '/notices';
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        if ($request->hasFile('attachment')) {
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
 
+			$request->file( 'attachment' )->move( $path, $fileName );
 
-            $submission = new Submission;
-            $submission->course_id    = $id;
-            $submission->lecturer_id   = $lecturer->id;
-            $submission->title        = $request->title;
-            $submission->description  = $request->description;
-            $submission->start_date   = $request->start_date;
-            $submission->end_date     = $request->end_date;
-            $submission->start_time   = $request->start_time;
-            $submission->end_time     = $request->end_time;
-            $submission->sms     = $request->sms;
-            $submission->email     = $request->email;
+			$notice->attachment = $fileName;
+			$notice->save();
 
-            $folder  = $course->course_id;
-            $folder2 = $request->title;
-            $path = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2;
-            $fileName = $request->file('attachment')->getClientOriginalName();
-            $request->file('attachment')->move($path,$fileName);
-            File::makeDirectory($path, 0775, true, true);
+		} else {
+			$notice              = Notice::find( $id1 );
+			$notice->course_id   = $id;
+			$notice->lecturer_id = $lecturer->id;
+			$notice->description = $request->description;
+			$notice->title       = $request->title;
+			$notice->sms         = $request->sms;
+			$notice->email       = $request->email;
 
-            $submission->attachment  = $fileName;
-            $submission->save();
+			$notice->save();
+		}
 
-        }
-        else{
 
+		return redirect( route( 'lecturer-course', $id ) );
 
-            $submission = new Submission;
-            $submission->course_id    = $id;
-            $submission->lecturer_id   = $lecturer->id;
-            $submission->title        = $request->title;
-            $submission->description  = $request->description;
-            $submission->start_date   = $request->start_date;
-            $submission->end_date     = $request->end_date;
-            $submission->start_time   = $request->start_time;
-            $submission->end_time     = $request->end_time;
-            $submission->sms     = $request->sms;
-            $submission->email     = $request->email;
+	}
 
+	public function downNotice( $id, $id1 ) {
 
+		$course     = Course::where( 'id', '=', $id )->first();
+		$notice     = Notice::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $notice->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
+		if ( ! empty( $folder2 ) ) {
 
-            $folder  = $course->course_id;
-            $folder2 = $request->title;
-            $path = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2;
+			return response()->download( $pathToFile );
+		} else {
+			return redirect( route( 'lecturer-course', $id ) );
+		}
 
-            File::makeDirectory($path, 0775, true, true);
-            $submission->save();
-        }
+	}
 
-        return redirect(route('lecturer-course', $id));
+	public function deleteNotice( $id, $id1 ) {
 
-    }
+		$course     = Course::where( 'id', '=', $id )->first();
+		$notice     = Notice::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $notice->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
+		if ( ! empty( $folder2 ) ) {
 
-    public function editSubmission($id ,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $submission = Submission::where('id', '=', $id1)->first();
-        return view('lecturer/editSubmission', ['course' => $course ,'submission' => $submission]);
-    }
+			File::delete( $pathToFile, $folder2 );
+		}
+		$notice->delete();
 
-    public function getFileSubmission($id,$id1){
-        $course = Course::where('id', '=', $id)->first();
-        $submission = Submission::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $submission->title;
-        $folder3 = $submission->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2 .'/' .$folder3;
-        return response()->file($pathToFile);
-    }
+		return redirect( route( 'lecturer-course', $id ) );
 
-    public function deleteFileSubmission(Request $request,$id,$id1){
+	}
 
-        $course = Course::where('id', '=', $id)->first();
-        $submission = Submission::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $submission->title;
-        $folder3 = $submission->attachment;
-        $path = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2 .'/' .$folder3;
+	public function addQuiz( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
-        if (File::exists($path)) {
+		return view( 'lecturer/addQuiz', [ 'course' => $course ] );
+	}
 
-            File::delete($path,$folder3);
-            $submission =Submission::find($id1);
-            $submission->attachment  = $request->attachment1;
-            $submission->save();
+	public function addSubmission( $id ) {
+		$course = Course::where( 'id', '=', $id )->first();
 
+		return view( 'lecturer/addSubmission', [ 'course' => $course ] );
+	}
 
-        }
-        return redirect(route('lecturer-editSubmission', ['id' => $course->id, 'id1' => $submission->id]));
+	public function storeSubmission( Request $request, $id ) {
 
-    }
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		if ( $request->hasFile( 'attachment' ) ) {
 
-    public function changeSubmission(Request $request,$id,$id1){
 
-        $course = Course::where('id', '=', $id)->first();
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        if ($request->hasFile('attachment')){
-            $submission =Submission::find($id1);
-            $submission->course_id    = $id;
-            $submission->lecturer_id   = $lecturer->id;
-            $submission->description  = $request->description;
-            $submission->title        = $request->title;
-            $submission->start_date   = $request->start_date;
-            $submission->end_date     = $request->end_date;
-            $submission->start_time   = $request->start_time;
-            $submission->end_time     = $request->end_time;
-            $submission->sms     = $request->sms;
-            $submission->email     = $request->email;
+			$submission              = new Submission;
+			$submission->course_id   = $id;
+			$submission->lecturer_id = $lecturer->id;
+			$submission->title       = $request->title;
+			$submission->description = $request->description;
+			$submission->start_date  = $request->start_date;
+			$submission->end_date    = $request->end_date;
+			$submission->start_time  = $request->start_time;
+			$submission->end_time    = $request->end_time;
+			$submission->sms         = $request->sms;
+			$submission->email       = $request->email;
 
-            $folder  = $course->course_id;
-            $folder2 = $request->title;
-            $path = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2;
+			$folder   = $course->course_id;
+			$folder2  = $request->title;
+			$path     = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2;
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
+			$request->file( 'attachment' )->move( $path, $fileName );
+			File::makeDirectory( $path, 0775, true, true );
 
-            $fileName = $request->file('attachment')->getClientOriginalName();
+			$submission->attachment = $fileName;
+			$submission->save();
 
-            $request->file('attachment')->move($path,$fileName);
+		} else {
 
-            $submission->attachment  = $fileName;
-            $submission->save();
 
-        }
-        else{
-            $submission =Submission::find($id1);
-            $submission->course_id    = $id;
-            $submission->lecturer_id   = $lecturer->id;
-            $submission->description  = $request->description;
-            $submission->title        = $request->title;
-            $submission->start_date   = $request->start_date;
-            $submission->end_date     = $request->end_date;
-            $submission->start_time   = $request->start_time;
-            $submission->end_time     = $request->end_time;
-            $submission->sms     = $request->sms;
-            $submission->email     = $request->email;
+			$submission              = new Submission;
+			$submission->course_id   = $id;
+			$submission->lecturer_id = $lecturer->id;
+			$submission->title       = $request->title;
+			$submission->description = $request->description;
+			$submission->start_date  = $request->start_date;
+			$submission->end_date    = $request->end_date;
+			$submission->start_time  = $request->start_time;
+			$submission->end_time    = $request->end_time;
+			$submission->sms         = $request->sms;
+			$submission->email       = $request->email;
 
-            $submission->save();
-        }
 
+			$folder  = $course->course_id;
+			$folder2 = $request->title;
+			$path    = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2;
 
-        return redirect(route('lecturer-course', $id));
+			File::makeDirectory( $path, 0775, true, true );
+			$submission->save();
+		}
 
-    }
+		return redirect( route( 'lecturer-course', $id ) );
 
-    public function downSubmission($id,$id1){
+	}
 
-        $course = Course::where('id', '=', $id)->first();
-        $submission = Submission::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $submission->title;
-        $folder3 = $submission->attachment;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2 .'/' .$folder3;
-        if(!empty ($folder3)){
+	public function editSubmission( $id, $id1 ) {
+		$course     = Course::where( 'id', '=', $id )->first();
+		$submission = Submission::where( 'id', '=', $id1 )->first();
 
-            return response()->download($pathToFile);
-        }
-        else{
-            return redirect(route('lecturer-course', $id));
-        }
+		return view( 'lecturer/editSubmission', [ 'course' => $course, 'submission' => $submission ] );
+	}
 
+	public function getFileSubmission( $id, $id1 ) {
+		$course     = Course::where( 'id', '=', $id )->first();
+		$submission = Submission::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $submission->title;
+		$folder3    = $submission->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2 . '/' . $folder3;
 
-    }
+		return response()->file( $pathToFile );
+	}
 
-    public function deleteSubmission($id,$id1){
+	public function deleteFileSubmission( Request $request, $id, $id1 ) {
 
-        $course = Course::where('id', '=', $id)->first();
-        $submission = Submission::where('id', '=', $id1)->first();
-        $folder = $course->course_id;
-        $folder2 = $submission->title;
-        $pathToFile = base_path() . '/public/uploads/'. $folder .'/submissions/' . $folder2;
-        File::deleteDirectory($pathToFile);
+		$course     = Course::where( 'id', '=', $id )->first();
+		$submission = Submission::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $submission->title;
+		$folder3    = $submission->attachment;
+		$path       = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2 . '/' . $folder3;
 
-        $submission->delete();
-        return redirect(route('lecturer-course', $id));
+		if ( File::exists( $path ) ) {
 
-    }
+			File::delete( $path, $folder3 );
+			$submission             = Submission::find( $id1 );
+			$submission->attachment = $request->attachment1;
+			$submission->save();
 
 
+		}
 
-    public function unenrollCourse(Request $request){
+		return redirect( route( 'lecturer-editSubmission', [ 'id' => $course->id, 'id1' => $submission->id ] ) );
 
-        $userid = $request->user()->id;
-        $lecturer = Lecturer::where('user_id', '=', $userid)->first();
-        $course = Course::findOrFail($request->course_id);
-        $course->lecturers()->detach($lecturer->id);
+	}
 
-        return redirect(route('lecturer-courses'));
-    }
+	public function changeSubmission( Request $request, $id, $id1 ) {
+
+		$course   = Course::where( 'id', '=', $id )->first();
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		if ( $request->hasFile( 'attachment' ) ) {
+			$submission              = Submission::find( $id1 );
+			$submission->course_id   = $id;
+			$submission->lecturer_id = $lecturer->id;
+			$submission->description = $request->description;
+			$submission->title       = $request->title;
+			$submission->start_date  = $request->start_date;
+			$submission->end_date    = $request->end_date;
+			$submission->start_time  = $request->start_time;
+			$submission->end_time    = $request->end_time;
+			$submission->sms         = $request->sms;
+			$submission->email       = $request->email;
+
+			$folder  = $course->course_id;
+			$folder2 = $request->title;
+			$path    = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2;
+
+			$fileName = $request->file( 'attachment' )->getClientOriginalName();
+
+			$request->file( 'attachment' )->move( $path, $fileName );
+
+			$submission->attachment = $fileName;
+			$submission->save();
+
+		} else {
+			$submission              = Submission::find( $id1 );
+			$submission->course_id   = $id;
+			$submission->lecturer_id = $lecturer->id;
+			$submission->description = $request->description;
+			$submission->title       = $request->title;
+			$submission->start_date  = $request->start_date;
+			$submission->end_date    = $request->end_date;
+			$submission->start_time  = $request->start_time;
+			$submission->end_time    = $request->end_time;
+			$submission->sms         = $request->sms;
+			$submission->email       = $request->email;
+
+			$submission->save();
+		}
+
+
+		return redirect( route( 'lecturer-course', $id ) );
+
+	}
+
+	public function downSubmission( $id, $id1 ) {
+
+		$course     = Course::where( 'id', '=', $id )->first();
+		$submission = Submission::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $submission->title;
+		$folder3    = $submission->attachment;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2 . '/' . $folder3;
+		if ( ! empty ( $folder3 ) ) {
+
+			return response()->download( $pathToFile );
+		} else {
+			return redirect( route( 'lecturer-course', $id ) );
+		}
+
+
+	}
+
+	public function deleteSubmission( $id, $id1 ) {
+
+		$course     = Course::where( 'id', '=', $id )->first();
+		$submission = Submission::where( 'id', '=', $id1 )->first();
+		$folder     = $course->course_id;
+		$folder2    = $submission->title;
+		$pathToFile = base_path() . '/public/uploads/' . $folder . '/submissions/' . $folder2;
+		File::deleteDirectory( $pathToFile );
+
+		$submission->delete();
+
+		return redirect( route( 'lecturer-course', $id ) );
+
+	}
+
+
+	public function unenrollCourse( Request $request ) {
+
+		$userid   = $request->user()->id;
+		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+		$course   = Course::findOrFail( $request->course_id );
+		$course->lecturers()->detach( $lecturer->id );
+
+		return redirect( route( 'lecturer-courses' ) );
+	}
+
+//	forum
+	public function viewForum($id){
+		$forum = Forum::where('course_id', '=', $id)->first();
+		return view('lecturer.forum', ['forum' => $forum]);
+	}
 }

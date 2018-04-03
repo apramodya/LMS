@@ -47,8 +47,7 @@
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet
-                                                </li>
+                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -107,7 +106,7 @@
                                                class="btn btn-primary">Add Quiz</a>
                                             <a href="{{ route('lecturer-addNotice',$course->id) }}"
                                                class="btn btn-primary">Add Notice</a>
-                                            <a href=""
+                                            <a href="{{ route('lecturer-forum',$course->id) }}"
                                                class="btn btn-indigo">Forum</a>
                                         </div>
                                     </div>
@@ -188,7 +187,8 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="{{ route('lecturer-deleteNotice',['id' => $course->id, 'id1' => $notice->id]) }}" method="get">
+                                                <form action="{{ route('lecturer-deleteNotice',['id' => $course->id, 'id1' => $notice->id]) }}"
+                                                      method="get">
                                                     <input type="hidden" name="notice_id" id="notice_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
@@ -222,7 +222,8 @@
                                     <p class="font-italic">Published on {{ $lecturenote->created_at }}</p>
                                 </li>
                                 {{--delete notice modal--}}
-                                <div class="modal fade" id="deleteLectureNote-{{ $lecturenote->id }}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="deleteLectureNote-{{ $lecturenote->id }}" tabindex="-1"
+                                     role="dialog"
                                      aria-labelledby="myModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog modal-notify modal-danger" role="document">
@@ -249,8 +250,10 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="{{ route('lecturer-deleteLectureNote',['id' => $course->id, 'id1' => $lecturenote->id]) }}" method="get">
-                                                    <input type="hidden" name="lecture_note_id" id="lecture_note_id" value=""/>
+                                                <form action="{{ route('lecturer-deleteLectureNote',['id' => $course->id, 'id1' => $lecturenote->id]) }}"
+                                                      method="get">
+                                                    <input type="hidden" name="lecture_note_id" id="lecture_note_id"
+                                                           value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
                                                     </button>
@@ -288,7 +291,8 @@
                                     </p>
                                 </li>
                                 {{--delete assignment modal--}}
-                                <div class="modal fade" id="deleteAssignment-{{ $assignment->id }}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="deleteAssignment-{{ $assignment->id }}" tabindex="-1"
+                                     role="dialog"
                                      aria-labelledby="myModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog modal-notify modal-danger" role="document">
@@ -315,8 +319,10 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="{{ route('lecturer-deleteAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}" method="get">
-                                                    <input type="hidden" name="assignment_id" id="assignment_id" value=""/>
+                                                <form action="{{ route('lecturer-deleteAssignment',['id' => $course->id, 'id1' => $assignment->id]) }}"
+                                                      method="get">
+                                                    <input type="hidden" name="assignment_id" id="assignment_id"
+                                                           value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes
                                                     </button>
@@ -353,7 +359,8 @@
                                     </p>
                                 </li>
                                 {{--delete submission modal--}}
-                                <div class="modal fade" id="deleteSubmission-{{ $submission->id }}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="deleteSubmission-{{ $submission->id }}" tabindex="-1"
+                                     role="dialog"
                                      aria-labelledby="myModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog modal-notify modal-danger" role="document">
@@ -380,8 +387,10 @@
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
 
-                                                <form action="{{ route('lecturer-deleteSubmission',['id' => $course->id, 'id1' => $submission->id]) }}" method="get">
-                                                    <input type="hidden" name="submission_id" id="submission_id" value=""/>
+                                                <form action="{{ route('lecturer-deleteSubmission',['id' => $course->id, 'id1' => $submission->id]) }}"
+                                                      method="get">
+                                                    <input type="hidden" name="submission_id" id="submission_id"
+                                                           value=""/>
                                                     <input type="hidden" name="course_id" id="course_id" value=""/>
                                                     <button type="submit" class="btn btn-outline-danger waves-effect">
                                                         Yes

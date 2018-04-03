@@ -73,6 +73,7 @@ Route::get('/lecturer/course/{id}/delete-Submission/{id1}', 'LecturerController@
 Route::get('/lecturer/course/{id}/delete-assignment/{id1}', 'LecturerController@deleteAssignment')->name('lecturer-deleteAssignment');
 Route::get('/lecturer/course/{id}/delete-notice/{id1}', 'LecturerController@deleteNotice')->name('lecturer-deleteNotice');
 Route::get('/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerController@deleteLectureNote')->name('lecturer-deleteLectureNote');
+Route::get('/lecturer/course/forum/{id}', 'LecturerController@viewForum')->name('lecturer-forum');
 
 /** Student Controller  */
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');
