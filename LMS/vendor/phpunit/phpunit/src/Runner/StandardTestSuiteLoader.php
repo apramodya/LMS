@@ -20,15 +20,10 @@ use ReflectionClass;
 class StandardTestSuiteLoader implements TestSuiteLoader
 {
     /**
-     * @param string $suiteClassName
-     * @param string $suiteClassFile
-     *
      * @throws Exception
      * @throws \PHPUnit\Framework\Exception
-     *
-     * @return ReflectionClass
      */
-    public function load($suiteClassName, $suiteClassFile = ''): ReflectionClass
+    public function load(string $suiteClassName, string $suiteClassFile = ''): ReflectionClass
     {
         $suiteClassName = \str_replace('.php', '', $suiteClassName);
 
@@ -109,11 +104,6 @@ class StandardTestSuiteLoader implements TestSuiteLoader
         );
     }
 
-    /**
-     * @param ReflectionClass $aClass
-     *
-     * @return ReflectionClass
-     */
     public function reload(ReflectionClass $aClass): ReflectionClass
     {
         return $aClass;
