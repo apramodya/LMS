@@ -239,7 +239,6 @@ abstract class Renderer
         if ($percent <= $this->lowUpperBound) {
             return 'danger';
         }
-
         if ($percent > $this->lowUpperBound &&
             $percent < $this->highLowerBound) {
             return 'warning';

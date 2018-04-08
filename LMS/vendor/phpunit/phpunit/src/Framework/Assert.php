@@ -2795,6 +2795,8 @@ abstract class Assert
 
     /**
      * Return the current assertion count.
+     *
+     * @return int
      */
     public static function getCount(): int
     {

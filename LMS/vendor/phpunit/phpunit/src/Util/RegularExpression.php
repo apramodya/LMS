@@ -12,6 +12,12 @@ namespace PHPUnit\Util;
 final class RegularExpression
 {
     /**
+     * @param string $pattern
+     * @param string $subject
+     * @param array  $matches
+     * @param int    $flags
+     * @param int    $offset
+     *
      * @throws \Exception
      *
      * @return false|int

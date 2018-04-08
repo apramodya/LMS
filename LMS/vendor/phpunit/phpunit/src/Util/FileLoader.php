@@ -24,7 +24,11 @@ final class FileLoader
      * PHP prioritizes the include_path setting, so if the current directory is in there, it will first look in the
      * current working directory.
      *
+     * @param string $filename
+     *
      * @throws Exception
+     *
+     * @return string
      */
     public static function checkAndLoad(string $filename): string
     {
@@ -49,6 +53,8 @@ final class FileLoader
 
     /**
      * Loads a PHP sourcefile.
+     *
+     * @param string $filename
      */
     public static function load(string $filename): void
     {

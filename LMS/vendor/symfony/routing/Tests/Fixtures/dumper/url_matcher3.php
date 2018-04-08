@@ -46,10 +46,6 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
             return array('_route' => 'with-condition');
         }
 
-        if ('/' === $pathinfo && !$allow) {
-            throw new Symfony\Component\Routing\Exception\NoConfigurationException();
-        }
-
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

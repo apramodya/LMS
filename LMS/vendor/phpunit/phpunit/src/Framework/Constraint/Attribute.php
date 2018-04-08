@@ -19,7 +19,11 @@ class Attribute extends Composite
      */
     private $attributeName;
 
-    public function __construct(Constraint $constraint, string $attributeName)
+    /**
+     * @param Constraint $constraint
+     * @param string     $attributeName
+     */
+    public function __construct(Constraint $constraint, $attributeName)
     {
         parent::__construct($constraint);
 
@@ -60,6 +64,8 @@ class Attribute extends Composite
 
     /**
      * Returns a string representation of the constraint.
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -73,6 +79,8 @@ class Attribute extends Composite
      * cases. This method should return the second part of that sentence.
      *
      * @param mixed $other evaluated value or object
+     *
+     * @return string
      */
     protected function failureDescription($other): string
     {

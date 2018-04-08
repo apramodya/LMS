@@ -12,7 +12,6 @@ namespace SebastianBergmann\CodeCoverage\Report;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Node\File;
-use SebastianBergmann\CodeCoverage\RuntimeException;
 
 final class Crap4j
 {
@@ -121,14 +120,7 @@ final class Crap4j
                 throw new \RuntimeException(\sprintf('Directory "%s" was not created', \dirname($target)));
             }
 
-            if (@\file_put_contents($target, $buffer) === false) {
-                throw new RuntimeException(
-                    \sprintf(
-                        'Could not write to "%s',
-                        $target
-                    )
-                );
-            }
+            \file_put_contents($target, $buffer);
         }
 
         return $buffer;

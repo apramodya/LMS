@@ -40,6 +40,8 @@ final class Xml
      * @param bool               $strict
      *
      * @throws Exception
+     *
+     * @return DOMDocument
      */
     public static function load($actual, bool $isHtml = false, string $filename = '', bool $xinclude = false, bool $strict = false): DOMDocument
     {
@@ -118,7 +120,14 @@ final class Xml
     /**
      * Loads an XML (or HTML) file into a DOMDocument object.
      *
+     * @param string $filename
+     * @param bool   $isHtml
+     * @param bool   $xinclude
+     * @param bool   $strict
+     *
      * @throws Exception
+     *
+     * @return DOMDocument
      */
     public static function loadFile(string $filename, bool $isHtml = false, bool $xinclude = false, bool $strict = false): DOMDocument
     {
@@ -157,6 +166,10 @@ final class Xml
      * and FFFF (not even as character reference).
      *
      * @see https://www.w3.org/TR/xml/#charsets
+     *
+     * @param string $string
+     *
+     * @return string
      */
     public static function prepareString(string $string): string
     {
@@ -172,6 +185,8 @@ final class Xml
 
     /**
      * "Convert" a DOMElement object into a PHP variable.
+     *
+     * @param DOMElement $element
      *
      * @return mixed
      */
@@ -246,7 +261,11 @@ final class Xml
     private static function convertToUtf8(string $string): string
     {
         if (!self::isUtf8($string)) {
-            $string = \mb_convert_encoding($string, 'UTF-8');
+            if (\function_exists('mb_convert_encoding')) {
+                return \mb_convert_encoding($string, 'UTF-8');
+            }
+
+            return \utf8_encode($string);
         }
 
         return $string;

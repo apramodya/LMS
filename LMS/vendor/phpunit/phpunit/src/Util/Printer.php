@@ -36,6 +36,8 @@ class Printer
     /**
      * Constructor.
      *
+     * @param mixed $out
+     *
      * @throws Exception
      */
     public function __construct($out = null)
@@ -91,6 +93,9 @@ class Printer
         }
     }
 
+    /**
+     * @param string $buffer
+     */
     public function write(string $buffer): void
     {
         if ($this->out) {
@@ -114,6 +119,8 @@ class Printer
 
     /**
      * Check auto-flush mode.
+     *
+     * @return bool
      */
     public function getAutoFlush(): bool
     {
@@ -125,6 +132,8 @@ class Printer
      *
      * If set, *incremental* flushes will be done after each write. This should
      * not be confused with the different effects of this class' flush() method.
+     *
+     * @param bool $autoFlush
      */
     public function setAutoFlush(bool $autoFlush): void
     {

@@ -187,6 +187,8 @@ class TestResult implements Countable
 
     /**
      * Registers a TestListener.
+     *
+     * @param TestListener $listener
      */
     public function addListener(TestListener $listener): void
     {
@@ -195,6 +197,8 @@ class TestResult implements Countable
 
     /**
      * Unregisters a TestListener.
+     *
+     * @param TestListener $listener
      */
     public function removeListener(TestListener $listener): void
     {
@@ -219,8 +223,12 @@ class TestResult implements Countable
 
     /**
      * Adds an error to the list of errors.
+     *
+     * @param Test      $test
+     * @param Throwable $t
+     * @param float     $time
      */
-    public function addError(Test $test, Throwable $t, float $time): void
+    public function addError(Test $test, Throwable $t, $time): void
     {
         if ($t instanceof RiskyTest) {
             $this->risky[] = new TestFailure($test, $t);
@@ -272,8 +280,12 @@ class TestResult implements Countable
     /**
      * Adds a warning to the list of warnings.
      * The passed in exception caused the warning.
+     *
+     * @param Test    $test
+     * @param Warning $e
+     * @param float   $time
      */
-    public function addWarning(Test $test, Warning $e, float $time): void
+    public function addWarning(Test $test, Warning $e, $time): void
     {
         if ($this->stopOnWarning) {
             $this->stop();
@@ -291,8 +303,12 @@ class TestResult implements Countable
     /**
      * Adds a failure to the list of failures.
      * The passed in exception caused the failure.
+     *
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
+    public function addFailure(Test $test, AssertionFailedError $e, $time): void
     {
         if ($e instanceof RiskyTest || $e instanceof OutputError) {
             $this->risky[] = new TestFailure($test, $e);
@@ -338,6 +354,8 @@ class TestResult implements Countable
 
     /**
      * Informs the result that a test suite will be started.
+     *
+     * @param TestSuite $suite
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -352,6 +370,8 @@ class TestResult implements Countable
 
     /**
      * Informs the result that a test suite was completed.
+     *
+     * @param TestSuite $suite
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -362,6 +382,8 @@ class TestResult implements Countable
 
     /**
      * Informs the result that a test will be started.
+     *
+     * @param Test $test
      */
     public function startTest(Test $test): void
     {
@@ -376,9 +398,12 @@ class TestResult implements Countable
     /**
      * Informs the result that a test was completed.
      *
+     * @param Test  $test
+     * @param float $time
+     *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function endTest(Test $test, float $time): void
+    public function endTest(Test $test, $time): void
     {
         foreach ($this->listeners as $listener) {
             $listener->endTest($test, $time);
@@ -402,6 +427,8 @@ class TestResult implements Countable
 
     /**
      * Returns true if no risky test occurred.
+     *
+     * @return bool
      */
     public function allHarmless(): bool
     {
@@ -410,6 +437,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of risky tests.
+     *
+     * @return int
      */
     public function riskyCount(): int
     {
@@ -418,6 +447,8 @@ class TestResult implements Countable
 
     /**
      * Returns true if no incomplete test occurred.
+     *
+     * @return bool
      */
     public function allCompletelyImplemented(): bool
     {
@@ -426,6 +457,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of incomplete tests.
+     *
+     * @return int
      */
     public function notImplementedCount(): int
     {
@@ -434,6 +467,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the risky tests.
+     *
+     * @return array
      */
     public function risky(): array
     {
@@ -442,6 +477,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the incomplete tests.
+     *
+     * @return array
      */
     public function notImplemented(): array
     {
@@ -450,6 +487,8 @@ class TestResult implements Countable
 
     /**
      * Returns true if no test has been skipped.
+     *
+     * @return bool
      */
     public function noneSkipped(): bool
     {
@@ -458,6 +497,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of skipped tests.
+     *
+     * @return int
      */
     public function skippedCount(): int
     {
@@ -466,6 +507,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the skipped tests.
+     *
+     * @return array
      */
     public function skipped(): array
     {
@@ -474,6 +517,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of detected errors.
+     *
+     * @return int
      */
     public function errorCount(): int
     {
@@ -482,6 +527,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the errors.
+     *
+     * @return array
      */
     public function errors(): array
     {
@@ -490,6 +537,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of detected failures.
+     *
+     * @return int
      */
     public function failureCount(): int
     {
@@ -498,6 +547,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the failures.
+     *
+     * @return array
      */
     public function failures(): array
     {
@@ -506,6 +557,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of detected warnings.
+     *
+     * @return int
      */
     public function warningCount(): int
     {
@@ -514,6 +567,8 @@ class TestResult implements Countable
 
     /**
      * Returns an Enumeration for the warnings.
+     *
+     * @return array
      */
     public function warnings(): array
     {
@@ -522,6 +577,8 @@ class TestResult implements Countable
 
     /**
      * Returns the names of the tests that have passed.
+     *
+     * @return array
      */
     public function passed(): array
     {
@@ -530,6 +587,8 @@ class TestResult implements Countable
 
     /**
      * Returns the (top) test suite.
+     *
+     * @return TestSuite
      */
     public function topTestSuite(): TestSuite
     {
@@ -538,6 +597,8 @@ class TestResult implements Countable
 
     /**
      * Returns whether code coverage information should be collected.
+     *
+     * @return bool If code coverage should be collected
      */
     public function getCollectCodeCoverageInformation(): bool
     {
@@ -546,6 +607,8 @@ class TestResult implements Countable
 
     /**
      * Runs a TestCase.
+     *
+     * @param Test $test
      *
      * @throws CodeCoverageException
      * @throws OriginalCoveredCodeNotExecutedException
@@ -844,6 +907,8 @@ class TestResult implements Countable
 
     /**
      * Gets the number of run tests.
+     *
+     * @return int
      */
     public function count(): int
     {
@@ -852,6 +917,8 @@ class TestResult implements Countable
 
     /**
      * Checks whether the test run should stop.
+     *
+     * @return bool
      */
     public function shouldStop(): bool
     {
@@ -868,6 +935,8 @@ class TestResult implements Countable
 
     /**
      * Returns the code coverage object.
+     *
+     * @return CodeCoverage
      */
     public function getCodeCoverage(): ?CodeCoverage
     {
@@ -876,6 +945,8 @@ class TestResult implements Countable
 
     /**
      * Sets the code coverage object.
+     *
+     * @param CodeCoverage $codeCoverage
      */
     public function setCodeCoverage(CodeCoverage $codeCoverage): void
     {
@@ -884,6 +955,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the error-to-exception conversion.
+     *
+     * @param bool $flag
      */
     public function convertErrorsToExceptions(bool $flag): void
     {
@@ -900,6 +973,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping when an error occurs.
+     *
+     * @param bool $flag
      */
     public function stopOnError(bool $flag): void
     {
@@ -908,6 +983,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping when a failure occurs.
+     *
+     * @param bool $flag
      */
     public function stopOnFailure(bool $flag): void
     {
@@ -916,57 +993,89 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping when a warning occurs.
+     *
+     * @param bool $flag
      */
     public function stopOnWarning(bool $flag): void
     {
         $this->stopOnWarning = $flag;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function beStrictAboutTestsThatDoNotTestAnything(bool $flag): void
     {
         $this->beStrictAboutTestsThatDoNotTestAnything = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function isStrictAboutTestsThatDoNotTestAnything(): bool
     {
         return $this->beStrictAboutTestsThatDoNotTestAnything;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function beStrictAboutOutputDuringTests(bool $flag): void
     {
         $this->beStrictAboutOutputDuringTests = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function isStrictAboutOutputDuringTests(): bool
     {
         return $this->beStrictAboutOutputDuringTests;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function beStrictAboutResourceUsageDuringSmallTests(bool $flag): void
     {
         $this->beStrictAboutResourceUsageDuringSmallTests = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function isStrictAboutResourceUsageDuringSmallTests(): bool
     {
         return $this->beStrictAboutResourceUsageDuringSmallTests;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function enforceTimeLimit(bool $flag): void
     {
         $this->enforceTimeLimit = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function enforcesTimeLimit(): bool
     {
         return $this->enforceTimeLimit;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function beStrictAboutTodoAnnotatedTests(bool $flag): void
     {
         $this->beStrictAboutTodoAnnotatedTests = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function isStrictAboutTodoAnnotatedTests(): bool
     {
         return $this->beStrictAboutTodoAnnotatedTests;
@@ -974,6 +1083,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping for risky tests.
+     *
+     * @param bool $flag
      */
     public function stopOnRisky(bool $flag): void
     {
@@ -982,6 +1093,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping for incomplete tests.
+     *
+     * @param bool $flag
      */
     public function stopOnIncomplete(bool $flag): void
     {
@@ -990,6 +1103,8 @@ class TestResult implements Countable
 
     /**
      * Enables or disables the stopping for skipped tests.
+     *
+     * @param bool $flag
      */
     public function stopOnSkipped(bool $flag): void
     {
@@ -998,6 +1113,8 @@ class TestResult implements Countable
 
     /**
      * Returns the time spent running the tests.
+     *
+     * @return float
      */
     public function time(): float
     {
@@ -1006,6 +1123,8 @@ class TestResult implements Countable
 
     /**
      * Returns whether the entire test was successful or not.
+     *
+     * @return bool
      */
     public function wasSuccessful(): bool
     {
@@ -1014,6 +1133,8 @@ class TestResult implements Countable
 
     /**
      * Sets the timeout for small tests.
+     *
+     * @param int $timeout
      */
     public function setTimeoutForSmallTests(int $timeout): void
     {
@@ -1022,6 +1143,8 @@ class TestResult implements Countable
 
     /**
      * Sets the timeout for medium tests.
+     *
+     * @param int $timeout
      */
     public function setTimeoutForMediumTests(int $timeout): void
     {
@@ -1030,6 +1153,8 @@ class TestResult implements Countable
 
     /**
      * Sets the timeout for large tests.
+     *
+     * @param int $timeout
      */
     public function setTimeoutForLargeTests(int $timeout): void
     {
@@ -1038,12 +1163,17 @@ class TestResult implements Countable
 
     /**
      * Returns the set timeout for large tests.
+     *
+     * @return int
      */
     public function getTimeoutForLargeTests(): int
     {
         return $this->timeoutForLargeTests;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function setRegisterMockObjectsFromTestArgumentsRecursively(bool $flag): void
     {
         $this->registerMockObjectsFromTestArgumentsRecursively = $flag;

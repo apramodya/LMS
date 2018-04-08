@@ -90,6 +90,8 @@ class LogicalOr extends Constraint
 
     /**
      * Returns a string representation of the constraint.
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -108,6 +110,8 @@ class LogicalOr extends Constraint
 
     /**
      * Counts the number of constraint elements.
+     *
+     * @return int
      */
     public function count(): int
     {

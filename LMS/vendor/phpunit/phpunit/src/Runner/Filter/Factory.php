@@ -42,6 +42,9 @@ class Factory
         $this->filters[] = [$filter, $args];
     }
 
+    /**
+     * @return FilterIterator
+     */
     public function factory(Iterator $iterator, TestSuite $suite): FilterIterator
     {
         foreach ($this->filters as $filter) {

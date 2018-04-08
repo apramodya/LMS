@@ -28,7 +28,7 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
             $canonicalMethod = 'GET';
         }
 
-        if ('/' === $pathinfo && !$allow) {
+        if ('/' === $pathinfo) {
             throw new Symfony\Component\Routing\Exception\NoConfigurationException();
         }
 

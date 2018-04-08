@@ -17,8 +17,13 @@ class XmlTest extends TestCase
 {
     /**
      * @dataProvider charProvider
+     *
+     * @param mixed $char
+     *
+     * @throws \PHPUnit\Framework\ExpectationFailedException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function testPrepareString(string $char): void
+    public function testPrepareString($char): void
     {
         $e = null;
 
@@ -31,16 +36,13 @@ class XmlTest extends TestCase
         } catch (Exception $e) {
         }
 
-        $this->assertNull(
-            $e,
-            \sprintf(
-                '\PHPUnit\Util\Xml::prepareString("\x%02x") should not crash DomDocument',
-                \ord($char)
-            )
-        );
+        $this->assertNull($e, \sprintf(
+            'PHPUnit_Util_XML::prepareString("\x%02x") should not crash DomDocument',
+            \ord($char)
+        ));
     }
 
-    public function charProvider(): array
+    public function charProvider()
     {
         $data = [];
 

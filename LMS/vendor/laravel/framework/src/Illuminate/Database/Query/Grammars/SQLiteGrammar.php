@@ -63,9 +63,9 @@ class SQLiteGrammar extends Grammar
      */
     protected function compileUnion(array $union)
     {
-        $conjunction = $union['all'] ? ' union all ' : ' union ';
+        $conjuction = $union['all'] ? ' union all ' : ' union ';
 
-        return $conjunction.'select * from ('.$union['query']->toSql().')';
+        return $conjuction.'select * from ('.$union['query']->toSql().')';
     }
 
     /**

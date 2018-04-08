@@ -240,10 +240,6 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
 
         }
 
-        if ('/' === $pathinfo && !$allow) {
-            throw new Symfony\Component\Routing\Exception\NoConfigurationException();
-        }
-
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

@@ -24,6 +24,8 @@ final class ErrorHandler
 
     /**
      * Returns the error stack.
+     *
+     * @return array
      */
     public static function getErrorStack(): array
     {
@@ -79,6 +81,8 @@ final class ErrorHandler
      * @param int $severity PHP predefined error constant
      *
      * @throws \Exception if event of specified severity is emitted
+     *
+     * @return \Closure
      */
     public static function handleErrorOnce($severity = E_WARNING): callable
     {

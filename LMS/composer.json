@@ -9,7 +9,7 @@
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
-        "twilio/sdk": "^5.16"
+        "softon/sms": "dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

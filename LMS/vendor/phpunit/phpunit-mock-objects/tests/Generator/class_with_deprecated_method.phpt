@@ -33,7 +33,6 @@ class MockFoo extends ClassWithDeprecatedMethod implements PHPUnit\Framework\Moc
     private $__phpunit_invocationMocker;
     private $__phpunit_originalObject;
     private $__phpunit_configurable = ['deprecatedmethod'];
-    private $__phpunit_returnValueGeneration = true;
 
     public function __clone()
     {
@@ -82,15 +81,10 @@ class MockFoo extends ClassWithDeprecatedMethod implements PHPUnit\Framework\Moc
         $this->__phpunit_originalObject = $originalObject;
     }
 
-    public function __phpunit_setReturnValueGeneration(bool $returnValueGeneration)
-    {
-        $this->__phpunit_returnValueGeneration = $returnValueGeneration;
-    }
-
     public function __phpunit_getInvocationMocker()
     {
         if ($this->__phpunit_invocationMocker === null) {
-            $this->__phpunit_invocationMocker = new \PHPUnit\Framework\MockObject\InvocationMocker($this->__phpunit_configurable, $this->__phpunit_returnValueGeneration);
+            $this->__phpunit_invocationMocker = new \PHPUnit\Framework\MockObject\InvocationMocker($this->__phpunit_configurable);
         }
 
         return $this->__phpunit_invocationMocker;

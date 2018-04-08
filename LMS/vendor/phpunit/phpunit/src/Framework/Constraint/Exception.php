@@ -19,7 +19,10 @@ class Exception extends Constraint
      */
     private $className;
 
-    public function __construct(string $className)
+    /**
+     * @param string $className
+     */
+    public function __construct($className)
     {
         parent::__construct();
 
@@ -28,6 +31,8 @@ class Exception extends Constraint
 
     /**
      * Returns a string representation of the constraint.
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -42,6 +47,8 @@ class Exception extends Constraint
      * constraint is met, false otherwise.
      *
      * @param mixed $other value or object to evaluate
+     *
+     * @return bool
      */
     protected function matches($other): bool
     {
@@ -55,6 +62,8 @@ class Exception extends Constraint
      * cases. This method should return the second part of that sentence.
      *
      * @param mixed $other evaluated value or object
+     *
+     * @return string
      */
     protected function failureDescription($other): string
     {

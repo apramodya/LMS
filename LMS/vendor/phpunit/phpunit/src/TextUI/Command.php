@@ -139,12 +139,14 @@ class Command
     private $versionStringPrinted = false;
 
     /**
+     * @param bool $exit
+     *
      * @throws \RuntimeException
      * @throws \ReflectionException
      * @throws \PHPUnit\Framework\Exception
      * @throws \InvalidArgumentException
      */
-    public static function main(bool $exit = true): int
+    public static function main($exit = true)
     {
         $command = new static;
 
@@ -152,12 +154,17 @@ class Command
     }
 
     /**
+     * @param array $argv
+     * @param bool  $exit
+     *
      * @throws \RuntimeException
      * @throws \ReflectionException
      * @throws \InvalidArgumentException
      * @throws Exception
+     *
+     * @return int
      */
-    public function run(array $argv, bool $exit = true): int
+    public function run(array $argv, $exit = true): int
     {
         $this->handleArguments($argv);
 
@@ -217,6 +224,8 @@ class Command
 
     /**
      * Create a TestRunner, override in subclasses.
+     *
+     * @return TestRunner
      */
     protected function createRunner(): TestRunner
     {
@@ -265,6 +274,8 @@ class Command
      *
      * }
      * </code>
+     *
+     * @param array $argv
      *
      * @throws Exception
      */
@@ -865,8 +876,13 @@ class Command
 
     /**
      * Handles the loading of the PHPUnit\Runner\TestSuiteLoader implementation.
+     *
+     * @param string $loaderClass
+     * @param string $loaderFile
+     *
+     * @return null|TestSuiteLoader
      */
-    protected function handleLoader(string $loaderClass, string $loaderFile = ''): ?TestSuiteLoader
+    protected function handleLoader($loaderClass, $loaderFile = ''): ?TestSuiteLoader
     {
         if (!\class_exists($loaderClass, false)) {
             if ($loaderFile == '') {
@@ -908,9 +924,12 @@ class Command
     /**
      * Handles the loading of the PHPUnit\Util\Printer implementation.
      *
+     * @param string $printerClass
+     * @param string $printerFile
+     *
      * @return null|Printer|string
      */
-    protected function handlePrinter(string $printerClass, string $printerFile = '')
+    protected function handlePrinter($printerClass, $printerFile = '')
     {
         if (!\class_exists($printerClass, false)) {
             if ($printerFile == '') {
@@ -977,8 +996,10 @@ class Command
 
     /**
      * Loads a bootstrap file.
+     *
+     * @param string $filename
      */
-    protected function handleBootstrap(string $filename): void
+    protected function handleBootstrap($filename): void
     {
         try {
             FileLoader::checkAndLoad($filename);
@@ -1129,7 +1150,10 @@ EOT;
         $this->versionStringPrinted = true;
     }
 
-    private function exitWithErrorMessage(string $message): void
+    /**
+     * @param string $message
+     */
+    private function exitWithErrorMessage($message): void
     {
         $this->printVersionString();
 
@@ -1138,7 +1162,10 @@ EOT;
         exit(TestRunner::FAILURE_EXIT);
     }
 
-    private function handleExtensions(string $directory): void
+    /**
+     * @param string $directory
+     */
+    private function handleExtensions($directory): void
     {
         $facade = new File_Iterator_Facade;
 

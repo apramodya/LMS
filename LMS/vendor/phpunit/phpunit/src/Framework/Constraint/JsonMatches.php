@@ -23,7 +23,12 @@ class JsonMatches extends Constraint
      */
     private $value;
 
-    public function __construct(string $value)
+    /**
+     * Creates a new constraint.
+     *
+     * @param string $value
+     */
+    public function __construct($value)
     {
         parent::__construct();
 
@@ -32,6 +37,8 @@ class JsonMatches extends Constraint
 
     /**
      * Returns a string representation of the object.
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -48,6 +55,8 @@ class JsonMatches extends Constraint
      * This method can be overridden to implement the evaluation algorithm.
      *
      * @param mixed $other value or object to evaluate
+     *
+     * @return bool
      */
     protected function matches($other): bool
     {

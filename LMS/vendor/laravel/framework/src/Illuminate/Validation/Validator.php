@@ -309,7 +309,7 @@ class Validator implements ValidatorContract
         $data = collect($this->getData());
 
         return $data->only(collect($this->getRules())->keys()->map(function ($rule) {
-            return explode('.', $rule)[0];
+            return Str::contains($rule, '.') ? explode('.', $rule)[0] : $rule;
         })->unique())->toArray();
     }
 

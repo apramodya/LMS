@@ -305,8 +305,6 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function signedRoute($name, $parameters = [], $expiration = null)
     {
-        $parameters = $this->formatParameters($parameters);
-
         if ($expiration) {
             $parameters = $parameters + ['expires' => $this->availableAt($expiration)];
         }
@@ -347,7 +345,7 @@ class UrlGenerator implements UrlGeneratorContract
 
         $signature = hash_hmac('sha256', $original, call_user_func($this->keyResolver));
 
-        return  hash_equals($signature, $request->query('signature', '')) &&
+        return $request->query('signature') === $signature &&
                ! ($expires && Carbon::now()->getTimestamp() > $expires);
     }
 

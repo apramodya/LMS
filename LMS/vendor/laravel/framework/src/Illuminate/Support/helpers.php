@@ -626,7 +626,7 @@ if (! function_exists('env')) {
                 return;
         }
 
-        if (($valueLength = strlen($value)) > 1 && $value[0] === '"' && $value[$valueLength - 1] === '"') {
+        if (strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
             return substr($value, 1, -1);
         }
 
@@ -718,16 +718,11 @@ if (! function_exists('optional')) {
      * Provide access to optional objects.
      *
      * @param  mixed  $value
-     * @param  callable|null  $callback
      * @return mixed
      */
-    function optional($value = null, callable $callback = null)
+    function optional($value = null)
     {
-        if (is_null($callback)) {
-            return new Optional($value);
-        } elseif (! is_null($value)) {
-            return $callback($value);
-        }
+        return new Optional($value);
     }
 }
 

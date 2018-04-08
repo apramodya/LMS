@@ -48,6 +48,9 @@ class WarningTestCase extends TestCase
         parent::__construct('Warning');
     }
 
+    /**
+     * @return string
+     */
     public function getMessage(): string
     {
         return $this->message;
@@ -55,6 +58,8 @@ class WarningTestCase extends TestCase
 
     /**
      * Returns a string representation of the test case.
+     *
+     * @return string
      */
     public function toString(): string
     {

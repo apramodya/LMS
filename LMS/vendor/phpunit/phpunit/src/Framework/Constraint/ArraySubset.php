@@ -21,7 +21,7 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 class ArraySubset extends Constraint
 {
     /**
-     * @var iterable
+     * @var array|\Traversable
      */
     private $subset;
 
@@ -30,7 +30,11 @@ class ArraySubset extends Constraint
      */
     private $strict;
 
-    public function __construct(iterable $subset, bool $strict = false)
+    /**
+     * @param array|\Traversable $subset
+     * @param bool               $strict Check for object identity
+     */
+    public function __construct($subset, $strict = false)
     {
         parent::__construct();
 
@@ -92,6 +96,8 @@ class ArraySubset extends Constraint
      * Returns a string representation of the constraint.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -107,13 +113,20 @@ class ArraySubset extends Constraint
      * @param mixed $other evaluated value or object
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     *
+     * @return string
      */
     protected function failureDescription($other): string
     {
         return 'an array ' . $this->toString();
     }
 
-    private function toArray(iterable $other): array
+    /**
+     * @param array|\Traversable $other
+     *
+     * @return array
+     */
+    private function toArray($other): array
     {
         if (\is_array($other)) {
             return $other;

@@ -39,50 +39,8 @@ class ExceptionWrapper extends Exception
     public function __construct(Throwable $t)
     {
         // PDOException::getCode() is a string.
-        // @see https://php.net/manual/en/class.pdoexception.php#95812
+        // @see http://php.net/manual/en/class.pdoexception.php#95812
         parent::__construct($t->getMessage(), (int) $t->getCode());
-        $this->setOriginalException($t);
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     */
-    public function __toString(): string
-    {
-        $string = TestFailure::exceptionToString($this);
-
-        if ($trace = Filter::getFilteredStacktrace($this)) {
-            $string .= "\n" . $trace;
-        }
-
-        if ($this->previous) {
-            $string .= "\nCaused by\n" . $this->previous;
-        }
-
-        return $string;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->className;
-    }
-
-    public function getPreviousWrapped(): ?self
-    {
-        return $this->previous;
-    }
-
-    /**
-     * @param string $className
-     */
-    public function setClassName(string $className)
-    {
-        $this->className = $className;
-    }
-
-    public function setOriginalException(\Throwable $t)
-    {
-        $this->originalException($t);
 
         $this->className = \get_class($t);
         $this->file      = $t->getFile();
@@ -99,28 +57,39 @@ class ExceptionWrapper extends Exception
         }
     }
 
-    public function getOriginalException(): ?Throwable
+    /**
+     * @throws \InvalidArgumentException
+     *
+     * @return string
+     */
+    public function __toString(): string
     {
-        return $this->originalException();
+        $string = TestFailure::exceptionToString($this);
+
+        if ($trace = Filter::getFilteredStacktrace($this)) {
+            $string .= "\n" . $trace;
+        }
+
+        if ($this->previous) {
+            $string .= "\nCaused by\n" . $this->previous;
+        }
+
+        return $string;
     }
 
     /**
-     * Method to contain static originalException to exclude it from stacktrace to prevent the stacktrace contents,
-     * which can be quite big, from being garbage-collected, thus blocking memory until shutdown.
-     * Approach works both for var_dump() and var_export() and print_r()
-     *
-     * @param null|Throwable $exceptionToStore
+     * @return string
      */
-    private function originalException(Throwable $exceptionToStore = null): ?Throwable
+    public function getClassName(): string
     {
-        static $originalExceptions;
+        return $this->className;
+    }
 
-        $instanceId = \spl_object_hash($this);
-
-        if ($exceptionToStore) {
-            $originalExceptions[$instanceId] = $exceptionToStore;
-        }
-
-        return $originalExceptions[$instanceId] ?? null;
+    /**
+     * @return ExceptionWrapper
+     */
+    public function getPreviousWrapped(): ?self
+    {
+        return $this->previous;
     }
 }

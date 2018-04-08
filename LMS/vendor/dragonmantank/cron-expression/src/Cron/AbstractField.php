@@ -90,14 +90,7 @@ abstract class AbstractField implements FieldInterface
      */
     public function isInRange($dateValue, $value)
     {
-        $parts = array_map(function($value) {
-                $value = trim($value);
-                $value = $this->convertLiterals($value);
-                return $value;
-            },
-            explode('-', $value, 2)
-        );
-
+        $parts = array_map('trim', explode('-', $value, 2));
 
         return $dateValue >= $parts[0] && $dateValue <= $parts[1];
     }
@@ -159,23 +152,10 @@ abstract class AbstractField implements FieldInterface
     public function getRangeForExpression($expression, $max)
     {
         $values = array();
-        $expression = $this->convertLiterals($expression);
-
-        if (strpos($expression, ',') !== false) {
-            $ranges = explode(',', $expression);
-            $values = [];
-            foreach ($ranges as $range) {
-                $expanded = $this->getRangeForExpression($range, $this->rangeEnd);
-                $values = array_merge($values, $expanded);
-            }
-            return $values;
-        }
 
         if ($this->isRange($expression) || $this->isIncrementsOfRanges($expression)) {
             if (!$this->isIncrementsOfRanges($expression)) {
                 list ($offset, $to) = explode('-', $expression);
-                $offset = $this->convertLiterals($offset);
-                $to = $this->convertLiterals($to);
                 $stepSize = 1;
             }
             else {
@@ -188,7 +168,7 @@ abstract class AbstractField implements FieldInterface
             }
             $offset = $offset == '*' ? 0 : $offset;
             for ($i = $offset; $i <= $to; $i += $stepSize) {
-                $values[] = (int)$i;
+                $values[] = $i;
             }
             sort($values);
         }
@@ -226,19 +206,14 @@ abstract class AbstractField implements FieldInterface
             return true;
         }
 
+        // You cannot have a range and a list at the same time
+        if (strpos($value, ',') !== false && strpos($value, '-') !== false) {
+            return false;
+        }
+
         if (strpos($value, '/') !== false) {
             list($range, $step) = explode('/', $value);
             return $this->validate($range) && filter_var($step, FILTER_VALIDATE_INT);
-        }
-
-        // Validate each chunk of a list individually
-        if (strpos($value, ',') !== false) {
-            foreach (explode(',', $value) as $listItem) {
-                if (!$this->validate($listItem)) {
-                    return false;
-                }
-            }
-            return true;
         }
 
         if (strpos($value, '-') !== false) {
@@ -255,6 +230,16 @@ abstract class AbstractField implements FieldInterface
             }
 
             return $this->validate($chunks[0]) && $this->validate($chunks[1]);
+        }
+
+        // Validate each chunk of a list individually
+        if (strpos($value, ',') !== false) {
+            foreach (explode(',', $value) as $listItem) {
+                if (!$this->validate($listItem)) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         // We should have a numeric by now, so coerce this into an integer

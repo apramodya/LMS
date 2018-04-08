@@ -25,11 +25,9 @@ final class ConfigurationGenerator
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true">
-    <testsuites>
-        <testsuite name="default">
-            <directory suffix="Test.php">{tests_directory}</directory>
-        </testsuite>
-    </testsuites>
+    <testsuite name="default">
+        <directory suffix="Test.php">{tests_directory}</directory>
+    </testsuite>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

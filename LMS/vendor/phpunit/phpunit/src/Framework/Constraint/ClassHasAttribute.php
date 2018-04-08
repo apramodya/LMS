@@ -33,6 +33,8 @@ class ClassHasAttribute extends Constraint
 
     /**
      * Returns a string representation of the constraint.
+     *
+     * @return string
      */
     public function toString(): string
     {
@@ -47,6 +49,8 @@ class ClassHasAttribute extends Constraint
      * constraint is met, false otherwise.
      *
      * @param mixed $other value or object to evaluate
+     *
+     * @return bool
      */
     protected function matches($other): bool
     {
@@ -62,6 +66,8 @@ class ClassHasAttribute extends Constraint
      * cases. This method should return the second part of that sentence.
      *
      * @param mixed $other evaluated value or object
+     *
+     * @return string
      */
     protected function failureDescription($other): string
     {
