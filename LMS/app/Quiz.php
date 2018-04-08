@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
+	protected $fillable = ['quiz_name'];
     public function course(){
         return $this->belongsTo(Course::class);
     }
@@ -14,5 +15,8 @@ class Quiz extends Model
     }
     public function students(){
         return $this->hasMany(Student::class);
+    }
+    public function questions(){
+    	return $this->hasMany(QuizQuestion::class);
     }
 }
