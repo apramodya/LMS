@@ -46,7 +46,8 @@ Route::get('/lecturer/course/{id}/add-lecture-notes', 'LecturerController@addLec
 Route::post('/lecturer/course/{id}/add-lecture-notes', 'LecturerController@storeLectureNotes')->name('lecturer-addLectureNotes');
 Route::get('/lecturer/course/{id}/add-notice', 'LecturerController@addNotice')->name('lecturer-addNotice');
 Route::post('/lecturer/course/{id}/add-notice', 'LecturerController@storeNotice')->name('lecturer-addNotice');
-Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@addQuiz')->name('lecturer-addQuiz');
+Route::get('/lecturer/course/{id}/add-quiz', 'LecturerController@getAddQuiz')->name('lecturer-addQuiz');
+Route::post('/lecturer/course/{id}/add-quiz', 'LecturerController@postAddQuiz')->name('lecturer-addQuiz');
 Route::get('/lecturer/course/{id}/add-submission', 'LecturerController@addSubmission')->name('lecturer-addSubmission');
 Route::post('/lecturer/course/{id}/add-submission', 'LecturerController@storeSubmission')->name('lecturer-addSubmission');
 Route::get('/lecturer/course/{id}/edit-assignment/{id1}', 'LecturerController@editAssignment')->name('lecturer-editAssignment');
@@ -99,3 +100,9 @@ Route::get('/add-results-using-csv', 'ExamController@getAddResultsUsingCSV')->na
 Route::post('/add-results-using-csv', 'ExamController@postAddResultsUsingCSV')->name('add-results-using-csv');
 Route::get('/add-results-to/{id}', 'ExamController@getAddResultsTo')->name('add-results-to');
 Route::post('/add-results-to/{id}', 'ExamController@postAddResultsTo')->name('add-results-to');
+
+/** Quiz Controller */
+Route::get('/course/{id1}/quiz/{id2}/add-question', 'QuizController@getAddQuestion')->name('add-question');
+Route::post('/course/{id1}/quiz/{id2}/add-question', 'QuizController@postAddQuestion')->name('add-question');
+Route::post('/course/{id1}/quiz/{id2}/submit-quiz', 'QuizController@submitQuiz')->name('submit-quiz');
+Route::get('/course/{id1}/quiz/{id2}/view-quiz', 'QuizController@getQuiz')->name('view-quiz');

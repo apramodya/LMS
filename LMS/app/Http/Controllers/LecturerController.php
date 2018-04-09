@@ -9,6 +9,7 @@ use App\Forum;
 use App\LectureNote;
 use App\Lecturer;
 use App\Notice;
+use App\Quiz;
 use App\Submission;
 use Illuminate\Http\Request;
 use File;
@@ -548,10 +549,20 @@ class LecturerController extends Controller {
 
 	}
 
-	public function addQuiz( $id ) {
+	public function getAddQuiz( $id ) {
 		$course = Course::where( 'id', '=', $id )->first();
 
 		return view( 'lecturer/addQuiz', [ 'course' => $course ] );
+	}
+
+	public function postAddQuiz( Request $request, $id ) {
+		$quiz              = new Quiz;
+		$quiz->quiz_name   = $request->quiz_name;
+		$quiz->lecturer_id = $request->lecturer_id;
+		$quiz->course_id   = $id;
+		$quiz->save();
+
+		return redirect( route( 'add-question', [ $id, $quiz->id ] ) );
 	}
 
 	public function addSubmission( $id ) {
@@ -754,8 +765,9 @@ class LecturerController extends Controller {
 	}
 
 //	forum
-	public function viewForum($id){
-		$forum = Forum::where('course_id', '=', $id)->first();
-		return view('lecturer.forum', ['forum' => $forum]);
+	public function viewForum( $id ) {
+		$forum = Forum::where( 'course_id', '=', $id )->first();
+
+		return view( 'lecturer.forum', [ 'forum' => $forum ] );
 	}
 }

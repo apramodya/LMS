@@ -410,17 +410,17 @@
                     <!--Panel 5-->
                     <div class="tab-pane fade" id="quizzes" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($course->quizzes as $quiz)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Go to</a>
+                                <strong>{{ $quiz->quiz_name }}</strong>
+                                <br>
+                                <a href="{{ route('view-quiz', [$course->id, $quiz->id]) }}" class="btn btn-outline-primary btn-sm">Go to</a>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
                                 <p class="font-italic">Published on {{ now() }}</p>
                                 <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
                             </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!--/.Panel 5-->
