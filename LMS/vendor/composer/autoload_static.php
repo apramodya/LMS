@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
+class ComposerStaticInit765f86bd830c8eec5c23e6c61e807438
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -12,13 +12,13 @@ class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
@@ -126,8 +126,8 @@ class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -367,6 +367,7 @@ class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
         'App\\Http\\Controllers\\ExamController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExamController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LecturerController' => __DIR__ . '/../..' . '/app/Http/Controllers/LecturerController.php',
+        'App\\Http\\Controllers\\QuizController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuizController.php',
         'App\\Http\\Controllers\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/StudentController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
@@ -388,6 +389,7 @@ class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Question' => __DIR__ . '/../..' . '/app/Question.php',
         'App\\Quiz' => __DIR__ . '/../..' . '/app/Quiz.php',
+        'App\\QuizQuestion' => __DIR__ . '/../..' . '/app/QuizQuestion.php',
         'App\\Result' => __DIR__ . '/../..' . '/app/Result.php',
         'App\\Student' => __DIR__ . '/../..' . '/app/Student.php',
         'App\\Submission' => __DIR__ . '/../..' . '/app/Submission.php',
@@ -3790,10 +3792,10 @@ class ComposerStaticInite1329f3db5813e8a32d99011a917a80f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite1329f3db5813e8a32d99011a917a80f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite1329f3db5813e8a32d99011a917a80f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInite1329f3db5813e8a32d99011a917a80f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInite1329f3db5813e8a32d99011a917a80f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit765f86bd830c8eec5c23e6c61e807438::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit765f86bd830c8eec5c23e6c61e807438::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit765f86bd830c8eec5c23e6c61e807438::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit765f86bd830c8eec5c23e6c61e807438::$classMap;
 
         }, null, ClassLoader::class);
     }
