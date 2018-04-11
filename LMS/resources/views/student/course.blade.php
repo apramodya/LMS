@@ -107,13 +107,13 @@
                     <!--Panel 1-->
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
+                                @foreach($notices as $notice)
+                                <li class="list-group-item">
+                                <strong>{{$notice->title}}</strong>
+                                 <p> {{ $notice->description }} </p>
+                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                 <p class="font-italic">Published on {{$notice->created_at}} </p>
+                                  @endforeach
                             </li>
                         </ul>
                     </div>
@@ -121,13 +121,13 @@
                     <!--Panel 2-->
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($lectureNotes as $lectureNote)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
+                            <strong>{{$lectureNote->title}}</strong>
+                            <p>{{$lectureNote->description}}</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                            <p class="font-italic">Published {{ $lectureNote->created_at }}</p>
+                            @endforeach
                             </li>
                         </ul>
                     </div>
@@ -135,12 +135,14 @@
                     <!--Panel 3-->
                     <div class="tab-pane fade" id="assignments" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($assignments as $assignment)
                             <li class="list-group-item">
-                                <strong>ID</strong>
-                                <p>description</p>
+                                <strong>{{$assignment->assignment_id}}</strong>
+                                <p>{{$assignment->description}}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                <p class="font-italic">Published on start_date start_time</p>
-                                <p class="font-italic">Deadline <span class="red-text">end_date end_time</span></p>
+                                <p class="font-italic">Published:{{$assignment->created_at}}</p>
+                                <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                            @endforeach
                             </li>
                         </ul>
                     </div>
@@ -148,14 +150,14 @@
                     <!--Panel 4-->
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            @foreach($submissions as $submission)
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
+                                <strong>{{$submission->title}}</strong>
+                                <p>{{$submission->description}}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
-                                <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
+                                <p class="font-italic">Published:{{$submission->created_at}}</p>
+                                <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                            @endforeach
                             </li>
                         </ul>
                     </div>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\Course;
 use App\EnrollStudent;
+use App\LectureNote;
+use App\Notice;
 use App\Student;
+use App\Submission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +26,13 @@ class StudentController extends Controller
     }
 
     public function getCourse($id){
-        $course = Course::where('course_id','=',$id)->first();
+        $course = Course::where('id','=',$id)->first();
         $assignments = Assignment::where('course_id', '=', $id)->get();
+        $notices = Notice::where('course_id', '=', $id)->get();
+        $lectureNotes = LectureNote::where('course_id', '=', $id)->get();
+        $submissions = Submission::where('course_id', '=', $id)->get();
 
-        return view('student/course', ['course' => $course, 'assignments' => $assignments]);
+        return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions]);
     }
 
     public function submitAssignment($id){
