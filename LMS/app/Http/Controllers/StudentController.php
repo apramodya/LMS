@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\AssignmentSubmission;
 use App\Course;
 use App\EnrollStudent;
 use App\LectureNote;
 use App\Notice;
 use App\Student;
 use App\Submission;
+use App\SubmitAssignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,12 +35,6 @@ class StudentController extends Controller
         $submissions = Submission::where('course_id', '=', $id)->get();
 
         return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions]);
-    }
-
-    public function submitAssignment($id){
-        $course = Course::where('course_id', '=', $id)->first();
-
-        return view('student/submitAssignment', ['course' => $course]);
     }
 
     public function submitQuiz($id){
@@ -80,5 +76,36 @@ class StudentController extends Controller
         return redirect(route('student-course-action'));
     }
 
+    public function getSubmitAssignment($id , $id1 ){
+        $course = Course::where('id', '=', $id)->first();
+        $assignment = Assignment::where('course_id', '=', $id1)->first();
+        return view('student/submitAssignment', ['course' => $course,'assignment'=>$assignment]);
+    }
 
+    public function storeSubmitAssignment(Request $request , $id , $id1){
+
+        $course   = Course::where( 'id', '=', $id )->first();
+        $userid   = $request->user()->id;
+        $student = Student::where( 'user_id', '=', $userid )->first();
+        $assignment   = Assignment::where( 'id', '=', $id1 )->first();
+
+        if($request->has('attachment')){
+
+            $submitAssignment = new AssignmentSubmission();
+            $submitAssignment->student_id = $student->id;
+            $submitAssignment->course_id =$id;
+            $submitAssignment->assignment_id =$id1;
+            $submitAssignment->title = $request->title;
+            $submitAssignment->description = $request->description;
+            $request->file('attachment')->storeAs('public/uploads/new assignment','ABC');
+
+            $submitAssignment->save();
+            }
+            else {
+
+            }
+
+//        return redirect( route( 'student-course' ) );
+
+    }
 }

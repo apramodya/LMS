@@ -19,7 +19,7 @@
                 @foreach($courses as $course)
                     <tr>
                         <th scope="row">{{ $loop->index + 1}}</th>
-                        <td class="font-weight-bold"><a href="{{ route('student-course',$course->id) }}">{{ $course->name }}</a></td>
+                        <td class="font-weight-bold"><a href="{{route('student-course',$course->id)}}">{{ $course->name }}</a></td>
                         <td>{{ $course->course_id }}</td>
                         <td>{{$course->year}}</td>
                     </tr>
