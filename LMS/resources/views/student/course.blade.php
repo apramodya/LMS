@@ -137,7 +137,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach($assignments as $assignment)
                             <li class="list-group-item">
-                                <a href="{{route('student-submitAssignment-get',['id' => $course->id,'id1' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                 <p>{{$assignment->description}}</p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
                                 <p class="font-italic">Published:{{$assignment->created_at}}</p>

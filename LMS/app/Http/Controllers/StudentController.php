@@ -76,20 +76,33 @@ class StudentController extends Controller
         return redirect(route('student-course-action'));
     }
 
-    public function getSubmitAssignment($id , $id1 ){
-        $course = Course::where('id', '=', $id)->first();
-        $assignment = Assignment::where('course_id', '=', $id1)->first();
-        return view('student/submitAssignment', ['course' => $course,'assignment'=>$assignment]);
+    public function getSubmitAssignment($courseid , $assignmentid ){
+        $course = Course::where('id', '=', $courseid)->first();
+        $userid   = Auth::user()->id;
+        $student = Student::where('user_id','=',$userid)->first();
+        $assignment = Assignment::where('id', '=', $assignmentid)->first();
+        $currentstudent = $student->id;
+        $currentassignment = $assignment->id;
+        $result = AssignmentSubmission::where('student_id','=',$currentstudent)->where('assignment_id','=',$currentassignment )->first();
+        return view('student/submitAssignment', ['course' => $course,'assignment'=>$assignment,'result'=>$result]);
     }
 
-    public function storeSubmitAssignment(Request $request , $id , $id1){
+    public function storeSubmitAssignment(Request $request , $courseid , $assignmentid){
 
-        $course   = Course::where( 'id', '=', $id )->first();
+        $course   = Course::where( 'id', '=', $courseid )->first();
         $userid   = $request->user()->id;
         $student = Student::where( 'user_id', '=', $userid )->first();
-        $assignment   = Assignment::where( 'id', '=', $id1 )->first();
+        $assignment   = Assignment::where( 'id', '=', $assignmentid )->first();
 
         if($request->has('attachment')){
+
+            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $courseID = $course->course_id;
+            $assignmentID = $assignment->assignment_id;
+            $path = 'public/Student Uploads/AssignmentSubmissions/'.$courseID.'/'.$assignmentID ;
+
+            $request->file('attachment')->storeAs($path,$fileNameWithExt);
 
             $submitAssignment = new AssignmentSubmission();
             $submitAssignment->student_id = $student->id;
@@ -97,15 +110,24 @@ class StudentController extends Controller
             $submitAssignment->assignment_id =$id1;
             $submitAssignment->title = $request->title;
             $submitAssignment->description = $request->description;
-            $request->file('attachment')->storeAs('public/uploads/new assignment','ABC');
-
+            $submitAssignment->attachment = $fileName;
             $submitAssignment->save();
             }
+
             else {
+
+                $submitAssignment = new AssignmentSubmission();
+                $submitAssignment->student_id = $student->id;
+                $submitAssignment->course_id =$id;
+                $submitAssignment->assignment_id =$id1;
+                $submitAssignment->title = $request->title;
+                $submitAssignment->description = $request->description;
+                $submitAssignment->attachment = NULL;
+                $submitAssignment->save();
 
             }
 
-//        return redirect( route( 'student-course' ) );
+            return redirect( route( 'student-submitAssignment-get',['id' => $course->id,'id1' => $assignment->id]) );
 
     }
 }

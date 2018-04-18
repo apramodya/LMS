@@ -30,8 +30,7 @@
                                     <dt class="col-md-3">Due Date</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            {{--<li class="list-group-item"><strong>{{ $course->name }}</strong>--}}
-                                            {{--| {{ $course->course_id }}</li>--}}
+                                           {{ $assignment->end_date}} , {{$assignment->end_time}}
                                         </ul>
                                     </dd>
                                 </dl>
@@ -40,7 +39,11 @@
                                     <dt class="col-md-3">Submission Status</dt>
                                     <dd class="col-md-8">
                                         <ul>
-
+                                            @if($result== !NULL)
+                                                <span class="rgba-green-strong"><strong>Submitted For Grading</strong></span>
+                                            @else
+                                                <span class="rgba-red-strong"><strong>Not Submitted Yet</strong></span>
+                                             @endif
                                         </ul>
                                     </dd>
                                 </dl>
@@ -59,15 +62,17 @@
                     <!-- Accordion card -->
                 </div>
                 <!--/.Accordion wrapper-->
-
-
                 <br>
 
-                <div class="container">
+
+               @if($result==NULL)
+
+                    <div class="container">
                     <div class="jumbotron">
                         <div class="row">
                             <div class="col-md-8 offset-2">
-                                <form method="post" action="{{ route('student-submitAssignment', ['id' => $course->id,'id1' => $assignment->id])}}" enctype="multipart/form-data">
+
+                                <form method="post" action="{{ route('student-submitAssignment', ['courseid' => $course->id,'assignmentid' => $assignment->id])}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="title">Title</label>
@@ -86,7 +91,13 @@
                             </div>
                         </div>
                     </div>
+                        @endif
                 </div>
+
 @endsection
+
+
+
+
 
 
