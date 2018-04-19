@@ -28,13 +28,17 @@ class StudentController extends Controller
     }
 
     public function getCourse($id){
+        $userid   = Auth::user()->id;
+        $student = Student::where('user_id','=',$userid)->first();
+        $currentstudent = $student->id;
         $course = Course::where('id','=',$id)->first();
         $assignments = Assignment::where('course_id', '=', $id)->get();
         $notices = Notice::where('course_id', '=', $id)->get();
         $lectureNotes = LectureNote::where('course_id', '=', $id)->get();
         $submissions = Submission::where('course_id', '=', $id)->get();
+        $results = AssignmentSubmission::where('student_id','=',$currentstudent)->where('course_id','=',$id)->get();
 
-        return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions]);
+        return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions,'results'=>$results]);
     }
 
     public function submitQuiz($id){
@@ -106,8 +110,8 @@ class StudentController extends Controller
 
             $submitAssignment = new AssignmentSubmission();
             $submitAssignment->student_id = $student->id;
-            $submitAssignment->course_id =$id;
-            $submitAssignment->assignment_id =$id1;
+            $submitAssignment->course_id =$courseid;
+            $submitAssignment->assignment_id =$assignmentid;
             $submitAssignment->title = $request->title;
             $submitAssignment->description = $request->description;
             $submitAssignment->attachment = $fileName;
@@ -118,8 +122,8 @@ class StudentController extends Controller
 
                 $submitAssignment = new AssignmentSubmission();
                 $submitAssignment->student_id = $student->id;
-                $submitAssignment->course_id =$id;
-                $submitAssignment->assignment_id =$id1;
+                $submitAssignment->course_id =$courseid;
+                $submitAssignment->assignment_id =$assignmentid;
                 $submitAssignment->title = $request->title;
                 $submitAssignment->description = $request->description;
                 $submitAssignment->attachment = NULL;

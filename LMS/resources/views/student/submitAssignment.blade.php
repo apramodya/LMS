@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                                    <textarea type="text" class="form-control" id="article-ckeditor" name="description" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="attachment">Attachment</label>

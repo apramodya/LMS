@@ -51,7 +51,7 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+ 
     'url' => env('APP_URL', 'http://localhost'),
 
     /*
@@ -146,6 +146,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
 
         /*
          * Package Service Providers...

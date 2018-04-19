@@ -77,6 +77,7 @@
                 <!--/.Accordion wrapper-->
 
             </div>
+
             <div class="col-md-2">
                 <button class="btn btn-indigo btn-md">Forum</button>
             </div>
@@ -104,6 +105,7 @@
                 </ul>
                 <!-- Tab panels -->
                 <div class="tab-content card">
+
                     <!--Panel 1-->
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
@@ -131,21 +133,28 @@
                             </li>
                         </ul>
                     </div>
+
                     <!--/.Panel 2-->
                     <!--Panel 3-->
                     <div class="tab-pane fade" id="assignments" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($assignments as $assignment)
-                            <li class="list-group-item">
-                                <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
-                                <p>{{$assignment->description}}</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                {{--@foreach($results as $result)--}}
+                                {{--@if($result->assignment_id == $assignment->id)--}}
+                                        <li class="list-group-item list-group-item" >
+                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                            <p>{{$assignment->description}}</p>
+                                            <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                            <p class="font-italic">Published:{{$assignment->created_at}}</p>
+                                            <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+
                             @endforeach
-                            </li>
+                                         </li>
                         </ul>
                     </div>
+                    {{--@else--}}
+
+                    {{--@endif--}}
                     <!--/.Panel 3-->
                     <!--Panel 4-->
                     <div class="tab-pane fade" id="submissions" role="tabpanel">

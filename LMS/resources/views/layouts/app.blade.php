@@ -40,5 +40,17 @@
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/mdb.min.js') }}"></script>
 @yield('scripts')
+bjhbvkj
+b jknb jl
+n n
+nmmmmmmm
+mmmmmmmmmmmmmmmmmmmmmmmmmm
+mmmmmmmmmmmmmm
+
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'article-ckeditor' );
+</script>
+
 </body>
 </html>
