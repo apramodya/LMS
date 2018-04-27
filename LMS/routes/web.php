@@ -83,6 +83,9 @@ Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student
 Route::get('/student/course/{courseid}/submit-assignment/{assignmentid}', 'StudentController@getSubmitAssignment')->name('student-submitAssignment-get');
 Route::post('/student/course/{courseid}/submit-assignment/{assignmentid}', 'StudentController@storeSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');
+#Edit Assignment Submission
+Route::get('/student/course/{courseid}/edit-assignment/{assignmentid}', 'StudentController@editAssignmentSubmission')->name('student-editAssignmentSubmission');
+Route::post('/student/course/{courseid}/edit-assignment/{assignmentid}', 'StudentController@storeEditSubmissionAssignment')->name('student-editAssignmentSubmission');
 #course actions
 Route::get('/student/course-action', 'StudentController@courseAction')->name('student-course-action');
 #Enroll

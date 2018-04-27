@@ -37,8 +37,9 @@ class StudentController extends Controller
         $lectureNotes = LectureNote::where('course_id', '=', $id)->get();
         $submissions = Submission::where('course_id', '=', $id)->get();
         $results = AssignmentSubmission::where('student_id','=',$currentstudent)->where('course_id','=',$id)->get();
+        $count=0;
 
-        return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions,'results'=>$results]);
+        return view('student/course', ['course' => $course, 'assignments'=>$assignments,'notices'=> $notices,'lectureNotes'=>$lectureNotes,'submissions'=>$submissions,'results'=>$results,'count'=>$count]);
     }
 
     public function submitQuiz($id){
@@ -134,4 +135,64 @@ class StudentController extends Controller
             return redirect( route( 'student-submitAssignment-get',['id' => $course->id,'id1' => $assignment->id]) );
 
     }
+
+    public function editAssignmentSubmission($courseid,$assignmentid){
+
+        $course = Course::where('id', '=', $courseid)->first();
+        $userid   = Auth::user()->id;
+        $student = Student::where('user_id','=',$userid)->first();
+        $assignment = Assignment::where('id', '=', $assignmentid)->first();
+        $currentstudent = $student->id;
+        $currentassignment = $assignment->id;
+        $result = AssignmentSubmission::where('student_id','=',$currentstudent)->where('assignment_id','=',$currentassignment )->first();
+
+       return view('student/editSubmissionAssignment',['course' => $course,'assignment'=>$assignment,'result'=>$result]);
+
+    }
+
+
+    public function storeEditSubmissionAssignment(Request $request , $courseid , $assignmentid){
+
+        $course   = Course::where( 'id', '=', $courseid )->first();
+        $userid   = $request->user()->id;
+        $student = Student::where( 'user_id', '=', $userid )->first();
+        $assignment   = Assignment::where( 'id', '=', $assignmentid )->first();
+
+        if($request->has('attachment')){
+
+            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $courseID = $course->course_id;
+            $assignmentID = $assignment->assignment_id;
+            $path = 'public/Student Uploads/AssignmentSubmissions/'.$courseID.'/'.$assignmentID ;
+
+            $request->file('attachment')->storeAs($path,$fileNameWithExt);
+
+            $submitAssignment = AssignmentSubmission::find($assignmentid);
+            $submitAssignment->student_id = $student->id;
+            $submitAssignment->course_id =$courseid;
+            $submitAssignment->assignment_id =$assignmentid;
+            $submitAssignment->title = $request->title;
+            $submitAssignment->description = $request->description;
+            $submitAssignment->attachment = $fileName;
+            $submitAssignment->save();
+        }
+
+        else {
+
+            $submitAssignment = AssignmentSubmission::find($assignmentid);
+            $submitAssignment->student_id = $student->id;
+            $submitAssignment->course_id =$courseid;
+            $submitAssignment->assignment_id =$assignmentid;
+            $submitAssignment->title = $request->title;
+            $submitAssignment->description = $request->description;
+            $submitAssignment->attachment = NULL;
+            $submitAssignment->save();
+
+        }
+
+        return redirect( route( 'student-submitAssignment-get',['id' => $course->id,'id1' => $assignment->id]) );
+
+    }
 }
+
