@@ -35,6 +35,7 @@
                                         </ul>
                                     </dd>
                                 </dl>
+                                {{--<button class=""--}}
                                 <hr class="bg-dark">
                                 <dl class="row">
                                     <dt class="col-md-3">Lecturers Assigned</dt>
@@ -110,13 +111,23 @@
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
                                 @foreach($notices as $notice)
+                                  @if($notice->attachment==!NULL)
                                 <li class="list-group-item">
                                 <strong>{{$notice->title}}</strong>
                                  <p> {{ $notice->description }} </p>
-                                 <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                                 <a href="{{route('downloadNotice',['courseid' => $course->id,'noticeid' => $notice->id])}}" class="btn btn-primary btn-sm">Download</a>
                                  <p class="font-italic">Published on {{$notice->created_at}} </p>
+                                </li>
+                                  @else
+                                    <li class="list-group-item">
+                                        <strong>{{$notice->title}}</strong>
+                                        <p> {{ $notice->description }} </p>
+                                        <a href="#" class="btn btn-primary btn-sm disabled">Download</a
+                                        <p class="font-italic">Published on {{$notice->created_at}} </p>
+                                    </li>
+                                    @endif
                                   @endforeach
-                            </li>
+
                         </ul>
                     </div>
                     <!--/.Panel 1-->
@@ -124,14 +135,23 @@
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($lectureNotes as $lectureNote)
+                              @if($lectureNote->attachment==!NULL)
                             <li class="list-group-item">
                             <strong>{{$lectureNote->title}}</strong>
                             <p>{{$lectureNote->description}}</p>
-                            <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                            <a href="{{route('downloadLectureNote',['courseid' => $course->id,'$lectureNoteid' => $lectureNote->id])}}" class="btn btn-primary btn-sm">Download</a>
                             <p class="font-italic">Published {{ $lectureNote->created_at }}</p>
-                            @endforeach
                             </li>
-                        </ul>
+                             @else
+                                   <li class="list-group-item">
+                                   <strong>{{$lectureNote->title}}</strong>
+                                   <p>{{$lectureNote->description}}</p>
+                                   <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
+                                   <p class="font-italic">Published {{ $lectureNote->created_at }}</p>
+                                   </li>
+                             @endif
+                            @endforeach
+                            </ul>
                     </div>
 
                     <!--/.Panel 2-->
@@ -140,14 +160,26 @@
                         <ul class="list-group list-group-flush">
                             @if(count($results)==0)
                                 @foreach($assignments as $assignment)
+                                    @if($assignment->attachment==!NULL)
                                 <li class="list-group-item list-group-item-danger" >
                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                     <p>{{$assignment->description}}</p>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                    <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
                                     <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                     <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
                                 </li>
+                                    @else
+                                        <li class="list-group-item list-group-item-danger" >
+                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                            <p>{{$assignment->description}}</p>
+                                            <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
+                                            <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
+                                            <p class="font-italic">Published:{{$assignment->created_at}}</p>
+                                            <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                        </li>
+                                    @endif
+
                                 @endforeach
                             @else
                                 @foreach($assignments as $assignment)
@@ -155,26 +187,51 @@
                                     @foreach($results as $result)
                                     <?php $count=$count+1;  ?>
                                     @if($result->assignment_id == $assignment->id)
-                                        <li class="list-group-item list-group-item-success" >
+
+                                            @if($assignment->attachment==!NULL)
+                                                                                <li class="list-group-item list-group-item-success" >
                                             <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                             <p>{{$assignment->description}}</p>
-                                            <a href="#" class="btn btn-primary btn-sm">Download Info</a>
+                                            <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
                                             <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Edit Submission</a>
                                             <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                             <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
                                         </li>
-                                    @break
-                                    @elseif(count($results)==$count)
+                                                @break
+                                            @else
+                                                <li class="list-group-item list-group-item-success" >
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <p>{{$assignment->description}}</p>
+                                                    <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
+                                                    <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Edit Submission</a>
+                                                    <p class="font-italic">Published:{{$assignment->created_at}}</p>
+                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                </li>
+                                                @break
+                                            @endif
 
+                                    @elseif(count($results)==$count)
+                                            @if($assignment->attachment==!NULL)
                                        <li class="list-group-item list-group-item-danger" >
                                                 <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                 <p>{{$assignment->description}}</p>
-                                                <a href="#" class="btn btn-primary btn-sm">Download Info</a>
+                                                 <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
                                                 <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
                                                 <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                                 <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
-                                            </li>
+                                       </li>
                                     @break
+                                    @else
+                                                <li class="list-group-item list-group-item-danger" >
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <p>{{$assignment->description}}</p>
+                                                    <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
+                                                    <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
+                                                    <p class="font-italic">Published:{{$assignment->created_at}}</p>
+                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                </li>
+
+                                    @endif
                                     @endif
                                      @endforeach
                                 @endforeach
@@ -187,28 +244,44 @@
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($submissions as $submission)
-                            <li class="list-group-item">
-                                <strong>{{$submission->title}}</strong>
-                                <p>{{$submission->description}}</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
-                                <p class="font-italic">Published:{{$submission->created_at}}</p>
-                                <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                              @if($submission->attachment==!NULL)
+                                    <li class="list-group-item">
+                                    <strong>{{$submission->title}}</strong>
+                                    <p>{{$submission->description}}</p>
+                                    <a href="{{route('downloadSubmission',['courseid' => $course->id,'submissionid' => $submission->id])}}" class="btn btn-primary btn-sm">Download</a>
+                                    <p class="font-italic">Published:{{$submission->created_at}}</p>
+                                    <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                                    </li>
+
+                                @else
+                                    <li class="list-group-item">
+                                        <strong>{{$submission->title}}</strong>
+                                        <p>{{$submission->description}}</p>
+                                        <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
+                                        <p class="font-italic">Published:{{$submission->created_at}}</p>
+                                        <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                                    </li>
+                                @endif
+
+
                             @endforeach
-                            </li>
                         </ul>
                     </div>
                     <!--/.Panel 4-->
                     <!--Panel 5-->
                     <div class="tab-pane fade" id="quizzes" role="tabpanel">
                         <ul class="list-group list-group-flush">
+                            {{--@foreach($download as $down)--}}
                             <li class="list-group-item">
-                                <strong>Title</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error
-                                    excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda
-                                    laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Go to</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
-                                <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
+                                {{--<strong>{{$down->description}}</strong>--}}
+                                {{--<a href="{{route('downloadAssignment')}}"><button>Download</button></a>--}}
+                                {{--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error--}}
+                                    {{--excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda--}}
+                                    {{--laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>--}}
+                                {{--<a href="Downloads/{{$down->assignment_id}}" download="{{$down->assignment_id}}">Go to</a>--}}
+                                {{--<p class="font-italic">Published on {{ now() }}</p>--}}
+                                {{--<p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>--}}
+                             {{--@endforeach--}}
                             </li>
                         </ul>
                     </div>
