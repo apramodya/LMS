@@ -98,7 +98,7 @@
                         <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments <span class="badge badge-pill badge-danger">New</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Submissions</a>
+                        <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Tasks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes</a>
@@ -189,7 +189,7 @@
                                     @if($result->assignment_id == $assignment->id)
 
                                             @if($assignment->attachment==!NULL)
-                                                                                <li class="list-group-item list-group-item-success" >
+                                                <li class="list-group-item list-group-item-success" >
                                             <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                             <p>{{$assignment->description}}</p>
                                             <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
@@ -246,7 +246,7 @@
                             @foreach($submissions as $submission)
                               @if($submission->attachment==!NULL)
                                     <li class="list-group-item">
-                                    <strong>{{$submission->title}}</strong>
+                                     <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
                                     <p>{{$submission->description}}</p>
                                     <a href="{{route('downloadSubmission',['courseid' => $course->id,'submissionid' => $submission->id])}}" class="btn btn-primary btn-sm">Download</a>
                                     <p class="font-italic">Published:{{$submission->created_at}}</p>
@@ -255,7 +255,7 @@
 
                                 @else
                                     <li class="list-group-item">
-                                        <strong>{{$submission->title}}</strong>
+                                        <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
                                         <p>{{$submission->description}}</p>
                                         <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
@@ -264,9 +264,9 @@
                                 @endif
 
 
-                            @endforeach
-                        </ul>
-                    </div>
+                @endforeach
+                </ul>
+                </div>
                     <!--/.Panel 4-->
                     <!--Panel 5-->
                     <div class="tab-pane fade" id="quizzes" role="tabpanel">

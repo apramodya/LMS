@@ -77,9 +77,10 @@ Route::get('/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerController
 Route::get('/lecturer/course/forum/{id}', 'LecturerController@viewForum')->name('lecturer-forum');
 
 /** Student Controller  */
+
 Route::get('/student/courses', 'StudentController@courses')->name('student-courses');
 Route::get('/student/course/{id}', 'StudentController@getCourse')->name('student-course');
-#Upload Assignments
+#Assignment Submissions
 Route::get('/student/course/{courseid}/submit-assignment/{assignmentid}', 'StudentController@getSubmitAssignment')->name('student-submitAssignment-get');
 Route::post('/student/course/{courseid}/submit-assignment/{assignmentid}', 'StudentController@storeSubmitAssignment')->name('student-submitAssignment');
 Route::get('/student/course/{id}/submit-quiz', 'StudentController@submitQuiz')->name('student-submitQuiz');
@@ -94,7 +95,10 @@ route::get('/student/course/{courseid}/download-lecture-note/{lectureNoteid}','S
 route::get('/student/course/{courseid}/download-assignment/{assignmentid}','StudentController@downloadAssignment')->name('downloadAssignment');
 #Download Submission
 route::get('/student/course/{courseid}/submission/{submissionid}','StudentController@downloadSubmission')->name('downloadSubmission');
-
+#Submission , submissions
+Route::get('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@getSubmissions')->name('student-submit-submissions');
+Route::post('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@postSubmissions')->name('student-submit-submissions');
+#edit
 
 
 #course actions

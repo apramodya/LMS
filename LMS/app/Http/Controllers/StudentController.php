@@ -11,6 +11,7 @@ use App\Notice;
 use App\Student;
 use App\Submission;
 use App\SubmitAssignment;
+use App\SubmitSubmission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -247,6 +248,60 @@ class StudentController extends Controller
 
         $filepath     = base_path() . '/public/uploads/' . $courseID . '/submissions/'.$submissionID.'/'. $filename;
         return response()->download($filepath);
+    }
+
+    public function getSubmissions($courseid, $submissionid)
+    {
+        $course = Course::where('id', '=', $courseid)->first();
+        $userid = Auth::user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+        $submission = Assignment::where('id', '=', $submissionid)->first();
+        $currentStudent = $student->id;
+        $currentSubmission = $submission->id;
+        $result = SubmitSubmission::where('student_id', '=', $currentStudent)->where('submission_id', '=', $currentSubmission)->first();
+        return view('student/submitSubmission', ['course' => $course, 'submission' => $submission, 'result' => $result]);
+    }
+
+    public function postSubmissions(Request $request, $courseid, $submissionid)
+    {
+
+        $course = Course::where('id', '=', $courseid)->first();
+        $userid = $request->user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+        $submisssion = Assignment::where('id', '=', $submissionid)->first();
+
+        if ($request->has('attachment')) {
+
+            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $courseID = $course->course_id;
+            $submissionID = $submisssion->submisssion_id;
+            $path = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+
+            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+
+            $submitTask = new SubmitSubmission();
+            $submitTask->student_id = $student->id;
+            $submitTask->course_id = $courseid;
+            $submitTask->submission_id = $submissionid;
+            $submitTask->title = $request->title;
+            $submitTask->description = $request->description;
+            $submitTask->attachment = $fileName;
+            $submitTask->save();
+        } else
+        {
+
+            $submitTask = SubmitSubmission::find($submissionid);
+            $submitTask->student_id = $student->id;
+            $submitTask->course_id = $courseid;
+            $submitTask->submission_id = $submissionid;
+            $submitTask->title = $request->title;
+            $submitTask->description = $request->description;
+            $submitTask->attachment = NULL;
+            $submitTask->save();
+
+        }
+        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submisssion->id]));
     }
 
 
