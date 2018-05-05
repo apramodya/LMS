@@ -99,6 +99,10 @@ route::get('/student/course/{courseid}/submission/{submissionid}','StudentContro
 Route::get('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@getSubmissions')->name('student-submit-submissions');
 Route::post('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@postSubmissions')->name('student-submit-submissions');
 #edit
+Route::post('/student/course/{courseid}/edit-task/{submissionid}', 'StudentController@editTaskSubmissions')->name('edit-student-task');
+
+
+//Route::get('/student/course/{courseid}/delete-task/{submissionid}', 'StudentController@deleterow')->name('deleteme');
 
 
 #course actions

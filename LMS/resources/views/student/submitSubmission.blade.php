@@ -95,12 +95,13 @@
                                 <div class="jumbotron">
                                     <div class="row">
                                         <div class="col-md-8 offset-2">
+                                            {{--{{dd($submission->id)}}--}}
 
-                                           {{--<form method="post" action="{{ action('edit-student-submit-submissions', ['courseid' => $course->id,'submissionid' => $submission->id])}}" enctype="multipart/form-data">--}}
+                                           <form method="post" action="{{ route('edit-student-task', ['courseid' => $course->id,'submissionid' => $result->id])}}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="title">Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title">
+                                                    <input type="text" class="form-control" id="title" name="title" value="{{$result->title}}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="description">Description</label>
@@ -120,8 +121,8 @@
 
                         @endif
                     </div>
-
 @endsection
+
 
 
 
