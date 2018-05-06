@@ -52,8 +52,43 @@
                                     <dt class="col-md-3">Time</dt>
                                     <dd class="col-md-8">
                                         <ul>
-
+                                            <span class="rgba-purple-strong" id="countdown"></span>
                                         </ul>
+
+                                        <script>
+
+
+                                            var day = @json($submission->end_date);
+                                            {{--var time = @json("$submission->end_time");--}}
+
+                                                    {{--{{dd($assignment->end_date)}}--}}
+
+                                                    {{--var countDownDate = new Date({{$assignment->end_date}}).getTime();--}}
+                                            var countDownDate = new Date(day).getTime();
+
+                                            var x = setInterval(function() {
+
+                                                var now = new Date().getTime();
+
+
+                                                var distance = countDownDate - now;
+
+                                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                                document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+                                                    + minutes + "m " + seconds + "s ";
+
+                                                if (distance < 0) {
+                                                    clearInterval(x);
+                                                    document.getElementById("countdown").innerHTML = "EXPIRED";
+                                                }
+                                            }, 1000);
+                                        </script>
+
+
                                     </dd>
                                 </dl>
                             </div>
