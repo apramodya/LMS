@@ -59,12 +59,15 @@
 
 
                                             var day = @json($submission->end_date);
+                                            var time = @json($submission->end_time);
+
+                                            var datetime = day + " " + time;
                                             {{--var time = @json("$submission->end_time");--}}
 
                                                     {{--{{dd($assignment->end_date)}}--}}
 
                                                     {{--var countDownDate = new Date({{$assignment->end_date}}).getTime();--}}
-                                            var countDownDate = new Date(day).getTime();
+                                            var countDownDate = new Date(datetime).getTime();
 
                                             var x = setInterval(function() {
 

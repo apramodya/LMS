@@ -91,6 +91,7 @@ class StudentController extends Controller
         $course = Course::findOrFail($request->course_id);
         $course->students()->detach($student->id);
 
+
         return redirect(route('student-course-action'));
     }
 
@@ -103,6 +104,17 @@ class StudentController extends Controller
         $currentstudent = $student->id;
         $currentassignment = $assignment->id;
         $result = AssignmentSubmission::where('student_id', '=', $currentstudent)->where('assignment_id', '=', $currentassignment)->first();
+        $ldate = date('Y-m-d H:i:s');
+
+
+//        $date = new \DateTime("2006-12-12");
+//        $date->modify("+7 day");
+//        $dat = $date->format("Y-m-d");
+//        $end 	= date_create();
+//
+////        $date1 = new \DateTime("now");
+//
+//        return $end;
         return view('student/submitAssignment', ['course' => $course, 'assignment' => $assignment, 'result' => $result]);
     }
 
@@ -216,6 +228,7 @@ class StudentController extends Controller
 
         $filepath     = base_path() . '/public/uploads/' . $courseID . '/notices/'.$filename;
         return response()->download($filepath);
+//        return response()->file($filepath);
     }
 
     public function downloadLectureNote($courseid,$lectureNoteid)
@@ -229,6 +242,7 @@ class StudentController extends Controller
         return response()->download($filepath);
     }
 
+
     public function downloadAssignment($courseid,$assignmentid)
     {
         $course = Course::where('id','=',$courseid)->first();
@@ -239,6 +253,9 @@ class StudentController extends Controller
 
         $filepath     = base_path() . '/public/uploads/' . $courseID . '/assignments/'.$assignmentID.'/'. $filename;
         return response()->download($filepath);
+
+
+
     }
 
     public function downloadSubmission($courseid,$submissionid)
@@ -353,19 +370,34 @@ class StudentController extends Controller
     }
 
 
-    public function deleterow($courseid, $submissionid)
-    {
+    public function studentExamMedicals(){
 
-//        $user = DB::table('submit_submissions')->where('submission_id', '1')->first();
-//        DB::table('submit_submissions')->where('submission_id', '==', '1')->delete();
-
-        $del = SubmitSubmission::find($submissionid);
-        $del->delete();
-
-//        dd($submissionid);
-        return 123;
-
-
+        return view('student/examMedicals');
     }
+
+    public function studentAttendaceExcuses(){
+
+        return view('student/studentAttendaceExcuses');
+    }
+
+
+//    public function Testing()
+//    {
+//
+////        $user = DB::table('submit_submissions')->where('submission_id', '1')->first();
+////        DB::table('submit_submissions')->where('submission_id', '==', '1')->delete();
+//
+////        $del = SubmitSubmission::find($submissionid);
+////        $del->delete();
+//
+////        dd($submissionid);
+
+
+////
+////        return 123;
+//
+//
+//    }
+
 }
 

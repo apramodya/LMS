@@ -14,11 +14,11 @@
                 </div>
 
                 <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action">Subject Selection</a>
+                    <a href="{{route('student-attendace-excuses')}}" class="list-group-item list-group-item-action">Request Excuses For Attendance</a>
                 </div>
 
                 <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action">Submit Medicals</a>
+                    <a href="{{ route('student-exam-medicals') }}" class="list-group-item list-group-item-action">Submit Medicals</a>
                 </div>
 
             </div>

@@ -98,11 +98,16 @@ route::get('/student/course/{courseid}/submission/{submissionid}','StudentContro
 #Submission , submissions
 Route::get('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@getSubmissions')->name('student-submit-submissions');
 Route::post('/student/course/{courseid}/submit-task/{submissionid}', 'StudentController@postSubmissions')->name('student-submit-submissions');
-#edit
+#edit Task Submission
 Route::post('/student/course/{courseid}/edit-task/{submissionid}', 'StudentController@editTaskSubmissions')->name('edit-student-task');
+#Student Medicals
+Route::get('/student/exam-medical/', 'StudentController@studentExamMedicals')->name('student-exam-medicals');
+
+Route::get('/student/attendance-excuses/', 'StudentController@studentAttendaceExcuses')->name('student-attendace-excuses');
 
 
-//Route::get('/student/course/{courseid}/delete-task/{submissionid}', 'StudentController@deleterow')->name('deleteme');
+
+Route::get('/student/course/test', 'StudentController@Testing')->name('Test');
 
 
 #course actions

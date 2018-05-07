@@ -58,12 +58,16 @@
                                         <script>
 
 
-                                            var deadline = @json($assignment->end_date);
+                                            var day = @json($assignment->end_date);
+                                            var time = @json($assignment->end_time);
 
-                                            {{--{{dd($assignment->end_date)}}--}}
+                                            var datetime = day + " " + time;
+                                                    {{--var time = @json("$submission->end_time");--}}
 
-                                            {{--var countDownDate = new Date({{$assignment->end_date}}).getTime();--}}
-                                            var countDownDate = new Date(deadline).getTime();
+                                                    {{--{{dd($assignment->end_date)}}--}}
+
+                                                    {{--var countDownDate = new Date({{$assignment->end_date}}).getTime();--}}
+                                            var countDownDate = new Date(datetime).getTime();
 
                                             var x = setInterval(function() {
 
