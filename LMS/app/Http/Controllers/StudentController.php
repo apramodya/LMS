@@ -372,12 +372,21 @@ class StudentController extends Controller
 
     public function studentExamMedicals(){
 
-        return view('student/examMedicals');
+        $courses = Auth::user()->students->first()->courses;
+        $userid = Auth::user()->id;
+        $students = Student::where('user_id', '=', $userid)->first();
+
+        return view('student/examMedicals',['courses'=>$courses,'student'=>$students]);
     }
 
     public function studentAttendaceExcuses(){
 
-        return view('student/studentAttendaceExcuses');
+        $courses = Auth::user()->students->first()->courses;
+        $userid = Auth::user()->id;
+        $students = Student::where('user_id', '=', $userid)->first();
+
+
+        return view('student/studentAttendaceExcuses',['courses'=>$courses,'student'=>$students]);
     }
 
 
@@ -398,6 +407,10 @@ class StudentController extends Controller
 //
 //
 //    }
+
+  
+
+}
 
 }
 

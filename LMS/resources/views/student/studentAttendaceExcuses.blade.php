@@ -11,18 +11,28 @@
                         @csrf
                         {{--<div class="row">--}}
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <label for="name"><strong>Name in Full</strong></label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="fname"><strong>First Name</strong></label>
+                                <input type="text" class="form-control" id="fname" name="fname" disabled value="{{$student->first_name}}">
 
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="degree"><strong>Last Name</strong></label>
+                                <input type="text" class="form-control" id="fname" name="fname" disabled value="{{$student->last_name}}">
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
 
                         <div class="col-4">
                             <label for="name"><strong>Registration Number</strong></label>
-                            <input type="text" class="form-control" id="registration" name="registration" required>
+                            <input type="text" class="form-control" id="registration" name="registration" disabled value="{{$student->index_number}}">
                         </div>
 
                             <div class="col-4">
@@ -120,8 +130,14 @@
                         </div>
 
                     <div class="row">
-                    <label>Statement of student:</label>
-                    I hereby requesting you to excuse me from the above lecture/ lectures. The submitted details and the proof documents are true and accurate according to my knowledge. If in the event it is proved that I have provided forge details I am liable to cancel my excuse for the lectures and considered as absent in the calculation of attendance and other disciplinary actions (if any).
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label><strong>Statement of student:</strong></label>
+                                <textarea type="text" class="form-control" id="remarks" name="remarks" >
+                                I hereby requesting you to excuse me from the above lecture/ lectures. The submitted details and the proof documents are true and accurate according to my knowledge. If in the event it is proved that I have provided forge details I am liable to cancel my excuse for the lectures and considered as absent in the calculation of attendance and other disciplinary actions (if any).
+                                </textarea>
+                    </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
