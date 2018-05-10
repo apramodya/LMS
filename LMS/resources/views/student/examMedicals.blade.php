@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('title')
-    Add Course
+   Examination Medicals
 @endsection
 @section('content')
     <div class="container">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    {{--<form method="post" action="{{ route('') }}">--}}
+                    <form method="post" action="{{ route('submit-medical') }}" enctype="multipart/form-data">
+
                         @csrf
 
                             <div class="row">
@@ -112,11 +113,12 @@
 
 
                         </div>
-
-
+                        {{--<div class="row">--}}
 
                         <button type="submit" class="btn btn-primary">Submit</button>
+
                     </form>
+
                 </div>
             </div>
         </div>

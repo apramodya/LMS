@@ -12,10 +12,12 @@ use App\Student;
 use App\Submission;
 use App\SubmitAssignment;
 use App\SubmitSubmission;
+use App\MedicalReports;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+Use PDF;
 
 class StudentController extends Controller
 {
@@ -87,8 +89,8 @@ class StudentController extends Controller
     {
 
         $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
         $course = Course::findOrFail($request->course_id);
+        $student = Student::where('user_id', '=', $userid)->first();
         $course->students()->detach($student->id);
 
 
@@ -389,6 +391,48 @@ class StudentController extends Controller
         return view('student/studentAttendaceExcuses',['courses'=>$courses,'student'=>$students]);
     }
 
+    public function storeMedicalPDF(Request $request )
+    {
+        $userid = $request->user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+        if ($request->has('attachment')) {
+
+            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $courseID = $request->course_name;
+            $path = 'public/Student Uploads/Medical Reports/' . $courseID;
+
+            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+
+            $report = new MedicalReports();
+            $report->student_id = $student->id;
+            $report->course_id = $request->course_id;
+            $report->causes = $request->causes;
+            $report->remarks = $request->remarks;
+            $report->attachment = $fileName;
+            $report->save();
+
+        } else {
+            $report = new MedicalReports();
+            $report->student_id = $student->id;
+            $report->course_id = $request->course_id;
+            $report->causes = $request->causes;
+            $report->remarks = $request->remarks;
+            $report->attachment = NULL;
+            $report->save();
+
+            return view('student/MedicalReport');
+
+
+        }
+    }
+
+    public function generateMedicalPDF(){
+        $data=['Naveen'];
+        $pdf = PDF::loadView('student/invoice', $data);
+        return $pdf->download('invoice.pdf');
+    }
+
 
 //    public function Testing()
 //    {
@@ -408,9 +452,9 @@ class StudentController extends Controller
 //
 //    }
 
-  
 
-}
+
+
 
 }
 
