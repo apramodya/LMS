@@ -80,7 +80,7 @@ class AdminController extends Controller
 
             $lecturer->save();
 
-            return redirect(route('admin-lecture', $lecturer->id));
+            return redirect(route('admin-lecturer', $lecturer->id));
         }
 
     }
