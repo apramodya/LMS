@@ -101,10 +101,12 @@ Route::post('/student/course/{courseid}/submit-task/{submissionid}', 'StudentCon
 #edit Task Submission
 Route::post('/student/course/{courseid}/edit-task/{submissionid}', 'StudentController@editTaskSubmissions')->name('edit-student-task');
 
-#Student Medicals
-Route::get('/student/exam-medical/', 'StudentController@studentExamMedicals')->name('student-exam-medicals');
 #Student Attendance Excuses
 Route::get('/student/attendance-excuses/', 'StudentController@studentAttendaceExcuses')->name('student-attendace-excuses');
+
+
+#Student Medicals
+Route::get('/student/exam-medical/', 'StudentController@studentExamMedicals')->name('student-exam-medicals');
 
 #Pass values to generate PDF
 
@@ -112,7 +114,7 @@ Route::get('/student/attendance-excuses/', 'StudentController@studentAttendaceEx
 Route::post('/student/store-medical', 'StudentController@storeMedicalPDF')->name('submit-medical');
 
 
-Route::get('/student/store-medical/generate-medical', 'StudentController@generateMedicalPDF')->name('generate-medical');
+Route::get('/student/store-medical/generate-medical/{id}', 'StudentController@generateMedicalPDF')->name('generate-medical');
 
 
 #course actions

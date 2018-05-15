@@ -371,16 +371,6 @@ class StudentController extends Controller
 
     }
 
-
-    public function studentExamMedicals(){
-
-        $courses = Auth::user()->students->first()->courses;
-        $userid = Auth::user()->id;
-        $students = Student::where('user_id', '=', $userid)->first();
-
-        return view('student/examMedicals',['courses'=>$courses,'student'=>$students]);
-    }
-
     public function studentAttendaceExcuses(){
 
         $courses = Auth::user()->students->first()->courses;
@@ -391,10 +381,20 @@ class StudentController extends Controller
         return view('student/studentAttendaceExcuses',['courses'=>$courses,'student'=>$students]);
     }
 
+    public function studentExamMedicals(){
+
+        $courses = Auth::user()->students->first()->courses;
+        $userid = Auth::user()->id;
+        $students = Student::where('user_id', '=', $userid)->first();
+
+        return view('student/examMedicals',['courses'=>$courses,'student'=>$students]);
+    }
+
     public function storeMedicalPDF(Request $request )
     {
         $userid = $request->user()->id;
         $student = Student::where('user_id', '=', $userid)->first();
+
         if ($request->has('attachment')) {
 
             $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
@@ -407,10 +407,16 @@ class StudentController extends Controller
             $report = new MedicalReports();
             $report->student_id = $student->id;
             $report->course_id = $request->course_id;
+            $report->year = $request->input('years');
+            $report->semester = $request->input('semester');
             $report->causes = $request->causes;
             $report->remarks = $request->remarks;
             $report->attachment = $fileName;
+
             $report->save();
+
+            $lastInsertedID = $report->id;
+            $medical = MedicalReports::find($lastInsertedID);
 
         } else {
             $report = new MedicalReports();
@@ -421,16 +427,30 @@ class StudentController extends Controller
             $report->attachment = NULL;
             $report->save();
 
-            return view('student/MedicalReport');
-
-
         }
+
+        return view('student/MedicalReport',['lastID'=>$lastInsertedID,'medical'=>$medical,'student'=>$student]);
     }
 
-    public function generateMedicalPDF(){
-        $data=['Naveen'];
-        $pdf = PDF::loadView('student/invoice', $data);
-        return $pdf->download('invoice.pdf');
+    public function generateMedicalPDF($id){
+
+        $medical = MedicalReports::find($id);
+        $userid = Auth::user()->id;
+        $student = Student::where('user_id', '=', $userid)->first();
+
+        $pdf = PDF::loadView('student/convertedPdf', compact('medical','student'));
+        return $pdf->download('Medical_Report.pdf');
+
+
+
+//        $medical = MedicalReports::where('id', '=', $id)->first();
+//
+//        $a=$medical->id;
+//
+//
+//        return $a;
+
+
     }
 
 

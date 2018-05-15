@@ -39,8 +39,8 @@
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="year"><strong>Year</strong></label>
-                                    <select class="form-control" id="year" name="year">
+                                    <label for="years"><strong>Year</strong></label>
+                                    <select class="form-control" id="years" name="years">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -63,7 +63,7 @@
                         <div class="col-4">
                         <div class="form-group">
                             <label for="name"><strong>Course Name</strong></label>
-                            <select class="form-control" id="course_name" name="year">
+                            <select class="form-control" id="course_name" name="course_name">
                                 $count=0;
                                 @foreach($courses as $course)
                                     $count=$count+1;

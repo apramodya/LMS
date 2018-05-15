@@ -17,6 +17,8 @@ class CreateMedicalReportsTable extends Migration
             $table->increments('id');
             $table->string('student_id');
             $table->string('course_id');
+            $table->string('year');
+            $table->string('semester');
             $table->text('causes');
             $table->text('remarks');
             $table->string('attachment')->nullable();
