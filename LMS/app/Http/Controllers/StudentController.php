@@ -63,7 +63,10 @@ class StudentController extends Controller
     public function courseAction()
     {
         $courses = Course::all();
-        return view('student/student-enroll-course', ['courses' => $courses]);
+        $enrolledCourses = DB::table('courses_students')->select('course_id')->get();
+        $courseCount = count($enrolledCourses);
+
+        return view('student/student-enroll-course', ['courses' => $courses , 'enrolledCourses' => $enrolledCourses , 'courseCount'=>$courseCount]);
     }
 
 //    public function postEnrollCourse(Request $request){

@@ -122,7 +122,7 @@
                                     <li class="list-group-item">
                                         <strong>{{$notice->title}}</strong>
                                         <p> {{ $notice->description }} </p>
-                                        <a href="#" class="btn btn-primary btn-sm disabled">Download</a
+                                        <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                         <p class="font-italic">Published on {{$notice->created_at}} </p>
                                     </li>
                                     @endif

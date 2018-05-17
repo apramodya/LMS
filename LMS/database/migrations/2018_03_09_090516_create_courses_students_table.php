@@ -16,7 +16,7 @@ class CreateCoursesStudentsTable extends Migration
         Schema::create('courses_students', function (Blueprint $table) {
             $table->increments('id');
             $table->string('student_id');
-            $table->string('course_id');
+            $table->integer('course_id');
             $table->string('final_grade')->nullable();
             $table->timestamps();
 

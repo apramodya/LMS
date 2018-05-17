@@ -1,39 +1,3 @@
-{{--@extends('layouts.app')--}}
-{{--@section('title')--}}
-    {{--Enroll Course--}}
-{{--@endsection--}}
-{{--@section('content')--}}
-    {{--<div class="container">--}}
-        {{--<div class="jumbotron">--}}
-            {{--<div class="row">--}}
-                {{--<div class="col-md-8 offset-2">--}}
-                    {{--<form method="post" action="{{ route('student-enroll-course') }}">--}}
-                        {{--@csrf--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-12">--}}
-                                {{--<div class="form-group">--}}
-                                    {{--<label for="course">Course</label>--}}
-                                    {{--<select class="form-control" id="course" name="course_id">--}}
-                                        {{--<option>Choose Course</option>--}}
-                                        {{--@foreach($courses as $course)--}}
-                                            {{--<option value="{{ $course->id }}">{{ $course->name }} | {{ $course->course_id }}</option>--}}
-                                        {{--@endforeach--}}
-                                    {{--</select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-md-4 offset-4">--}}
-                                {{--<button type="submit" class="btn btn-sm btn-primary">Enroll Course</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--@endsection--}}
-
 @extends('layouts.app')
 @section('title')
    Course Actions
@@ -54,14 +18,27 @@
                 </thead>
                 <tbody>
                 @foreach($courses as $course)
+                    <?php $count=0;  ?>
                     <tr>
                         <td scope="row">{{ $loop->index + 1}}</td>
                         <td class="font-weight-bold">{{ $course->name }}</td>
                         <td class="font-weight-bold">{{ $course->course_id }}</td>
                         <td class="font-weight-bold">{{ $course->year }}</td>
-                        <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue">Enroll</a></td>
-                        <td><a class="btn btn red" data-toggle="modal"
-                               data-target="#unenrollmodel">unenroll</a></td>
+
+                        @foreach($enrolledCourses as $enrolledCourse)
+                            
+                            @if($enrolledCourse->course_id == $course->id)
+                                <td> <a class="btn btn-blue disabled">Enroll</a></td>
+                                <td><a class="btn btn red" data-toggle="modal" data-target="#unenrollmodel">unenroll</a></td>
+                            @else
+                                <?php $count=$count+1;  ?>
+                                @if($courseCount == $count)
+                                        <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue">Enroll</a></td>
+                                        <td><a class="btn btn red disabled">unenroll</a></td>
+                                    @endif
+                                    @endif
+                        @endforeach
+
                     </tr>
                 @endforeach
                 </tbody>
