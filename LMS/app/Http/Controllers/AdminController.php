@@ -81,6 +81,42 @@ class AdminController extends Controller {
 
 	}
 
+	public function getEnrollBatch() {
+		return view( 'auth.batch-enroll' );
+	}
+
+	public function postEnrollBatch( Request $request ) {
+
+
+		if ( $request->hasFile( 'attachment' ) ) {
+			//$request->attachment->storeAs( $course_id, $request->attachment->getClientOriginalName());
+			$students = csv2json( $request->attachment );
+			$students = json_decode( $students );
+			foreach ( $students as $student ) {
+				$user           = new User();
+				$user->username = $student->index_number;
+				$user->password = Hash::make( $student->index_number );
+				$user->type     = 'student';
+				$user->save();
+
+				$s                    = new Student();
+				$s->first_name        = $student->first_name;
+				$s->last_name         = $student->last_name;
+				$s->email             = $student->email;
+				$s->phone             = $student->phone;
+				$s->registration_year = $student->registration_year;
+				$s->index_number      = $student->index_number;
+				$s->degree            = $student->degree;
+				$s->user_id           = $user->id;
+				$s->academic_year     = $request->academic_year;
+				$s->save();
+			}
+		dd('done');
+		}
+
+		return redirect( route( 'batch-enroll' ) );
+	}
+
 	public function getAnnounce() {
 		return view( 'admin/announcements/create-announcement' );
 	}

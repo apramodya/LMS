@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->integer('registration_year');
+	        $table->string('academic_year')->nullable();
             $table->integer('index_number');
             $table->string('degree');
             $table->integer('user_id');
