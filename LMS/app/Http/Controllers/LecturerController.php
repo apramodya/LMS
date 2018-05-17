@@ -433,6 +433,10 @@ class LecturerController extends Controller {
 			$notice->save();
 		}
 
+		if ( $notice->sms == 1 ) {
+			sms( $notice->description );
+		}
+
 		return redirect( route( 'lecturer-course', $id ) );
 	}
 
