@@ -16,7 +16,8 @@
                                     <select class="form-control" id="course" name="course_id">
                                         <option>Choose</option>
                                         @foreach($courses as $course)
-                                            <option value="{{ $course->id }}">{{ $course->name }} | {{ $course->course_id }}</option>
+                                            <option value="{{ $course->id }}">{{ $course->name }}
+                                                | {{ $course->course_id }}</option>
                                         @endforeach
                                     </select>
                                 </div>

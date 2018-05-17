@@ -55,7 +55,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="enrollment_key">Enrollment Key</label>
-                                    <input type="text" class="form-control" id="enrollment_key" name="enrollment_key" required>
+                                    <input type="text" class="form-control" id="enrollment_key" name="enrollment_key"
+                                           required>
                                 </div>
                             </div>
                         </div>

@@ -5,6 +5,10 @@ function degreeName($degree)
 {
     if ($degree == 'CS' || $degree == 'cs') return 'Computer Science';
     elseif ($degree == 'IS' || $degree == 'is') return 'Information Systems';
+    elseif ( $degree == 'both' ) {
+	    return 'CS and IS';
+    }
+
 }
 
 // count number of lecturers

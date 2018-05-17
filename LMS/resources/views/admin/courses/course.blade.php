@@ -16,7 +16,8 @@
                             <dd class="col-md-7">
                                 <a href="{{ route('admin-forum', ['course_id' => $course->id]) }}"
                                    class="btn btn-outline-primary btn-sm">Forum</a>
-                                <a href="" class="btn btn-outline-primary btn-sm">Edit Course Details</a>
+                                <a href="{{ route('edit-course', ['course_id' => $course->id]) }}"
+                                   class="btn btn-outline-primary btn-sm">Edit Course Details</a>
                             </dd>
                         </dl>
                         <hr class="bg-dark">
