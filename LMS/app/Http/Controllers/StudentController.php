@@ -66,7 +66,7 @@ class StudentController extends Controller
         $enrolledCourses = DB::table('courses_students')->select('course_id')->get();
         $courseCount = count($enrolledCourses);
 
-        return view('student/student-enroll-course', ['courses' => $courses , 'enrolledCourses' => $enrolledCourses , 'courseCount'=>$courseCount]);
+        return view('student/student-enroll-course', ['courses' => $courses , 'enrolledCourses' => $enrolledCourses , 'php courseCount'=>$courseCount]);
     }
 
 //    public function postEnrollCourse(Request $request){

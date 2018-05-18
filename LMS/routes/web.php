@@ -128,6 +128,11 @@ Route::get( '/student/enroll-course/{id}', 'StudentController@enrollCourse' )->n
 Route::get( '/student/unenroll-course', 'StudentController@unEnrollCourse' )->name( 'student-unenroll-course' );
 
 
+/**Email Controller */
+
+Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user');
+
+
 /** Exam Controller  */
 Route::get( '/add-results', 'ExamController@getAddResults' )->name( 'add-results' );
 Route::post( '/add-results', 'ExamController@postAddResults' )->name( 'add-results' );

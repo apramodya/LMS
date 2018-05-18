@@ -25,4 +25,25 @@
 
         </div>
     </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Connect
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="{{ route('email-user') }}" class="list-group-item list-group-item-action">Email Users</a>
+                </div>
+
+                <div class="list-group">
+                    <a href="" class="list-group-item list-group-item-action">View Users </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 </div>
+
