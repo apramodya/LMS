@@ -8,6 +8,8 @@ use App\Course;
 use App\EnrollStudent;
 use App\LectureNote;
 use App\Notice;
+use App\Quiz;
+use App\QuizQuestion;
 use App\Student;
 use App\Submission;
 use App\SubmitAssignment;
@@ -48,6 +50,7 @@ class StudentController extends Controller
         $res = SubmitSubmission::where('student_id', '=', $currentstudent)->where('course_id', '=', $id)->get();
 
         $count = 0;
+
         $quiz= Quiz::where('course_id', '=', $id)->get();
 
         return view('student/course', ['course' => $course, 'assignments' => $assignments, 'notices' => $notices, 'lectureNotes' => $lectureNotes, 'submissions' => $submissions, 'results' => $results, 'count' => $count,'res'=>$res,'quizes'=>$quiz]);
@@ -59,11 +62,13 @@ class StudentController extends Controller
 
         return view('student/submitQuiz', ['course' => $course]);
     }
-    public function showQuizz()
+    public function showQuizz($id)
     {
-//        $course = Course::where('course_id', '=', $id)->first();
+        $quiz = QuizQuestion::where('quiz_id', '=', $id)->get();
 
-        return view('student/showQuiz');
+
+
+        return view('student/showQuiz',['quizes'=>$quiz]);
 
 //        return view('student/showQuiz', ['course' => $course]);
     }
