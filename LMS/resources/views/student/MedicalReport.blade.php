@@ -91,7 +91,6 @@
 
                                         <a href="{{route('generate-medical',['id' => $lastID])}}"><button class="btn btn-primary">Generate PDF</button></a>
 
-
                                     </div>
                                 </div>
                             </div>
