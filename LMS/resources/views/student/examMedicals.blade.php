@@ -68,6 +68,7 @@
                                 @foreach($courses as $course)
                                     $count=$count+1;
                                 <option value="$count">{{$course->name}}</option>
+
                                     @endforeach
 
                             </select>
