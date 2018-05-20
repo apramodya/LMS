@@ -271,20 +271,24 @@
                     <!--Panel 5-->
                     <div class="tab-pane fade" id="quizzes" role="tabpanel">
                         <ul class="list-group list-group-flush">
-                            {{--@foreach($download as $down)--}}
-                            <li class="list-group-item">
-                                {{--<strong>{{$down->description}}</strong>--}}
-                                {{--<a href="{{route('downloadAssignment')}}"><button>Download</button></a>--}}
-                                {{--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dicta earum error--}}
-                                    {{--excepturi, ipsa ipsam possimus quam quidem ratione recusandae. Ad amet assumenda--}}
-                                    {{--laudantium officia pariatur, quia recusandae voluptatibus voluptatum?</p>--}}
-                                {{--<a href="Downloads/{{$down->assignment_id}}" download="{{$down->assignment_id}}">Go to</a>--}}
-                                {{--<p class="font-italic">Published on {{ now() }}</p>--}}
-                                {{--<p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>--}}
-                             {{--@endforeach--}}
-                            </li>
+                            @foreach($quizes as $quiz)
+
+                                <li class="list-group-item">
+
+                                    <p>{{$quiz->quiz_name}}</p>
+                                    {{--<a href="{{route('Quiz-Student')}}" class="btn btn-primary btn-sm">Download</a>--}}
+
+                                    {{--<a href="{{route('student-quiz-get')}}" class="btn btn-primary btn-sm ">Take Quiz</a>--}}
+                                    <p class="font-italic">Published:{{$quiz->created_at}}</p>
+                                    <a href="{{route('Quiz-Student')}}">Take Quiz</a>
+                                    {{--<a href="{{route('student-quiz-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">Take Quiz</a>--}}
+                                    {{--<p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>--}}
+                                </li>
+                            @endforeach
+
                         </ul>
                     </div>
+
                     <!--/.Panel 5-->
                 </div>
             </div>

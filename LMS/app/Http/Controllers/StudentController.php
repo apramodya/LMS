@@ -48,9 +48,9 @@ class StudentController extends Controller
         $res = SubmitSubmission::where('student_id', '=', $currentstudent)->where('course_id', '=', $id)->get();
 
         $count = 0;
+        $quiz= Quiz::where('course_id', '=', $id)->get();
 
-
-        return view('student/course', ['course' => $course, 'assignments' => $assignments, 'notices' => $notices, 'lectureNotes' => $lectureNotes, 'submissions' => $submissions, 'results' => $results, 'count' => $count,'res'=>$res]);
+        return view('student/course', ['course' => $course, 'assignments' => $assignments, 'notices' => $notices, 'lectureNotes' => $lectureNotes, 'submissions' => $submissions, 'results' => $results, 'count' => $count,'res'=>$res,'quizes'=>$quiz]);
     }
 
     public function submitQuiz($id)
@@ -58,6 +58,14 @@ class StudentController extends Controller
         $course = Course::where('course_id', '=', $id)->first();
 
         return view('student/submitQuiz', ['course' => $course]);
+    }
+    public function showQuizz()
+    {
+//        $course = Course::where('course_id', '=', $id)->first();
+
+        return view('student/showQuiz');
+
+//        return view('student/showQuiz', ['course' => $course]);
     }
 
     public function courseAction()

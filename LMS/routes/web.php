@@ -80,6 +80,8 @@ Route::get( '/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerControlle
 Route::get( '/lecturer/course/forum/{id}', 'LecturerController@viewForum' )->name( 'lecturer-forum' );
 
 /** Student Controller  */
+/**Quiz view*/
+route::get( '/student/course/quiz', 'StudentController@showQuizz' )->name( 'Quiz-Student' );
 
 Route::get( '/student/courses', 'StudentController@courses' )->name( 'student-courses' );
 Route::get( '/student/course/{id}', 'StudentController@getCourse' )->name( 'student-course' );
