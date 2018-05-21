@@ -21,66 +21,70 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 Use PDF;
 
-class StudentController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('student');
-    }
+class StudentController extends Controller {
+	public function __construct() {
+		$this->middleware( 'student' );
+	}
 
-    public function courses()
-    {
-        $courses = Auth::user()->students->first()->courses;
-        return view('student/mycourses', ['courses' => $courses]);
-    }
+	public function courses() {
+		$courses = Auth::user()->students->first()->courses;
 
-    public function getCourse($id)
-    {
-        $userid = Auth::user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
+		return view( 'student/mycourses', [ 'courses' => $courses ] );
+	}
 
-        $currentstudent = $student->id;
-        $course = Course::where('id', '=', $id)->first();
-        $assignments = Assignment::where('course_id', '=', $id)->get();
-        $notices = Notice::where('course_id', '=', $id)->get();
-        $lectureNotes = LectureNote::where('course_id', '=', $id)->get();
-        $submissions = Submission::where('course_id', '=', $id)->get();
-        $results = AssignmentSubmission::where('student_id', '=', $currentstudent)->where('course_id', '=', $id)->get();
+	public function getCourse( $id ) {
+		$userid  = Auth::user()->id;
+		$student = Student::where( 'user_id', '=', $userid )->first();
 
-        $res = SubmitSubmission::where('student_id', '=', $currentstudent)->where('course_id', '=', $id)->get();
+		$currentstudent = $student->id;
+		$course         = Course::where( 'id', '=', $id )->first();
+		$assignments    = Assignment::where( 'course_id', '=', $id )->get();
+		$notices        = Notice::where( 'course_id', '=', $id )->get();
+		$lectureNotes   = LectureNote::where( 'course_id', '=', $id )->get();
+		$submissions    = Submission::where( 'course_id', '=', $id )->get();
+		$results        = AssignmentSubmission::where( 'student_id', '=', $currentstudent )->where( 'course_id', '=', $id )->get();
 
-        $count = 0;
+		$res = SubmitSubmission::where( 'student_id', '=', $currentstudent )->where( 'course_id', '=', $id )->get();
 
-        $quiz= Quiz::where('course_id', '=', $id)->get();
+		$count = 0;
 
-        return view('student/course', ['course' => $course, 'assignments' => $assignments, 'notices' => $notices, 'lectureNotes' => $lectureNotes, 'submissions' => $submissions, 'results' => $results, 'count' => $count,'res'=>$res,'quizes'=>$quiz]);
-    }
+		$quiz = Quiz::where( 'course_id', '=', $id )->get();
 
-    public function submitQuiz($id)
-    {
-        $course = Course::where('course_id', '=', $id)->first();
+		return view( 'student/course', [ 'course'       => $course,
+		                                 'assignments'  => $assignments,
+		                                 'notices'      => $notices,
+		                                 'lectureNotes' => $lectureNotes,
+		                                 'submissions'  => $submissions,
+		                                 'results'      => $results,
+		                                 'count'        => $count,
+		                                 'res'          => $res,
+		                                 'quizes'       => $quiz
+		] );
+	}
 
-        return view('student/submitQuiz', ['course' => $course]);
-    }
-    public function showQuizz($id)
-    {
-        $quiz = QuizQuestion::where('quiz_id', '=', $id)->get();
+	public function submitQuiz( $id ) {
+		$course = Course::where( 'course_id', '=', $id )->first();
 
+		return view( 'student/submitQuiz', [ 'course' => $course ] );
+	}
 
+	public function showQuizz( $id ) {
+		$quiz      = Quiz::where( 'id', '=', $id )->first();
+		$questions = QuizQuestion::where( 'quiz_id', '=', $id )->get();
 
-        return view('student/showQuiz',['quizes'=>$quiz]);
+		return view( 'student/showQuiz', [ 'quiz' => $quiz, 'questions' => $questions ] );
+	}
 
-//        return view('student/showQuiz', ['course' => $course]);
-    }
+	public function courseAction() {
+		$courses         = Course::all();
+		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id' )->get();
+		$courseCount     = count( $enrolledCourses );
 
-    public function courseAction()
-    {
-        $courses = Course::all();
-        $enrolledCourses = DB::table('courses_students')->select('course_id')->get();
-        $courseCount = count($enrolledCourses);
-
-        return view('student/student-enroll-course', ['courses' => $courses , 'enrolledCourses' => $enrolledCourses , 'courseCount'=>$courseCount]);
-    }
+		return view( 'student/student-enroll-course', [ 'courses'         => $courses,
+		                                                'enrolledCourses' => $enrolledCourses,
+		                                                'courseCount'     => $courseCount
+		] );
+	}
 
 //    public function postEnrollCourse(Request $request){
 //        $student_id = Auth::user()->students->first()->id;
@@ -91,38 +95,36 @@ class StudentController extends Controller
 //    }
 
 
-    public function enrollCourse(Request $request, $id)
-    {
+	public function enrollCourse( Request $request, $id ) {
 
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $course = Course::findOrFail($id);
-        $course->students()->attach($student->id);
-        return redirect(route('student-course-action'));
-    }
+		$userid  = $request->user()->id;
+		$student = Student::where( 'user_id', '=', $userid )->first();
+		$course  = Course::findOrFail( $id );
+		$course->students()->attach( $student->id );
 
-    public function unEnrollCourse(Request $request)
-    {
+		return redirect( route( 'student-course-action' ) );
+	}
 
-        $userid = $request->user()->id;
-        $course = Course::findOrFail($request->course_id);
-        $student = Student::where('user_id', '=', $userid)->first();
-        $course->students()->detach($student->id);
+	public function unEnrollCourse( Request $request ) {
+
+		$userid  = $request->user()->id;
+		$course  = Course::findOrFail( $request->course_id );
+		$student = Student::where( 'user_id', '=', $userid )->first();
+		$course->students()->detach( $student->id );
 
 
-        return redirect(route('student-course-action'));
-    }
+		return redirect( route( 'student-course-action' ) );
+	}
 
-    public function getSubmitAssignment($courseid, $assignmentid)
-    {
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = Auth::user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $assignment = Assignment::where('id', '=', $assignmentid)->first();
-        $currentstudent = $student->id;
-        $currentassignment = $assignment->id;
-        $result = AssignmentSubmission::where('student_id', '=', $currentstudent)->where('assignment_id', '=', $currentassignment)->first();
-        $ldate = date('Y-m-d H:i:s');
+	public function getSubmitAssignment( $courseid, $assignmentid ) {
+		$course            = Course::where( 'id', '=', $courseid )->first();
+		$userid            = Auth::user()->id;
+		$student           = Student::where( 'user_id', '=', $userid )->first();
+		$assignment        = Assignment::where( 'id', '=', $assignmentid )->first();
+		$currentstudent    = $student->id;
+		$currentassignment = $assignment->id;
+		$result            = AssignmentSubmission::where( 'student_id', '=', $currentstudent )->where( 'assignment_id', '=', $currentassignment )->first();
+		$ldate             = date( 'Y-m-d H:i:s' );
 
 
 //        $date = new \DateTime("2006-12-12");
@@ -133,330 +135,339 @@ class StudentController extends Controller
 ////        $date1 = new \DateTime("now");
 //
 //        return $end;
-        return view('student/submitAssignment', ['course' => $course, 'assignment' => $assignment, 'result' => $result]);
-    }
+		return view( 'student/submitAssignment', [ 'course'     => $course,
+		                                           'assignment' => $assignment,
+		                                           'result'     => $result
+		] );
+	}
 
-    public function storeSubmitAssignment(Request $request, $courseid, $assignmentid)
-    {
+	public function storeSubmitAssignment( Request $request, $courseid, $assignmentid ) {
 
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $assignment = Assignment::where('id', '=', $assignmentid)->first();
+		$course     = Course::where( 'id', '=', $courseid )->first();
+		$userid     = $request->user()->id;
+		$student    = Student::where( 'user_id', '=', $userid )->first();
+		$assignment = Assignment::where( 'id', '=', $assignmentid )->first();
 
-        if ($request->has('attachment')) {
+		if ( $request->has( 'attachment' ) ) {
 
-            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $courseID = $course->course_id;
-            $assignmentID = $assignment->assignment_id;
-            $path = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
+			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
+			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			$courseID        = $course->course_id;
+			$assignmentID    = $assignment->assignment_id;
+			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
 
-            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
-            $submitAssignment = new AssignmentSubmission();
-            $submitAssignment->student_id = $student->id;
-            $submitAssignment->course_id = $courseid;
-            $submitAssignment->assignment_id = $assignmentid;
-            $submitAssignment->title = $request->title;
-            $submitAssignment->description = $request->description;
-            $submitAssignment->attachment = $fileName;
-            $submitAssignment->save();
-        } else {
+			$submitAssignment                = new AssignmentSubmission();
+			$submitAssignment->student_id    = $student->id;
+			$submitAssignment->course_id     = $courseid;
+			$submitAssignment->assignment_id = $assignmentid;
+			$submitAssignment->title         = $request->title;
+			$submitAssignment->description   = $request->description;
+			$submitAssignment->attachment    = $fileName;
+			$submitAssignment->save();
+		} else {
 
-            $submitAssignment = new AssignmentSubmission();
-            $submitAssignment->student_id = $student->id;
-            $submitAssignment->course_id = $courseid;
-            $submitAssignment->assignment_id = $assignmentid;
-            $submitAssignment->title = $request->title;
-            $submitAssignment->description = $request->description;
-            $submitAssignment->attachment = NULL;
-            $submitAssignment->save();
+			$submitAssignment                = new AssignmentSubmission();
+			$submitAssignment->student_id    = $student->id;
+			$submitAssignment->course_id     = $courseid;
+			$submitAssignment->assignment_id = $assignmentid;
+			$submitAssignment->title         = $request->title;
+			$submitAssignment->description   = $request->description;
+			$submitAssignment->attachment    = null;
+			$submitAssignment->save();
 
-        }
+		}
 
-        return redirect(route('student-submitAssignment-get', ['id' => $course->id, 'id1' => $assignment->id]));
+		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 
-    }
+	}
 
-    public function editAssignmentSubmission($courseid, $assignmentid)
-    {
+	public function editAssignmentSubmission( $courseid, $assignmentid ) {
 
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = Auth::user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $assignment = Assignment::where('id', '=', $assignmentid)->first();
-        $currentstudent = $student->id;
-        $currentassignment = $assignment->id;
-        $result = AssignmentSubmission::where('student_id', '=', $currentstudent)->where('assignment_id', '=', $currentassignment)->first();
+		$course            = Course::where( 'id', '=', $courseid )->first();
+		$userid            = Auth::user()->id;
+		$student           = Student::where( 'user_id', '=', $userid )->first();
+		$assignment        = Assignment::where( 'id', '=', $assignmentid )->first();
+		$currentstudent    = $student->id;
+		$currentassignment = $assignment->id;
+		$result            = AssignmentSubmission::where( 'student_id', '=', $currentstudent )->where( 'assignment_id', '=', $currentassignment )->first();
 
-        return view('student/editSubmissionAssignment', ['course' => $course, 'assignment' => $assignment, 'result' => $result]);
+		return view( 'student/editSubmissionAssignment', [ 'course'     => $course,
+		                                                   'assignment' => $assignment,
+		                                                   'result'     => $result
+		] );
 
-    }
+	}
 
 
-    public function storeEditSubmissionAssignment(Request $request, $courseid, $assignmentid)
-    {
+	public function storeEditSubmissionAssignment( Request $request, $courseid, $assignmentid ) {
 
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $assignment = Assignment::where('id', '=', $assignmentid)->first();
+		$course     = Course::where( 'id', '=', $courseid )->first();
+		$userid     = $request->user()->id;
+		$student    = Student::where( 'user_id', '=', $userid )->first();
+		$assignment = Assignment::where( 'id', '=', $assignmentid )->first();
 
-        if ($request->has('attachment')) {
+		if ( $request->has( 'attachment' ) ) {
 
-            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $courseID = $course->course_id;
-            $assignmentID = $assignment->assignment_id;
-            $path = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
+			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
+			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			$courseID        = $course->course_id;
+			$assignmentID    = $assignment->assignment_id;
+			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
 
-            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
-            $submitAssignment = AssignmentSubmission::find($assignmentid);
-            $submitAssignment->student_id = $student->id;
-            $submitAssignment->course_id = $courseid;
-            $submitAssignment->assignment_id = $assignmentid;
-            $submitAssignment->title = $request->title;
-            $submitAssignment->description = $request->description;
-            $submitAssignment->attachment = $fileName;
-            $submitAssignment->save();
-        } else
-            {
+			$submitAssignment                = AssignmentSubmission::find( $assignmentid );
+			$submitAssignment->student_id    = $student->id;
+			$submitAssignment->course_id     = $courseid;
+			$submitAssignment->assignment_id = $assignmentid;
+			$submitAssignment->title         = $request->title;
+			$submitAssignment->description   = $request->description;
+			$submitAssignment->attachment    = $fileName;
+			$submitAssignment->save();
+		} else {
 
-            $submitAssignment = AssignmentSubmission::find($assignmentid);
-            $submitAssignment->student_id = $student->id;
-            $submitAssignment->course_id = $courseid;
-            $submitAssignment->assignment_id = $assignmentid;
-            $submitAssignment->title = $request->title;
-            $submitAssignment->description = $request->description;
-            $submitAssignment->attachment = NULL;
-            $submitAssignment->save();
+			$submitAssignment                = AssignmentSubmission::find( $assignmentid );
+			$submitAssignment->student_id    = $student->id;
+			$submitAssignment->course_id     = $courseid;
+			$submitAssignment->assignment_id = $assignmentid;
+			$submitAssignment->title         = $request->title;
+			$submitAssignment->description   = $request->description;
+			$submitAssignment->attachment    = null;
+			$submitAssignment->save();
 
-        }
-        return redirect(route('student-submitAssignment-get', ['id' => $course->id, 'id1' => $assignment->id]));
-    }
+		}
 
-    public function downloadNotice($courseid,$noticeid)
-    {
-            $course = Course::where('id','=',$courseid)->first();
-            $notice = Notice::where('id','=',$noticeid)->first();
-            $courseID = $course->course_id;
-            $filename= $notice->attachment;
+		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
+	}
 
-        $filepath     = base_path() . '/public/uploads/' . $courseID . '/notices/'.$filename;
-        return response()->download($filepath);
+	public function downloadNotice( $courseid, $noticeid ) {
+		$course   = Course::where( 'id', '=', $courseid )->first();
+		$notice   = Notice::where( 'id', '=', $noticeid )->first();
+		$courseID = $course->course_id;
+		$filename = $notice->attachment;
+
+		$filepath = base_path() . '/public/uploads/' . $courseID . '/notices/' . $filename;
+
+		return response()->download( $filepath );
 //        return response()->file($filepath);
-    }
+	}
 
-    public function downloadLectureNote($courseid,$lectureNoteid)
-    {
-        $course = Course::where('id','=',$courseid)->first();
-        $lecturenote = LectureNote::where('id','=',$lectureNoteid)->first();
-        $courseID = $course->course_id;
-        $filename= $lecturenote->attachment;
+	public function downloadLectureNote( $courseid, $lectureNoteid ) {
+		$course      = Course::where( 'id', '=', $courseid )->first();
+		$lecturenote = LectureNote::where( 'id', '=', $lectureNoteid )->first();
+		$courseID    = $course->course_id;
+		$filename    = $lecturenote->attachment;
 
-        $filepath     = base_path() . '/public/uploads/' . $courseID . '/lecturenotes/'.$filename;
-        return response()->download($filepath);
-    }
+		$filepath = base_path() . '/public/uploads/' . $courseID . '/lecturenotes/' . $filename;
 
-
-    public function downloadAssignment($courseid,$assignmentid)
-    {
-        $course = Course::where('id','=',$courseid)->first();
-        $assignment=Assignment::where('id','=',$assignmentid)->first();
-        $assignmentID = $assignment->assignment_id;
-        $courseID = $course->course_id;
-        $filename= $assignment->attachment;
-
-        $filepath     = base_path() . '/public/uploads/' . $courseID . '/assignments/'.$assignmentID.'/'. $filename;
-        return response()->download($filepath);
+		return response()->download( $filepath );
+	}
 
 
+	public function downloadAssignment( $courseid, $assignmentid ) {
+		$course       = Course::where( 'id', '=', $courseid )->first();
+		$assignment   = Assignment::where( 'id', '=', $assignmentid )->first();
+		$assignmentID = $assignment->assignment_id;
+		$courseID     = $course->course_id;
+		$filename     = $assignment->attachment;
 
-    }
+		$filepath = base_path() . '/public/uploads/' . $courseID . '/assignments/' . $assignmentID . '/' . $filename;
 
-    public function downloadSubmission($courseid,$submissionid)
-    {
-        $course = Course::where('id','=',$courseid)->first();
-        $submission=Submission::where('id','=',$submissionid)->first();
-        $submissionID = $submission->title;
-        $courseID = $course->course_id;
-        $filename= $submission->attachment;
-
-        $filepath     = base_path() . '/public/uploads/' . $courseID . '/submissions/'.$submissionID.'/'. $filename;
-        return response()->download($filepath);
-    }
-
-    public function getSubmissions($courseid, $submissionid)
-    {
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = Auth::user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $submission = Submission::where('id', '=', $submissionid)->first();
-        $currentStudent = $student->id;
-        $currentSubmission = $submission->id;
-        $result = SubmitSubmission::where('student_id', '=', $currentStudent)->where('submission_id', '=', $currentSubmission)->first();
-        return view('student/submitSubmission', ['course' => $course, 'submission' => $submission, 'result' => $result]);
-    }
-
-    public function postSubmissions(Request $request, $courseid, $submissionid)
-    {
-
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        $submisssion = Submission::where('id', '=', $submissionid)->first();
-
-        if ($request->has('attachment')) {
-
-            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $courseID = $course->course_id;
-            $submissionID = $submisssion->id;
-            $path = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
-
-            $request->file('attachment')->storeAs($path, $fileNameWithExt);
-
-            $submitTask = new SubmitSubmission();
-            $submitTask->student_id = $student->id;
-            $submitTask->course_id = $courseid;
-            $submitTask->submission_id = $submissionid;
-            $submitTask->title = $request->title;
-            $submitTask->description = $request->description;
-            $submitTask->attachment = $fileName;
-            $submitTask->save();
-        } else
-        {
-            $submitTask = new SubmitSubmission();
-            $submitTask->student_id = $student->id;
-            $submitTask->course_id = $courseid;
-            $submitTask->submission_id = $submissionid;
-            $submitTask->title = $request->title;
-            $submitTask->description = $request->description;
-            $submitTask->attachment = NULL;
-            $submitTask->save();
-
-        }
-        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submisssion->id]));
-    }
+		return response()->download( $filepath );
 
 
-    public function editTaskSubmissions(Request $request, $courseid, $submissionid)
-    {
+	}
 
-        $course = Course::where('id', '=', $courseid)->first();
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
-        // $submisssion = Submission::where('id', '=', $submissionid)->first();
-        $current = SubmitSubmission::where('id', '=', $submissionid)->first();
+	public function downloadSubmission( $courseid, $submissionid ) {
+		$course       = Course::where( 'id', '=', $courseid )->first();
+		$submission   = Submission::where( 'id', '=', $submissionid )->first();
+		$submissionID = $submission->title;
+		$courseID     = $course->course_id;
+		$filename     = $submission->attachment;
 
-        if ($request->has('attachment')) {
+		$filepath = base_path() . '/public/uploads/' . $courseID . '/submissions/' . $submissionID . '/' . $filename;
 
-            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $courseID = $course->course_id;
-            $submissionID = $current->submission_id;
-            $path = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+		return response()->download( $filepath );
+	}
 
-            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+	public function getSubmissions( $courseid, $submissionid ) {
+		$course            = Course::where( 'id', '=', $courseid )->first();
+		$userid            = Auth::user()->id;
+		$student           = Student::where( 'user_id', '=', $userid )->first();
+		$submission        = Submission::where( 'id', '=', $submissionid )->first();
+		$currentStudent    = $student->id;
+		$currentSubmission = $submission->id;
+		$result            = SubmitSubmission::where( 'student_id', '=', $currentStudent )->where( 'submission_id', '=', $currentSubmission )->first();
 
-            $submitTask = SubmitSubmission::find($submissionid);
-            $submitTask->student_id = $student->id;
-            $submitTask->course_id = $courseid;
-            $submitTask->submission_id = $submissionid;
-            $submitTask->title = $request->title;
-            $submitTask->description = $request->description;
-            $submitTask->attachment = $fileName;
-            $submitTask->save();
+		return view( 'student/submitSubmission', [ 'course'     => $course,
+		                                           'submission' => $submission,
+		                                           'result'     => $result
+		] );
+	}
 
-        } else {
+	public function postSubmissions( Request $request, $courseid, $submissionid ) {
 
-            $submitTask = SubmitSubmission::find($submissionid);
-            $submitTask->student_id = $student->id;
-            $submitTask->course_id = $courseid;
-            $submitTask->submission_id = $submissionid;
-            $submitTask->title = $request->title;
-            $submitTask->description = $request->description;
-            $submitTask->attachment = NULL;
-            $submitTask->save();
-        }
+		$course      = Course::where( 'id', '=', $courseid )->first();
+		$userid      = $request->user()->id;
+		$student     = Student::where( 'user_id', '=', $userid )->first();
+		$submisssion = Submission::where( 'id', '=', $submissionid )->first();
 
-        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submissionid]));
+		if ( $request->has( 'attachment' ) ) {
+
+			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
+			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			$courseID        = $course->course_id;
+			$submissionID    = $submisssion->id;
+			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+
+			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
+
+			$submitTask                = new SubmitSubmission();
+			$submitTask->student_id    = $student->id;
+			$submitTask->course_id     = $courseid;
+			$submitTask->submission_id = $submissionid;
+			$submitTask->title         = $request->title;
+			$submitTask->description   = $request->description;
+			$submitTask->attachment    = $fileName;
+			$submitTask->save();
+		} else {
+			$submitTask                = new SubmitSubmission();
+			$submitTask->student_id    = $student->id;
+			$submitTask->course_id     = $courseid;
+			$submitTask->submission_id = $submissionid;
+			$submitTask->title         = $request->title;
+			$submitTask->description   = $request->description;
+			$submitTask->attachment    = null;
+			$submitTask->save();
+
+		}
+
+		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
+		                                                        'submissionid' => $submisssion->id
+		] ) );
+	}
+
+
+	public function editTaskSubmissions( Request $request, $courseid, $submissionid ) {
+
+		$course  = Course::where( 'id', '=', $courseid )->first();
+		$userid  = $request->user()->id;
+		$student = Student::where( 'user_id', '=', $userid )->first();
+		// $submisssion = Submission::where('id', '=', $submissionid)->first();
+		$current = SubmitSubmission::where( 'id', '=', $submissionid )->first();
+
+		if ( $request->has( 'attachment' ) ) {
+
+			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
+			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			$courseID        = $course->course_id;
+			$submissionID    = $current->submission_id;
+			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+
+			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
+
+			$submitTask                = SubmitSubmission::find( $submissionid );
+			$submitTask->student_id    = $student->id;
+			$submitTask->course_id     = $courseid;
+			$submitTask->submission_id = $submissionid;
+			$submitTask->title         = $request->title;
+			$submitTask->description   = $request->description;
+			$submitTask->attachment    = $fileName;
+			$submitTask->save();
+
+		} else {
+
+			$submitTask                = SubmitSubmission::find( $submissionid );
+			$submitTask->student_id    = $student->id;
+			$submitTask->course_id     = $courseid;
+			$submitTask->submission_id = $submissionid;
+			$submitTask->title         = $request->title;
+			$submitTask->description   = $request->description;
+			$submitTask->attachment    = null;
+			$submitTask->save();
+		}
+
+		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
+		                                                        'submissionid' => $submissionid
+		] ) );
 //        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submisssion->id]));
 
-    }
+	}
 
-    public function studentAttendaceExcuses(){
+	public function studentAttendaceExcuses() {
 
-        $courses = Auth::user()->students->first()->courses;
-        $userid = Auth::user()->id;
-        $students = Student::where('user_id', '=', $userid)->first();
+		$courses  = Auth::user()->students->first()->courses;
+		$userid   = Auth::user()->id;
+		$students = Student::where( 'user_id', '=', $userid )->first();
 
 
-        return view('student/studentAttendaceExcuses',['courses'=>$courses,'student'=>$students]);
-    }
+		return view( 'student/studentAttendaceExcuses', [ 'courses' => $courses, 'student' => $students ] );
+	}
 
-    public function studentExamMedicals(){
+	public function studentExamMedicals() {
 
-        $courses = Auth::user()->students->first()->courses;
-        $userid = Auth::user()->id;
-        $students = Student::where('user_id', '=', $userid)->first();
+		$courses  = Auth::user()->students->first()->courses;
+		$userid   = Auth::user()->id;
+		$students = Student::where( 'user_id', '=', $userid )->first();
 
-        return view('student/examMedicals',['courses'=>$courses,'student'=>$students]);
-    }
+		return view( 'student/examMedicals', [ 'courses' => $courses, 'student' => $students ] );
+	}
 
-    public function storeMedicalPDF(Request $request )
-    {
-        $userid = $request->user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
+	public function storeMedicalPDF( Request $request ) {
+		$userid  = $request->user()->id;
+		$student = Student::where( 'user_id', '=', $userid )->first();
 
-        if ($request->has('attachment')) {
+		if ( $request->has( 'attachment' ) ) {
 
-            $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $courseID = $request->course_name;
-            $path = 'public/Student Uploads/Medical Reports/' . $courseID;
+			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
+			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			$courseID        = $request->course_name;
+			$path            = 'public/Student Uploads/Medical Reports/' . $courseID;
 
-            $request->file('attachment')->storeAs($path, $fileNameWithExt);
+			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
-            $report = new MedicalReports();
-            $report->student_id = $student->id;
-            $report->course_id = $request->course_id;
-            $report->year = $request->input('years');
-            $report->semester = $request->input('semester');
-            $report->causes = $request->causes;
-            $report->remarks = $request->remarks;
-            $report->attachment = $fileName;
+			$report             = new MedicalReports();
+			$report->student_id = $student->id;
+			$report->course_id  = $request->course_id;
+			$report->year       = $request->input( 'years' );
+			$report->semester   = $request->input( 'semester' );
+			$report->causes     = $request->causes;
+			$report->remarks    = $request->remarks;
+			$report->attachment = $fileName;
 
-            $report->save();
+			$report->save();
 
-            $lastInsertedID = $report->id;
-            $medical = MedicalReports::find($lastInsertedID);
+			$lastInsertedID = $report->id;
+			$medical        = MedicalReports::find( $lastInsertedID );
 
-        } else {
-            $report = new MedicalReports();
-            $report->student_id = $student->id;
-            $report->course_id = $request->course_id;
-            $report->causes = $request->causes;
-            $report->remarks = $request->remarks;
-            $report->attachment = NULL;
-            $report->save();
+		} else {
+			$report             = new MedicalReports();
+			$report->student_id = $student->id;
+			$report->course_id  = $request->course_id;
+			$report->causes     = $request->causes;
+			$report->remarks    = $request->remarks;
+			$report->attachment = null;
+			$report->save();
 
-        }
+		}
 
-        return view('student/MedicalReport',['lastID'=>$lastInsertedID,'medical'=>$medical,'student'=>$student]);
-    }
+		return view( 'student/MedicalReport', [ 'lastID'  => $lastInsertedID,
+		                                        'medical' => $medical,
+		                                        'student' => $student
+		] );
+	}
 
-    public function generateMedicalPDF($id){
+	public function generateMedicalPDF( $id ) {
 
-        $medical = MedicalReports::find($id);
-        $userid = Auth::user()->id;
-        $student = Student::where('user_id', '=', $userid)->first();
+		$medical = MedicalReports::find( $id );
+		$userid  = Auth::user()->id;
+		$student = Student::where( 'user_id', '=', $userid )->first();
 
-        $pdf = PDF::loadView('student/convertedPdf', compact('medical','student'));
-        return $pdf->download('Medical_Report.pdf');
+		$pdf = PDF::loadView( 'student/convertedPdf', compact( 'medical', 'student' ) );
 
+		return $pdf->download( 'Medical_Report.pdf' );
 
 
 //        $medical = MedicalReports::where('id', '=', $id)->first();
@@ -467,7 +478,7 @@ class StudentController extends Controller
 //        return $a;
 
 
-    }
+	}
 
 
 //    public function Testing()
@@ -487,9 +498,6 @@ class StudentController extends Controller
 //
 //
 //    }
-
-
-
 
 
 }

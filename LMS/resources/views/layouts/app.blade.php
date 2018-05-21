@@ -20,8 +20,10 @@
             border-radius: 15px;
             margin: 3px;
         }
-        #myContainer{
-            margin-top: 25px; margin-bottom: 20px;
+
+        #myContainer {
+            margin-top: 25px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -42,8 +44,9 @@
 @yield('scripts')
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( 'article-ckeditor' );
+    CKEDITOR.replace('article-ckeditor');
 </script>
+
 
 </body>
 </html>
