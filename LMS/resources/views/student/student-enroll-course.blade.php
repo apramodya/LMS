@@ -25,11 +25,11 @@
                         <td class="font-weight-bold">{{ $course->course_id }}</td>
                         <td class="font-weight-bold">{{ $course->year }}</td>
 
+                        @if($courseCount!=null)
                         @foreach($enrolledCourses as $enrolledCourse)
-                            
                             @if($enrolledCourse->course_id == $course->id)
                                 <td> <a class="btn btn-blue disabled">Enroll</a></td>
-                                <td><a class="btn btn red" data-toggle="modal" data-target="#unenrollmodel">unenroll</a></td>
+                                <td><a class="btn btn red passID" data-toggle="modal" data-target="#unenrollmodel" data-id="{{ $course->id }}">un enroll</a></td>
                             @else
                                 <?php $count=$count+1;  ?>
                                 @if($courseCount == $count)
@@ -38,7 +38,10 @@
                                     @endif
                                     @endif
                         @endforeach
-
+                        @else
+                            <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue">Enroll</a></td>
+                            <td><a class="btn btn red disabled">unenroll</a></td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
