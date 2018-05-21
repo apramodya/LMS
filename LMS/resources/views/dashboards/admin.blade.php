@@ -1,5 +1,5 @@
 @section('title')
-    Admin's Dashboard
+    Dashboard
 @endsection
 
 <div class="row">

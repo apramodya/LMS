@@ -1,3 +1,3 @@
 @section('title')
-    Lecturer's Dashboard
+    Dashboard
 @endsection

@@ -86,8 +86,6 @@ class AdminController extends Controller {
 	}
 
 	public function postEnrollBatch( Request $request ) {
-
-
 		if ( $request->hasFile( 'attachment' ) ) {
 			//$request->attachment->storeAs( $course_id, $request->attachment->getClientOriginalName());
 			$students = csv2json( $request->attachment );
@@ -111,7 +109,6 @@ class AdminController extends Controller {
 				$s->academic_year     = $request->academic_year;
 				$s->save();
 			}
-		dd('done');
 		}
 
 		return redirect( route( 'batch-enroll' ) );
