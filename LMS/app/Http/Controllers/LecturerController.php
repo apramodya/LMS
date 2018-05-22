@@ -9,6 +9,7 @@ use App\Forum;
 use App\LectureNote;
 use App\Lecturer;
 use App\Notice;
+use App\Question;
 use App\Quiz;
 use App\Submission;
 use Illuminate\Http\Request;
@@ -771,7 +772,30 @@ class LecturerController extends Controller {
 //	forum
 	public function viewForum( $id ) {
 		$forum = Forum::where( 'course_id', '=', $id )->first();
+        $question = Question::where( 'forum_id', '=', $forum->id )->get();
+        $qCount = $question->count();
 
-		return view( 'lecturer.forum', [ 'forum' => $forum ] );
+		return view( 'lecturer.forum', [ 'forum' => $forum ,'qCount' => $qCount ] );
 	}
+
+    public function askQuestion( Request $request, $id) {
+
+        $course   = Course::findOrFail( $id );
+        $forum = Forum::where( 'course_id', '=', $id )->first();
+        $userid   = $request->user()->id;
+        $lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+
+        $question                = new Question;
+        $question->forum_id   = $forum->id;
+        $question->question = $request->question;
+        $question->save();
+
+        $lecturer = Lecturer::findOrFail( $lecturer->id );
+        $lecturer->questions()->attach( $question->id );
+
+
+
+
+        return redirect( route( 'lecturer-forum', $course->id ) );
+    }
 }
