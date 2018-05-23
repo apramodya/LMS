@@ -25,7 +25,7 @@ class Lecturer extends Model
         return $this->hasMany(Quiz::class);
     }
     public function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->belongsToMany(Answer::class,'answers_lecturers','lecturer_id', 'answer_id');
     }
     public function lecturenotes(){
         return $this->hasMany(LectureNote::class);

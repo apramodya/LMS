@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Assignment;
 use App\Course;
 
@@ -775,11 +776,13 @@ class LecturerController extends Controller {
         $question = Question::where( 'forum_id', '=', $forum->id )->get();
         $qCount = $question->count();
 
+
 		return view( 'lecturer.forum', [ 'forum' => $forum ,'qCount' => $qCount ] );
 	}
 
-    public function askQuestion( Request $request, $id) {
+    public function askQuestionAnswer( Request $request, $id) {
 
+        if ($request->has('Ask')) {
         $course   = Course::findOrFail( $id );
         $forum = Forum::where( 'course_id', '=', $id )->first();
         $userid   = $request->user()->id;
@@ -798,4 +801,30 @@ class LecturerController extends Controller {
 
         return redirect( route( 'lecturer-forum', $course->id ) );
     }
+
+        if ($request->has('Reply')) {
+            $question   = Question::findOrFail( $id );
+            $forum = Forum::where( 'id', '=', $question->forum_id )->first();
+            $userid   = $request->user()->id;
+            $lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
+
+            $answer                = new Answer;
+            $answer->question_id   = $id;
+            $answer->answer        = $request->answer;
+            $answer->save();
+
+            $lecturer = Lecturer::findOrFail( $lecturer->id );
+            $lecturer->answers()->attach( $answer->id );
+
+
+
+
+            return redirect( route( 'lecturer-forum', $forum->course_id ) );
+
+
+    }
+
+
+    }
+
 }
