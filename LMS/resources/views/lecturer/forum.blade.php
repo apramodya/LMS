@@ -67,7 +67,6 @@
                                 <button type="submit" name="Reply" class="btn btn-primary btn-sm">Reply</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

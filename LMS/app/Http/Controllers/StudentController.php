@@ -102,6 +102,7 @@ class StudentController extends Controller {
 		$course  = Course::findOrFail( $id );
 		$course->students()->attach( $student->id );
 
+		flash('Course enrolled')->success();
 		return redirect( route( 'student-course-action' ) );
 	}
 
@@ -112,7 +113,7 @@ class StudentController extends Controller {
 		$student = Student::where( 'user_id', '=', $userid )->first();
 		$course->students()->detach( $student->id );
 
-
+		flash('Course unenrolled')->success();
 		return redirect( route( 'student-course-action' ) );
 	}
 
@@ -179,6 +180,7 @@ class StudentController extends Controller {
 
 		}
 
+		flash('Assignment submitted')->success();
 		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 
 	}
@@ -239,6 +241,7 @@ class StudentController extends Controller {
 
 		}
 
+		flash('Assignment edited')->success();
 		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 	}
 
@@ -344,6 +347,7 @@ class StudentController extends Controller {
 
 		}
 
+		flash('Submission submitted')->success();
 		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
 		                                                        'submissionid' => $submisssion->id
 		] ) );
@@ -389,6 +393,7 @@ class StudentController extends Controller {
 			$submitTask->save();
 		}
 
+		flash('Submission edited')->success();
 		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
 		                                                        'submissionid' => $submissionid
 		] ) );
@@ -453,6 +458,7 @@ class StudentController extends Controller {
 
 		}
 
+		flash('Medical submitted')->success();
 		return view( 'student/MedicalReport', [ 'lastID'  => $lastInsertedID,
 		                                        'medical' => $medical,
 		                                        'student' => $student

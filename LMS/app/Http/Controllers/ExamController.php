@@ -32,7 +32,8 @@ class ExamController extends Controller
         dd($request);
         $course_id = $course->course_id;
 
-        return redirect(route('add-results-to',$id));
+	    flash('Results added')->success();
+	    return redirect(route('add-results-to',$id));
     }
 
     public function getAddResultsUsingCSV()
@@ -60,7 +61,8 @@ class ExamController extends Controller
             }
 
         }
-        return redirect(route('add-results-using-csv'));
+	    flash('Results added')->success();
+	    return redirect(route('dashboard'));
     }
 
 

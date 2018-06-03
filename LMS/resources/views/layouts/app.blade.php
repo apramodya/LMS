@@ -20,17 +20,15 @@
             border-radius: 15px;
             margin: 3px;
         }
-
-        #myContainer {
-            margin-top: 25px;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
 <div id="app">
     @include('layouts.nav')
-    <div id="myContainer">
+    <div class="container-fluid">
+        <div class="container">
+            @include('flash::message')
+        </div>
         @yield('content')
     </div>
 </div>
@@ -46,7 +44,12 @@
 <script>
     CKEDITOR.replace('article-ckeditor');
 </script>
-
+<script>
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+</script>
+<script>
+    $('#flash-overlay-modal').modal();
+</script>
 
 </body>
 </html>
