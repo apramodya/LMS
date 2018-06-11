@@ -81,7 +81,7 @@ Route::get( '/lecturer/course/{id}/forum', 'LecturerController@viewForum' )->nam
 Route::post( '/lecturer/course/{id}/forum', 'LecturerController@askQuestionAnswer' )->name( 'lecturer-forumQuestion' );
 
 /** Student Controller  */
-/**Quiz view*/
+
 
 
 Route::get( '/student/courses', 'StudentController@courses' )->name( 'student-courses' );
@@ -130,7 +130,15 @@ Route::get( '/student/enroll-course/{id}', 'StudentController@enrollCourse' )->n
 #UnEnroll
 Route::get( '/student/unenroll-course', 'StudentController@unEnrollCourse' )->name( 'student-unenroll-course' );
 
+
+/**Quiz view*/
+
 route::get( '/student/course/quiz/{id}', 'StudentController@showQuizz' )->name( 'Quiz-Student' );
+route::post( '/student/course/quiz/submit-quiz/{questionArray}', 'StudentController@showThisQuiz' )->name( 'student-submit-Quiz' );
+
+
+
+
 /**Email Controller */
 
 Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user');

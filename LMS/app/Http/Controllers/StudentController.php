@@ -70,10 +70,25 @@ class StudentController extends Controller {
 
 	public function showQuizz( $id ) {
 		$quiz      = Quiz::where( 'id', '=', $id )->first();
-		$questions = QuizQuestion::where( 'quiz_id', '=', $id )->get();
+		$questions = QuizQuestion::where( 'quiz_id','=', $id )->get();
 
 		return view( 'student/showQuiz', [ 'quiz' => $quiz, 'questions' => $questions ] );
 	}
+
+    public function showThisQuiz( Request $request ) {
+//        $course = Course::where( 'course_id', '=', $id )->first();
+
+//        $answer = QuizQuestion::where()
+
+//        $result= $request->$question->id;
+//        dd($result);
+
+//        $result = $
+//        return 123;
+
+//        return view( 'student/submitQuiz', [ 'course' => $course ] );
+    }
+
 
 	public function courseAction() {
 		$courses         = Course::all();
@@ -100,6 +115,7 @@ class StudentController extends Controller {
 		$userid  = $request->user()->id;
 		$student = Student::where( 'user_id', '=', $userid )->first();
 		$course  = Course::findOrFail( $id );
+		$course->attach();
 		$course->students()->attach( $student->id );
 
 		return redirect( route( 'student-course-action' ) );
@@ -429,13 +445,13 @@ class StudentController extends Controller {
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
 			$report             = new MedicalReports();
-			$report->student_id = $student->id;
-			$report->course_id  = $request->course_id;
-			$report->year       = $request->input( 'years' );
-			$report->semester   = $request->input( 'semester' );
-			$report->causes     = $request->causes;
-			$report->remarks    = $request->remarks;
-			$report->attachment = $fileName;
+            $report->student_id = $student->id;
+            $report->course_id  = $request->course_id;
+            $report->year       = $request->input( 'years' );
+            $report->semester   = $request->input( 'semester' );
+            $report->causes     = $request->causes;
+            $report->remarks    = $request->remarks;
+            $report->attachment = $fileName;
 
 			$report->save();
 
