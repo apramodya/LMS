@@ -13,7 +13,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="course">Select Course</label>
-                                    <select class="form-control" id="course" name="course_id">
+                                    <select class="form-control" id="course" name="course_id" required>
                                         <option>Choose Course</option>
                                         @foreach($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->name }}
@@ -27,7 +27,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="file">Attach CSV File <span class="font-small red-text">(Please consider the format)</span></label>
-                                    <input class="form-control" type="file" name="attachment" id="file">
+                                    <input class="form-control" type="file" name="attachment" id="file" required>
                                 </div>
                             </div>
                         </div>

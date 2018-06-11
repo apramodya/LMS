@@ -97,6 +97,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Assignment added')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 	}
 
@@ -136,6 +137,7 @@ class LecturerController extends Controller {
 
 		}
 
+		flash('Attachment deleted')->success();
 		return redirect( route( 'lecturer-editAssignment', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 
 	}
@@ -189,6 +191,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Assignment edited')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 	}
 
@@ -223,6 +226,7 @@ class LecturerController extends Controller {
 
 		$assignment->delete();
 
+		flash('Assignment deleted')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -273,6 +277,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Lecture note added')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -312,6 +317,7 @@ class LecturerController extends Controller {
 
 		}
 
+		flash('Lecture note file deleted')->success();
 		return redirect( route( 'lecturer-editLectureNotes', [ 'id' => $course->id, 'id1' => $lecturenote->id ] ) );
 
 	}
@@ -350,6 +356,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Lecture note edited')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -383,6 +390,7 @@ class LecturerController extends Controller {
 		}
 		$lecturenote->delete();
 
+		flash('Lecture note deleted')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -439,6 +447,7 @@ class LecturerController extends Controller {
 			sms( $notice->description );
 		}
 
+		flash('Notice posted')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 	}
 
@@ -477,6 +486,7 @@ class LecturerController extends Controller {
 
 		}
 
+		flash('Notice file deleted')->success();
 		return redirect( route( 'lecturer-editNotice', [ 'id' => $course->id, 'id1' => $notice->id ] ) );
 
 	}
@@ -518,6 +528,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Notice edited')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -551,6 +562,7 @@ class LecturerController extends Controller {
 		}
 		$notice->delete();
 
+		flash('Notice deleted')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -568,6 +580,7 @@ class LecturerController extends Controller {
 		$quiz->course_id   = $id;
 		$quiz->save();
 
+		flash('Quiz added')->success();
 		return redirect( route( 'add-question', [ $id, $quiz->id ] ) );
 	}
 
@@ -631,6 +644,7 @@ class LecturerController extends Controller {
 			$submission->save();
 		}
 
+		flash('Submission added')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -672,6 +686,7 @@ class LecturerController extends Controller {
 
 		}
 
+		flash('Submission file deleted')->success();
 		return redirect( route( 'lecturer-editSubmission', [ 'id' => $course->id, 'id1' => $submission->id ] ) );
 
 	}
@@ -722,6 +737,7 @@ class LecturerController extends Controller {
 		}
 
 
+		flash('Submission edited')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -755,6 +771,7 @@ class LecturerController extends Controller {
 
 		$submission->delete();
 
+		flash('Submission deleted')->success();
 		return redirect( route( 'lecturer-course', $id ) );
 
 	}
@@ -767,6 +784,7 @@ class LecturerController extends Controller {
 		$course   = Course::findOrFail( $request->course_id );
 		$course->lecturers()->detach( $lecturer->id );
 
+		flash('Course unenrolled')->success();
 		return redirect( route( 'lecturer-courses' ) );
 	}
 
@@ -796,10 +814,8 @@ class LecturerController extends Controller {
         $lecturer = Lecturer::findOrFail( $lecturer->id );
         $lecturer->questions()->attach( $question->id );
 
-
-
-
-        return redirect( route( 'lecturer-forum', $course->id ) );
+	        flash('Question posted')->success();
+	        return redirect( route( 'lecturer-forum', $course->id ) );
     }
 
         if ($request->has('Reply')) {
@@ -816,9 +832,7 @@ class LecturerController extends Controller {
             $lecturer = Lecturer::findOrFail( $lecturer->id );
             $lecturer->answers()->attach( $answer->id );
 
-
-
-
+	        flash('Reply posted')->success();
             return redirect( route( 'lecturer-forum', $forum->course_id ) );
 
 

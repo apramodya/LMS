@@ -30,12 +30,13 @@ class AdminController extends Controller {
 		] );
 
 		if ( $validator->fails() ) {
+			flash('Please check again')->error();
 			return redirect()->to( '/register' )
 			                 ->withErrors( $validator )
 			                 ->withInput();
 		}
 
-		// if a lecturer registration
+		// if a student registration
 		if ( $request->type == 'student' ) {
 			$user           = new User();
 			$user->username = $request->index_number;
@@ -56,8 +57,10 @@ class AdminController extends Controller {
 
 			$student->save();
 
+			flash('User Registered')->success();
 			return redirect( route( 'admin-student', $student->id ) );
-		} // if a lecturer registration
+		}
+		// if a lecturer registration
 		elseif ( $request->type == 'lecturer' ) {
 			$user           = new User();
 			$user->username = $request->username;
@@ -76,6 +79,7 @@ class AdminController extends Controller {
 
 			$lecturer->save();
 
+			flash('User Registered')->success();
 			return redirect( route( 'admin-lecturer', $lecturer->id ) );
 		}
 
@@ -111,6 +115,7 @@ class AdminController extends Controller {
 			}
 		}
 
+		flash('Batch enrolled')->success();
 		return redirect( route( 'batch-enroll' ) );
 	}
 
@@ -128,6 +133,7 @@ class AdminController extends Controller {
 		] );
 		$announcement->save();
 
+		flash('Announcement Posted')->success();
 		return redirect( route( 'dashboard' ) );
 	}
 
@@ -200,7 +206,8 @@ class AdminController extends Controller {
 		] );
 		$forum->save();
 
-		return redirect( route( 'dashboard' ) );
+		flash('Course added')->success();
+		return redirect( route( 'admin-courses' ) );
 	}
 
 	public function getEditCourse( $id ) {
@@ -218,6 +225,7 @@ class AdminController extends Controller {
 		$course->degree         = $request->degree;
 		$course->save();
 
+		flash('Course edited')->success();
 		return redirect( route( 'admin-courses' ) );
 	}
 
@@ -232,6 +240,7 @@ class AdminController extends Controller {
 		$lecturer = Lecturer::findOrFail( $request->lecturer_id );
 		$lecturer->courses()->attach( $request->course_id );
 
+		flash('Course enrolled')->success();
 		return redirect( route( 'dashboard' ) );
 	}
 
