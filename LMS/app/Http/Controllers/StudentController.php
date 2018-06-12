@@ -115,7 +115,6 @@ class StudentController extends Controller {
 		$userid  = $request->user()->id;
 		$student = Student::where( 'user_id', '=', $userid )->first();
 		$course  = Course::findOrFail( $id );
-		$course->attach();
 		$course->students()->attach( $student->id );
 
 		flash('Course enrolled')->success();
