@@ -21,6 +21,7 @@
                     <a href="{{ route('student-exam-medicals') }}" class="list-group-item list-group-item-action">Submit Medicals</a>
                 </div>
 
+
             </div>
 
         </div>

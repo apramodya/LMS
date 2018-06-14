@@ -7,9 +7,9 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    {{--<form method="post" action="{{ route('') }}">--}}
+                    <form method="post" action="{{ route('student-attendace-excuses')}}">
                         @csrf
-                        {{--<div class="row">--}}
+                        <div class="row">
 
                     <div class="row">
                         <div class="col-6">

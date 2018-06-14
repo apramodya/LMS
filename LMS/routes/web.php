@@ -108,7 +108,7 @@ Route::post( '/student/course/{courseid}/submit-task/{submissionid}', 'StudentCo
 Route::post( '/student/course/{courseid}/edit-task/{submissionid}', 'StudentController@editTaskSubmissions' )->name( 'edit-student-task' );
 
 #Student Attendance Excuses
-Route::get( '/student/attendance-excuses/', 'StudentController@studentAttendaceExcuses' )->name( 'student-attendace-excuses' );
+Route::get( '/student/attendance-excuses', 'StudentController@studentAttendaceExcuses' )->name( 'student-attendace-excuses' );
 
 
 #Student Medicals
