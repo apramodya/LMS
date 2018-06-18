@@ -10,11 +10,14 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="{{ route('add-results-manually') }}" class="list-group-item list-group-item-action">Add Results Manually</a>
-                    <a href="{{ route('add-results-using-csv') }}" class="list-group-item list-group-item-action">Add Results Using CSV</a>
+                    <a href="{{ route('add-results-manually') }}" class="list-group-item list-group-item-action">Add
+                        Results Manually</a>
+                    <a href="{{ route('add-results-using-csv') }}" class="list-group-item list-group-item-action">Add
+                        Results Using CSV</a>
+                    <a href="{{ route('view-results') }}" class="list-group-item list-group-item-action">View
+                        Results</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

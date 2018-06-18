@@ -153,6 +153,7 @@ Route::get( '/add-results-using-csv', 'ExamController@getAddResultsUsingCSV' )->
 Route::post( '/add-results-using-csv', 'ExamController@postAddResultsUsingCSV' )->name( 'add-results-using-csv' );
 Route::get( '/add-results-to/{id}', 'ExamController@getAddResultsTo' )->name( 'add-results-to' );
 Route::post( '/add-results-to/{id}', 'ExamController@postAddResultsTo' )->name( 'add-results-to' );
+Route::get( '/view-results', 'ExamController@getViewResults' )->name( 'view-results' );
 
 /** Quiz Controller */
 Route::get( '/course/{id1}/quiz/{id2}/add-question', 'QuizController@getAddQuestion' )->name( 'add-question' );
