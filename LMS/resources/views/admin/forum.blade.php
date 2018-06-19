@@ -4,52 +4,98 @@
 @endsection
 @section('content')
     <div class="container">
-
-        <div class="mb-4">
-            <h5>Questions Asked <span class="badge indigo">3</span></h5>
-            <h5>Replies Given <span class="badge indigo">3</span></h5>
-        </div>
-
-        <!--Accordion wrapper-->
-        <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
-
-            <!-- Accordion card -->
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header" role="tab" id="headingOne">
-                    <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <h5 class="mb-0">Question one <i class="fa fa-angle-down rotate-icon"></i></h5>
-                        <h6 class="font-italic">By Pramodya On 2018-1-12 10:10 p.m.</h6>
-                    </a>
-                </div>
-                <!-- Card body -->
-                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx" >
-                    <div class="card-body">
-                        <!--Main wrapper-->
-                        <div class="comments-list text-justify">
-                            <!--First row-->
-                            <div class="row mb-4">
-
-                                <!--Content column-->
-                                <div class="col-sm-12">
-
-                                    <p class="grey-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                                        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                                        sint occaecat cupidatat non proident.</p>
-                                    <h6 class="font-italic">By John Doe On 2018-1-12 10:15 p.m.</h6>
-                                </div>
-                                <!--/.Content column-->
-                            </div>
-                            <!--/.First row-->
-                        </div>
-                        <!--/.Main wrapper-->
-
+        <div class="container-fluid">
+            <div class="row" style="padding-bottom: 20px;">
+                <div class="col-md-3">
+                    <div class="" style="padding-left: 60px; padding-top: 60px">
+                        <pre>Questions asked <span class="badge indigo"></span></pre>
+                        <pre>Replies given <span class="badge indigo">{{ null }}</span></pre>
                     </div>
                 </div>
+
             </div>
-            <!-- Accordion card -->
+
         </div>
-        <!--/.Accordion wrapper-->
+        @foreach($forum->questions as $question)
+            <div class="accordion" id="{{ $question->id }}" role="tablist" aria-multiselectable="true">
+
+                <!-- Accordion card -->
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne">
+                        <a data-toggle="collapse" href="#c{{ $question->id }}" aria-expanded="true"
+                           aria-controls="c{{ $question->id }}">
+                            <h4 class="mb-0">{{ str_limit($question->question, 15) }}<i
+                                        class="fa fa-angle-down rotate-icon"></i></h4>
+                        </a>
+                        <div style="padding-top: 20px">
+                            <p class="mb-0">{{ $question->question }}</p>
+                            @foreach($question->lecturers as $lecturer)
+                                <div class="mt-sm-1">
+                                    <small class="font-weight-bold text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</small>
+                                </div>
+                                <div class="mt-sm-1">
+                                    <ul class="list-unstyled">
+                                        <li class="comment-date">
+                                            {{ $question->created_at }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="mb-4">
+                            <pre>Replies <span class="badge indigo">{{ count($question->answers) }}</span></pre>
+                        </div>
+                    </div>
+                    <div id="c{{ $question->id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                         data-parent="#{{ $question->id }}">
+                        <div class="card-body">
+                            <!--Main wrapper-->
+                            @if(count($question->answers) > 0)
+                                @foreach($question->answers as $answer)
+                                    <div class="comments-list text-center text-md-left mb-1">
+                                        <!--First row-->
+                                        <div class="row mb-4">
+                                            <!--Content column-->
+                                            <div class="col-11 offset-1">
+                                                @foreach($answer->lecturers as $lecturer)
+                                                    <a>
+                                                        <small class="font-weight-bold text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</small>
+                                                    </a>
+                                                    <div class="mt-1">
+                                                        <ul class="list-unstyled">
+                                                            <li class="comment-date">
+                                                                {{ $answer->created_at }}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                                <p class="grey-text">{{ $answer->answer }}</p>
+                                            </div>
+                                            <!--/.Content column-->
+                                        </div>
+                                        <!--/.First row-->
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="mt-1">
+                                    <ul class="list-unstyled">
+                                        <li class="comment-date">
+                                            <p class="grey-text">No replies yet</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <br>
+        @endforeach
+
 
     </div>
 
