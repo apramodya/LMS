@@ -6,6 +6,7 @@ use App\Announcement;
 use App\Course;
 use App\Forum;
 use App\Lecturer;
+use App\Question;
 use App\Student;
 use App\User;
 use Illuminate\Http\Request;
@@ -246,8 +247,10 @@ class AdminController extends Controller {
 
 	public function forum( $id ) {
 		$forum = Forum::where( 'course_id', '=', $id )->first();
+		$question = Question::where( 'forum_id', '=', $forum->id )->get();
+		$qCount = $question->count();
 
-		return view( 'admin/forum', [ 'forum' => $forum ] );
+		return view( 'admin/forum', [ 'forum' => $forum ,'qCount' => $qCount] );
 	}
 
 }
