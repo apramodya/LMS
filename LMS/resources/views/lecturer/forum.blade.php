@@ -104,7 +104,7 @@
                                 @csrf
                                 <div class="md-form">
                                 <textarea type="text" id="answer" name="answer" class="form-control md-textarea"
-                                          rows="1"></textarea>
+                                          rows="1" required></textarea>
                                     <label for="answer">Your Reply</label>
                                 </div>
                                 <div class="pull-right">
