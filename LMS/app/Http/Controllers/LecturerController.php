@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LecturerController extends Controller {
 	public function __construct() {
-		$this->middleware( 'lecturer' );
+		$this->middleware('auth');
 	}
 
 	public function courses() {

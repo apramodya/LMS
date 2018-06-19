@@ -23,7 +23,7 @@ Use PDF;
 
 class StudentController extends Controller {
 	public function __construct() {
-		$this->middleware( 'student' );
+		$this->middleware('auth');
 	}
 
 	public function courses() {

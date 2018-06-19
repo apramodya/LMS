@@ -12,29 +12,27 @@ class LecturerTableSeeder extends Seeder
     public function run()
     {
         $lecturer = new \App\Lecturer([
-            'first_name' => 'kamal',
-            'last_name' => 'perera',
-            'email' => 'kamal@gmail.com',
+            'first_name' => 'Kamal',
+            'last_name' => 'Perera',
+            'email' => 'kamal@ucsc.cmb.ac.lk',
             'phone' => '0719990807',
             'user_id' => '4',
             'position_id' => '3',
         ]);
         $lecturer->save();
-
         $lecturer = new \App\Lecturer([
-            'first_name' => 'nimal',
-            'last_name' => 'silva',
-            'email' => 'nimal@gmail.com',
+            'first_name' => 'Nimal',
+            'last_name' => 'Silva',
+            'email' => 'nimal@ucsc.cmb.ac.lk',
             'phone' => '0773990007',
             'user_id' => '5',
             'position_id' => '4',
         ]);
         $lecturer->save();
-
         $lecturer = new \App\Lecturer([
-            'first_name' => 'sunil',
-            'last_name' => 'gamage',
-            'email' => 'sunil@gmail.com',
+            'first_name' => 'Sunil',
+            'last_name' => 'Gamage',
+            'email' => 'sunil@ucsc.cmb.ac.lk',
             'phone' => '0718432905',
             'user_id' => '6',
             'position_id' => '5',

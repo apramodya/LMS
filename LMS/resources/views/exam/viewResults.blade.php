@@ -33,7 +33,7 @@
             <div class="jumbotron">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <caption>List of courses</caption>
+                        <caption>List of Results</caption>
                         <thead>
                         <tr>
                             <th scope="col">#</th>

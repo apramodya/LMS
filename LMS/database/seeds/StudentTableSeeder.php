@@ -12,9 +12,9 @@ class StudentTableSeeder extends Seeder
     public function run()
     {
         $student = new \App\Student([
-            'first_name' => 'pramodya',
-            'last_name' => 'abeysinghe',
-            'email' => 'pramodya@gmail.com',
+            'first_name' => 'Pramodya',
+            'last_name' => 'Abeysinghe',
+            'email' => 'pramodyaabeysinghe@gmail.com',
             'phone' => '0719990807',
             'registration_year' => '2015',
             'index_number' => '15000028',
@@ -24,27 +24,39 @@ class StudentTableSeeder extends Seeder
         $student->save();
 
         $student = new \App\Student([
-            'first_name' => 'thilan',
-            'last_name' => 'costa',
-            'email' => 'costa@gmail.com',
-            'phone' => '0779990812',
+            'first_name' => 'Thilan',
+            'last_name' => 'Costa',
+            'email' => 'thilancosta1994@gmail.com',
+            'phone' => '‭0775048261',
             'registration_year' => '2015',
-            'index_number' => '15000031',
+            'index_number' => '15000257',
             'degree' =>'cs',
             'user_id' => '8',
         ]);
         $student->save();
 
         $student = new \App\Student([
-            'first_name' => 'naveen',
-            'last_name' => 'perera',
-            'email' => 'naveen@gmail.com',
-            'phone' => '0711230855',
+            'first_name' => 'Naveen',
+            'last_name' => 'Perera',
+            'email' => 'naveenperera777@gmail.com',
+            'phone' => '0779448380‬',
             'registration_year' => '2015',
-            'index_number' => '15010046',
+            'index_number' => '15020525',
             'degree' =>'is',
             'user_id' => '9',
         ]);
         $student->save();
+
+	    $student = new \App\Student([
+		    'first_name' => 'Udesh',
+		    'last_name' => 'Sendanayake',
+		    'email' => 'usendanayake@gmail.com',
+		    'phone' => '0766806341‬‬',
+		    'registration_year' => '2015',
+		    'index_number' => '15020711',
+		    'degree' =>'is',
+		    'user_id' => '10',
+	    ]);
+	    $student->save();
     }
 }

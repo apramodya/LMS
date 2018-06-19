@@ -15,7 +15,7 @@ use File;
 
 class AdminController extends Controller {
 	public function __construct() {
-		$this->middleware( 'admin' );
+		$this->middleware('auth');
 	}
 
 	public function registerUser( Request $request ) {

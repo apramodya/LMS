@@ -15,8 +15,8 @@ class HomeController extends Controller
     public function home()
     {
         // post only announcement for all batches
-        $announcements = Announcement::all()->sortByDesc('created_at')->where('year','=','all');
-
+        $announcements = Announcement::all()->sortByDesc('created_at')->where('year','=','all')
+	        ->take(1);
 	    flash('Welcome to LMS!')->success();
         return view('welcome', ['announcements' => $announcements]);
     }

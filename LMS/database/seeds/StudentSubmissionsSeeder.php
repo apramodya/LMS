@@ -18,7 +18,7 @@ class StudentSubmissionsSeeder extends Seeder
             'description' => 'This is the First Submission',
             'attachment' => 'NULL',
             'start_date' => '2018-04-03',
-            'end_date' => '2019-03-03',
+            'end_date' => '2018-09-03',
             'start_time' => '00:12:00',
             'end_time' => '12:12:00',
             'email' => '0',

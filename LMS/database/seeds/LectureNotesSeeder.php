@@ -20,7 +20,6 @@ class LectureNotesSeeder extends Seeder
 
         ]);
         $lecturenote->save();
-
         $lecturenote = new \App\LectureNote([
             'course_id' => '1',
             'lecturer_id' => '1',
@@ -30,16 +29,44 @@ class LectureNotesSeeder extends Seeder
 
         ]);
         $lecturenote->save();
-
         $lecturenote = new \App\LectureNote([
             'course_id' => '2',
-            'lecturer_id' => '1',
+            'lecturer_id' => '2',
             'title' => 'Lecture Note 03',
             'description' => 'This is the Third Lecture Note',
             'attachment' => 'NULL',
 
         ]);
         $lecturenote->save();
+	    $lecturenote = new \App\LectureNote([
+		    'course_id' => '3',
+		    'lecturer_id' => '2',
+		    'title' => 'Lecture Note 03',
+		    'description' => 'This is the Third Lecture Note',
+		    'attachment' => 'NULL',
+
+	    ]);
+	    $lecturenote->save();
+	    $lecturenote = new \App\LectureNote([
+		    'course_id' => '4',
+		    'lecturer_id' => '1',
+		    'title' => 'Lecture Note 03',
+		    'description' => 'This is the Third Lecture Note',
+		    'attachment' => 'NULL',
+
+	    ]);
+	    $lecturenote->save();
+	    $lecturenote = new \App\LectureNote([
+		    'course_id' => '5',
+		    'lecturer_id' => '3',
+		    'title' => 'Lecture Note 03',
+		    'description' => 'This is the Third Lecture Note',
+		    'attachment' => 'NULL',
+
+	    ]);
+	    $lecturenote->save();
+
+
     }
 
 
