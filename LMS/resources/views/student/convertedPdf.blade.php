@@ -1,5 +1,5 @@
 
-<table><tr><td> <h1>Medical Submission For Attendance</h1></td><td><img src="C:\Users\ASUS\Desktop\LearningMS\LMS\public\storage\Project_Images\UCSC_logo.jpg" float="right" style="width:50px;height:40px;"></td></tr></table><br>
+<table><tr><td> <h1>Medical Submission For Attendance</h1></td><td><img src="C:\Users\ASUS\Desktop\LMS\LMS\storage\app\public\Project_Images\UCSC_logo.jpg" float="right" style="width:50px;height:40px;"></td></tr></table><br>
 <hr>
                                 <div class="form-group">
                                     <label for="fname"><strong>Name in Full: </strong></label>

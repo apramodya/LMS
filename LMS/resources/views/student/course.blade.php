@@ -282,7 +282,7 @@
                                     <p class="font-italic">Published:{{$quiz->created_at}}</p>
                                     <p class="font-italic">Deadline: <span class="red-text">{{$quiz->end_date}} </span> at <span class="red">  {{$quiz->end_time}}</span></p>
 
-                                    <a href="{{route('Quiz-Student',['quizid' => $quiz->id])}}" class="btn btn-primary sm">Take Quiz</a>
+                                    <a href="{{route('Quiz-Student',['quizid' => $quiz->id])}}" class="btn btn-primary sm disabled">Take Quiz</a>
                                     {{--<p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>--}}
                                 </li>
                             @endforeach

@@ -16,7 +16,7 @@
                     <th scope="col">UnEnroll</th>
                 </tr>
                 </thead>
-                <tbody>php
+                <tbody>
                 @foreach($courses as $course)
                     <?php $count=0;  ?>
                     <tr>

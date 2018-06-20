@@ -107,7 +107,7 @@
                                             <a href="{{ route('lecturer-addNotice',$course->id) }}"
                                                class="btn btn-primary">Add Notice</a>
                                             <a href="{{ route('lecturer-forum',$course->id) }}"
-                                               class="btn btn-indigo">Forum</a>
+                                               class="btn btn-primary">Forum</a>
                                         </div>
                                     </div>
                                 </div>
