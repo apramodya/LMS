@@ -284,6 +284,8 @@
                                     <a class="btn btn-outline-danger btn-sm assignmentID" data-toggle="modal"
                                        data-target="#deleteAssignment-{{ $assignment->id }}"
                                        data-id="{{ $assignment->id }}">Delete</a>
+                                    <a href="{{ route('lecturer-viewAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">View Submissions</a>
                                     <p class="font-italic">Published
                                         on {{ $assignment->start_date }} {{ $assignment->start_time }}</p>
                                     <p class="font-italic">Deadline <span

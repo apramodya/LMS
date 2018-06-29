@@ -841,4 +841,16 @@ class LecturerController extends Controller {
 
     }
 
+    public function viewAssignmentSubmissions( $id, $id1){
+
+        $course     = Course::where( 'id', '=', $id )->first();
+        $assignment = Assignment::where( 'id', '=', $id1 )->first();
+
+        return view( 'lecturer/viewAssignmentSubmissions', [ 'course' => $course, 'assignment' => $assignment ] );
+
+
+    }
+
+
+
 }

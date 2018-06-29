@@ -79,6 +79,7 @@ Route::get( '/lecturer/course/{id}/delete-notice/{id1}', 'LecturerController@del
 Route::get( '/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerController@deleteLectureNote' )->name( 'lecturer-deleteLectureNote' );
 Route::get( '/lecturer/course/{id}/forum', 'LecturerController@viewForum' )->name( 'lecturer-forum' );
 Route::post( '/lecturer/course/{id}/forum', 'LecturerController@askQuestionAnswer' )->name( 'lecturer-forumQuestion' );
+Route::get( '/lecturer/course/{id}/view-assignmentSubmissions/{id1}', 'LecturerController@viewAssignmentSubmissions' )->name( 'lecturer-viewAssignmentSubmissions' );
 
 /** Student Controller  */
 
