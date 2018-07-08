@@ -35,4 +35,8 @@ class Student extends Model
     public function notices(){
         return $this->hasMany(Notice::class);
     }
+    function assignmentsubmissions(){
+        return $this->belongsToMany(AssignmentSubmission::class,'student_assignments_submissions','student_id', 'assignment_submission_id');
+    }
+
 }

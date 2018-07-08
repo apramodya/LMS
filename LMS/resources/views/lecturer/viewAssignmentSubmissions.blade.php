@@ -21,9 +21,12 @@
                         </thead>
                         <tbody>
                         {{-- @foreach()--}}
+                        {{--@foreach($assignmentSubmission->assignmentsubmissions as $submission)--}}
                         <tr class="text-center">
                             <th scope="row">{{--{{ $loop->index + 1}}--}}</th>
-                            <td>15000028</td>
+                            @foreach($assignmentSubmission->students as $student)
+                            <td>{{ $student->index_number }}</td>
+                            @endforeach
                             <td>15000028_PHP_Takehome</td>
                             <td>2018-06-30</td>
                             <td>

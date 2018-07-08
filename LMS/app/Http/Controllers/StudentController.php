@@ -182,6 +182,10 @@ class StudentController extends Controller {
 			$submitAssignment->description   = $request->description;
 			$submitAssignment->attachment    = $fileName;
 			$submitAssignment->save();
+
+            $student = Student::findOrFail( $student->id );
+            $student->assignmentsubmissions()->attach( $submitAssignment->id );
+
 		} else {
 
 			$submitAssignment                = new AssignmentSubmission();
@@ -192,6 +196,9 @@ class StudentController extends Controller {
 			$submitAssignment->description   = $request->description;
 			$submitAssignment->attachment    = null;
 			$submitAssignment->save();
+
+            $student = Student::findOrFail( $student->id );
+            $student->assignmentsubmissions()->attach( $submitAssignment->id );
 
 		}
 

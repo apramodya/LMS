@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Assignment;
+use App\AssignmentSubmission;
 use App\Course;
 
 use App\Forum;
@@ -844,10 +845,9 @@ class LecturerController extends Controller {
     public function viewAssignmentSubmissions( $id, $id1){
 
         $course     = Course::where( 'id', '=', $id )->first();
-        $assignment = Assignment::where( 'id', '=', $id1 )->first();
+        $assignmentSubmission = AssignmentSubmission::where( 'assignment_id', '=', $id1 )->first();
 
-        return view( 'lecturer/viewAssignmentSubmissions', [ 'course' => $course, 'assignment' => $assignment ] );
-
+        return view( 'lecturer/viewAssignmentSubmissions', [ 'course' => $course, 'assignmentSubmission' => $assignmentSubmission ] );
 
     }
 
