@@ -14,13 +14,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="course">Course Name</label>
-                                    <input type="text" class="form-control" id="course" name="course" disabled value="{{ $course->name }}">
+                                    <input type="text" class="form-control" id="course" name="course" disabled
+                                           value="{{ $course->name }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="course_id">Course ID</label>
-                                    <input type="text" class="form-control" id="course_id" name="course_id" disabled value="{{ $course->course_id }}">
+                                    <input type="text" class="form-control" id="course_id" name="course_id" disabled
+                                           value="{{ $course->course_id }}">
                                 </div>
                             </div>
                         </div>
@@ -28,7 +30,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="quiz_name">Quiz Title</label>
-                                    <input type="text" class="form-control" id="quiz_name" name="quiz_name" autofocus required>
+                                    <input type="text" class="form-control" id="quiz_name" name="quiz_name" autofocus
+                                           required>
                                 </div>
                             </div>
                         </div>
@@ -36,13 +39,24 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="start_time">Start Time</label>
-                                    <input type="time" class="form-control" id="start_time" name="start_time" >
+                                    <input type="time" class="form-control" id="start_time" name="start_time">
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div id=""></div>
+
                                 <div class="form-group">
                                     <label for="end_time">End Time</label>
-                                    <input type="time" class="form-control" id="end_time" name="end_time" >
+                                    <input type="time" class="form-control" id="end_time" name="end_time">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="duration">Duration</label>
+                                    <input type="text" class="form-control" id="duration" name="duration"
+                                           required>
                                 </div>
                             </div>
                         </div>

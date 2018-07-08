@@ -417,7 +417,7 @@
                                 <strong>{{ $quiz->quiz_name }}</strong>
                                 <br>
                                 <a href="{{ route('view-quiz', [$course->id, $quiz->id]) }}" class="btn btn-outline-primary btn-sm">Go to</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
+                                {{--<a href="#" class="btn btn-outline-primary btn-sm">Edit</a>--}}
                                 <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
                                 <p class="font-italic">Published on {{ now() }}</p>
                                 <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>

@@ -14,6 +14,7 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <style>
         .btn-group-lg .btn, .btn-group-sm .btn {
@@ -36,6 +37,7 @@
 <!-- Scripts -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/mdb.min.js') }}"></script>
@@ -50,6 +52,13 @@
 <script>
     $('#flash-overlay-modal').modal();
 </script>
-
+<script>
+    $( "#end_time" ).datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+    $( "#start_time" ).datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+</script>
 </body>
 </html>

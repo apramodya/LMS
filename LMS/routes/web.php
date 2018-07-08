@@ -84,7 +84,6 @@ Route::get( '/lecturer/course/{id}/view-assignmentSubmissions/{id1}', 'LecturerC
 /** Student Controller  */
 
 
-
 Route::get( '/student/courses', 'StudentController@courses' )->name( 'student-courses' );
 Route::get( '/student/course/{id}', 'StudentController@getCourse' )->name( 'student-course' );
 #Assignment Submissions
@@ -138,11 +137,9 @@ route::get( '/student/course/quiz/{id}', 'StudentController@showQuizz' )->name( 
 route::post( '/student/course/quiz/submit-quiz/{questionArray}', 'StudentController@showThisQuiz' )->name( 'student-submit-Quiz' );
 
 
-
-
 /**Email Controller */
 
-Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user');
+Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user' );
 
 
 /** Exam Controller  */
@@ -161,3 +158,5 @@ Route::get( '/course/{id1}/quiz/{id2}/add-question', 'QuizController@getAddQuest
 Route::post( '/course/{id1}/quiz/{id2}/add-question', 'QuizController@postAddQuestion' )->name( 'add-question' );
 Route::post( '/course/{id1}/quiz/{id2}/submit-quiz', 'QuizController@submitQuiz' )->name( 'submit-quiz' );
 Route::get( '/course/{id1}/quiz/{id2}/view-quiz', 'QuizController@getQuiz' )->name( 'view-quiz' );
+Route::get( '/course/{id1}/quiz/{id2}/edit-question/{id3}', 'QuizController@getEditQuestion' )->name( 'edit-question' );
+Route::post( '/course/{id1}/quiz/{id2}/edit-question/{id3}', 'QuizController@postEditQuestion' )->name( 'edit-question' );

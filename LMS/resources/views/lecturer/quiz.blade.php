@@ -22,7 +22,7 @@
                 @foreach($quiz->questions as $question)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $question->question }}</td>
+                        <td><a href="{{ route('edit-question', [$id1, $id2,$id3=$question->id]) }}">{{ $question->question }}</a></td>
                         <td>{{ $question->answer1 }}</td>
                         <td>{{ $question->answer2 }}</td>
                         <td>{{ $question->answer3 }}</td>
