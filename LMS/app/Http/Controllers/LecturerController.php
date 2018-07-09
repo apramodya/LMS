@@ -865,13 +865,32 @@ class LecturerController extends Controller {
 	public function viewAssignmentSubmissions( $id, $id1 ) {
 
 		$course               = Course::where( 'id', '=', $id )->first();
-		$assignmentSubmission = AssignmentSubmission::where( 'assignment_id', '=', $id1 )->first();
+		$assignment = Assignment::where( 'id', '=', $id1 )->first();
 
 		return view( 'lecturer/viewAssignmentSubmissions', [ 'course'               => $course,
-		                                                     'assignmentSubmission' => $assignmentSubmission
+		                                                     'assignment' => $assignment
 		] );
 
 	}
+
+    public function downloadAssignmentSubmissions( $id, $id1 ) {
+
+        $course     = Course::where( 'id', '=', $id )->first();
+        $assignmentSubmission     = AssignmentSubmission::where( 'id', '=', $id1 )->first();
+        $assignment = Assignment::where( 'id', '=', $assignmentSubmission->assignment_id )->first();
+        $folder     = $course->course_id;
+        $folder2    = $assignmentSubmission->attachment;
+        $assignmentID    = $assignment->assignment_id;
+        $path            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/' .$folder2;
+        //$pathToFile = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
+        if ( ! empty( $folder2 ) ) {
+
+            return response()->download( $path );
+        } else {
+            flash( 'No Uploads' )->success();
+        }
+
+    }
 
 
 }

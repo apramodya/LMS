@@ -80,6 +80,7 @@ Route::get( '/lecturer/course/{id}/delete-lecturenote/{id1}', 'LecturerControlle
 Route::get( '/lecturer/course/{id}/forum', 'LecturerController@viewForum' )->name( 'lecturer-forum' );
 Route::post( '/lecturer/course/{id}/forum', 'LecturerController@askQuestionAnswer' )->name( 'lecturer-forumQuestion' );
 Route::get( '/lecturer/course/{id}/view-assignmentSubmissions/{id1}', 'LecturerController@viewAssignmentSubmissions' )->name( 'lecturer-viewAssignmentSubmissions' );
+Route::get( '/lecturer/course/{id}/down-assignmentSubmission/{id1}', 'LecturerController@downloadAssignmentSubmissions' )->name( 'lecturer-downloadAssignmentSubmissions' );
 
 /** Student Controller  */
 

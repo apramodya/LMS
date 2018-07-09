@@ -27,7 +27,7 @@
 
                         @if($courseCount!=null)
                         @foreach($enrolledCourses as $enrolledCourse)
-                            @if($enrolledCourse->course_id == $course->id)
+                            @if(($enrolledCourse->course_id == $course->id) && ($enrolledCourse->student_id == $student->id))
                                 <td> <a class="btn btn-blue disabled">Enroll</a></td>
                                 <td><a class="btn btn red passID" data-toggle="modal" data-target="#unenrollmodel" data-id="{{ $course->id }}">un enroll</a></td>
                             @else

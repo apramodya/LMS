@@ -91,14 +91,16 @@ class StudentController extends Controller {
 
 
 	public function courseAction() {
+        $userid  = Auth::user()->id;
+        $student = Student::where( 'user_id', '=', $userid )->first();
 		$courses         = Course::all();
-		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id' )->get();
+		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id','student_id' )->get();
 		$courseCount     = count( $enrolledCourses );
 
 		return view( 'student/student-enroll-course', [ 'courses'         => $courses,
 		                                                'enrolledCourses' => $enrolledCourses,
-		                                                'courseCount'     => $courseCount
-		] );
+		                                                'courseCount'     => $courseCount,
+                                                        'student'         => $student] );
 	}
 
 //    public function postEnrollCourse(Request $request){
@@ -167,7 +169,7 @@ class StudentController extends Controller {
 		if ( $request->has( 'attachment' ) ) {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
-			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
 			$courseID        = $course->course_id;
 			$assignmentID    = $assignment->assignment_id;
 			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
@@ -180,7 +182,7 @@ class StudentController extends Controller {
 			$submitAssignment->assignment_id = $assignmentid;
 			$submitAssignment->title         = $request->title;
 			$submitAssignment->description   = $request->description;
-			$submitAssignment->attachment    = $fileName;
+			$submitAssignment->attachment    = $fileNameWithExt;
 			$submitAssignment->save();
 
             $student = Student::findOrFail( $student->id );
