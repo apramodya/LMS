@@ -100,6 +100,13 @@ class LecturerController extends Controller {
 			$assignment->save();
 		}
 
+		if ($assignment->email == 1) {
+			// mail details
+			$mail = ['message' => $assignment->description, 'course' => $course->name];
+
+			// send email
+			Mail::bcc( $course->students )->send( new \App\Mail\Assignment( $mail ) );
+		}
 
 		flash( 'Assignment added' )->success();
 
@@ -455,11 +462,17 @@ class LecturerController extends Controller {
 			$notice->save();
 		}
 
-		// mail details
-		$mail = ['message' => $notice->description, 'title' => $notice->title, 'course' => $course->name];
+		if ($notice->email == 1) {
+			// mail details
+			$mail = ['message' => $notice->description, 'title' => $notice->title, 'course' => $course->name];
 
-		// send email
-		Mail::bcc( $course->students )->send( new \App\Mail\Notice( $mail ) );
+			// send email
+			Mail::bcc( $course->students )->send( new \App\Mail\Notice( $mail ) );
+		}
+
+		if ($notice->sms == 1){
+			sms($notice->description, '');
+		}
 
 		flash( 'Notice posted' )->success();
 
@@ -661,6 +674,14 @@ class LecturerController extends Controller {
 
 			File::makeDirectory( $path, 0775, true, true );
 			$submission->save();
+		}
+
+		if ($submission->email == 1) {
+			// mail details
+			$mail = ['message' => $submission->description, 'title' => $submission->title, 'course' => $course->name];
+
+			// send email
+			Mail::bcc( $course->students )->send( new \App\Mail\Submission( $mail ) );
 		}
 
 		flash( 'Submission added' )->success();

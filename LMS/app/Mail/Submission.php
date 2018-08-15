@@ -7,26 +7,25 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Notice extends Mailable
+class Submission extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $title;
-    protected $message;
-    protected $course;
-    public $subject;
+	protected $title;
+	protected $message;
+	protected $course;
+	public $subject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mail)
+    public function __construct($submission)
     {
-        //
-	    $this->title = $mail['title'];
-	    $this->message = $mail['message'];
-	    $this->course = $mail['course'];
-	    $this->subject = 'Notice - '.$mail['course'];
+	    $this->title = $submission['title'];
+	    $this->message = $submission['message'];
+	    $this->course = $submission['course'];
+	    $this->subject = 'Submission - '.$submission['course'];
     }
 
     /**
@@ -36,7 +35,7 @@ class Notice extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.notice')
+        return $this->view('emails.submission')
 	        ->with(['msg' => $this->message, 'course' => $this->course, 'title' => $this->title]);
     }
 }
