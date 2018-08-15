@@ -18,6 +18,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class LecturerController extends Controller {
@@ -414,7 +415,7 @@ class LecturerController extends Controller {
 
 	public function storeNotice( Request $request, $id ) {
 
-		$course   = Course::where( 'id', '=', $id )->first();
+		$course   = Course::findOrFail( $id );
 		$userid   = $request->user()->id;
 		$lecturer = Lecturer::where( 'user_id', '=', $userid )->first();
 
@@ -454,11 +455,12 @@ class LecturerController extends Controller {
 			$notice->save();
 		}
 
-		broadcastSMSEmail($notice->description, $notice->course_id, $notice->sms, $notice->email);
+		// send email
+		Mail::bcc( $course->students )->send( new \App\Mail\Notice( $notice ) );
 
 		flash( 'Notice posted' )->success();
 
-		//return redirect( route( 'lecturer-course', $id ) );
+		return redirect( route( 'lecturer-course', $id ) );
 	}
 
 	public function editNotice( $id, $id1 ) {

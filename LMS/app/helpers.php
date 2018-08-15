@@ -47,17 +47,6 @@ function sms( $msg, $receiver ) {
 	return $msg;
 }
 
-// send email
-function email( $msg, $receiver ) {
-	$to      = $receiver;
-	$subject = 'the subject';
-	$message = $msg;
-	$headers = 'From: webmaster@example.com' . "\r\n" .
-	           'Reply-To: webmaster@example.com' . "\r\n" .
-	           'X-Mailer: PHP/' . phpversion();
-
-	mail($to, $subject, $message, $headers);
-}
 
 // return the full degree name
 function degreeName( $degree ) {
