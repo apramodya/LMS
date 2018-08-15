@@ -452,13 +452,11 @@ class LecturerController extends Controller {
 			$notice->save();
 		}
 
-		if ( $notice->sms == 1 ) {
-			sms( $notice->description );
-		}
+		broadcastSMSEmail($notice->description, $notice->course_id, $notice->sms, $notice->email);
 
 		flash( 'Notice posted' )->success();
 
-		return redirect( route( 'lecturer-course', $id ) );
+		//return redirect( route( 'lecturer-course', $id ) );
 	}
 
 	public function editNotice( $id, $id1 ) {

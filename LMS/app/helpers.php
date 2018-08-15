@@ -1,7 +1,30 @@
 <?php
 
+//broadcast message
+function broadcastSMSEmail( $msg, $course_id, $sms, $email ) {
+	$receivers = \App\Course::where( 'id', '=', $course_id )->first()->students;
+	//dd( $receivers );
+
+	if ( $sms == 1 ) {
+		foreach ( $receivers as $receiver ) {
+			print_r($msg." \n");
+			print_r("Message sent to ".$receiver->phone."\r\n");
+
+//			sms( $msg, $receiver->phone );
+		}
+	}
+	if ( $email == 1 ) {
+		foreach ( $receivers as $receiver ) {
+			print_r($msg." \n");
+			print_r("Message emailed to ".$receiver->email."\r\n");
+
+			email( $msg, $receiver->email );
+		}
+	}
+}
+
 // send text message
-function sms( $msg ) {
+function sms( $msg, $receiver ) {
 	$user     = '94719990807';
 	$password = '2036';
 	$text     = urlencode( $msg );
@@ -15,13 +38,25 @@ function sms( $msg ) {
 
 	if ( trim( $res[0] ) == 'OK' ) {
 		$msg = 'Sent';
-		//echo 'Message Sent – ID : '.$res[1];
+//		echo 'Message Sent – ID : '.$res[1];
 	} else {
-		//echo 'Sent Failed – Error : '.$res[1];
+//		echo 'Sent Failed – Error : '.$res[1];
 		$msg = 'Fail';
 	}
 
 	return $msg;
+}
+
+// send email
+function email( $msg, $receiver ) {
+	$to      = $receiver;
+	$subject = 'the subject';
+	$message = $msg;
+	$headers = 'From: webmaster@example.com' . "\r\n" .
+	           'Reply-To: webmaster@example.com' . "\r\n" .
+	           'X-Mailer: PHP/' . phpversion();
+
+	mail($to, $subject, $message, $headers);
 }
 
 // return the full degree name
