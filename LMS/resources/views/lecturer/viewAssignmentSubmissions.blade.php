@@ -5,6 +5,7 @@
 @section('content')
     <div class="container">
         <div class="jumbotron">
+            <a href="{{ route('lecturer-downloadAllAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Download All</a>
             <div class="row">
                 <div class="table-responsive table-bordered">
                     <table class="table">

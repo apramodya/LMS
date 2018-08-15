@@ -14,9 +14,11 @@ use App\Notice;
 use App\Question;
 use App\Quiz;
 use App\Submission;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
+
 
 class LecturerController extends Controller {
 	public function __construct() {
@@ -886,7 +888,28 @@ class LecturerController extends Controller {
             return response()->download( $path );
         } else {
             flash( 'No Uploads' )->success();
+            return redirect( route('lecturer-viewAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) );
+
         }
+
+    }
+
+    public function downloadAllAssignmentSubmissions( $id, $id1 ) {
+
+        $course     = Course::where( 'id', '=', $id )->first();
+        //$assignmentSubmissions     = AssignmentSubmission::where( 'assignment_id', '=', $id1 )->get();
+        $assignment = Assignment::where( 'id', '=', $id1 )->first();
+        $folder     = $course->course_id;
+        $assignmentID    = $assignment->assignment_id;
+        $path            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/bulk.zip';
+
+        $files = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/';
+        $zipper = new \Chumper\Zipper\Zipper();
+        $zipper->make($path)->add($files);
+        $zipper->close();
+        return response()->download( $path )->deleteFileAfterSend(true);
+
+
 
     }
 

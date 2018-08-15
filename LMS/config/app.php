@@ -148,6 +148,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 	    Laracasts\Flash\FlashServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
+        ZanySoft\Zip\ZipServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -212,6 +215,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
 
 
     ],

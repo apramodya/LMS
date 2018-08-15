@@ -81,6 +81,7 @@ Route::get( '/lecturer/course/{id}/forum', 'LecturerController@viewForum' )->nam
 Route::post( '/lecturer/course/{id}/forum', 'LecturerController@askQuestionAnswer' )->name( 'lecturer-forumQuestion' );
 Route::get( '/lecturer/course/{id}/view-assignmentSubmissions/{id1}', 'LecturerController@viewAssignmentSubmissions' )->name( 'lecturer-viewAssignmentSubmissions' );
 Route::get( '/lecturer/course/{id}/down-assignmentSubmission/{id1}', 'LecturerController@downloadAssignmentSubmissions' )->name( 'lecturer-downloadAssignmentSubmissions' );
+Route::get( '/lecturer/course/{id}/downall-assignmentSubmission/{id1}', 'LecturerController@downloadAllAssignmentSubmissions' )->name( 'lecturer-downloadAllAssignmentSubmissions' );
 
 /** Student Controller  */
 
@@ -117,15 +118,11 @@ Route::get( '/student/exam-medical/', 'StudentController@studentExamMedicals' )-
 
 #Pass values to generate PDF
 
+
 Route::post( '/student/store-medical', 'StudentController@storeMedicalPDF' )->name( 'submit-medical' );
 
+
 Route::get( '/student/store-medical/generate-medical/{id}', 'StudentController@generateMedicalPDF' )->name( 'generate-medical' );
-
-
-#Forum
-Route::get( '/student/courses/{id}/forum', 'StudentController@studentForum' )->name( 'student-forum' );
-
-
 
 
 #course actions
