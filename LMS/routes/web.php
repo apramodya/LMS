@@ -117,11 +117,15 @@ Route::get( '/student/exam-medical/', 'StudentController@studentExamMedicals' )-
 
 #Pass values to generate PDF
 
-
 Route::post( '/student/store-medical', 'StudentController@storeMedicalPDF' )->name( 'submit-medical' );
 
-
 Route::get( '/student/store-medical/generate-medical/{id}', 'StudentController@generateMedicalPDF' )->name( 'generate-medical' );
+
+
+#Forum
+Route::get( '/student/courses/{id}/forum', 'StudentController@studentForum' )->name( 'student-forum' );
+
+
 
 
 #course actions

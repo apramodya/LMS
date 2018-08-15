@@ -80,7 +80,12 @@
             </div>
 
             <div class="col-md-2">
-                <button class="btn btn-indigo btn-md">Forum</button>
+                <a href="{{route('student-forum',['courseid' => $course->id])}}" class="btn btn-primary btn-sm  ">Forum</a>
+
+                {{--<a href="{{route('student-forum',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm  ">Forum</a>--}}
+
+
+                {{--<button class="btn btn-indigo btn-md">Forum</button>--}}
             </div>
         </div>
         <hr class="black">

@@ -15,6 +15,8 @@ use App\Submission;
 use App\SubmitAssignment;
 use App\SubmitSubmission;
 use App\MedicalReports;
+use App\Forum;
+use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -424,6 +426,29 @@ class StudentController extends Controller {
 //        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submisssion->id]));
 
 	}
+
+
+	public function studentForum($id){
+
+        $forum   = Forum::where( 'course_id', '=', $id )->first();
+        $question = Question::where( 'forum_id', '=', $forum->id )->get();
+        $qCount   = $question->count();
+
+        return view('student.studentForum',[ 'forum' => $forum, 'qCount' => $qCount ]);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 	public function studentAttendaceExcuses() {
 
