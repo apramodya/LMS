@@ -455,8 +455,11 @@ class LecturerController extends Controller {
 			$notice->save();
 		}
 
+		// mail details
+		$mail = ['message' => $notice->description, 'title' => $notice->title, 'course' => $course->name];
+
 		// send email
-		Mail::bcc( $course->students )->send( new \App\Mail\Notice( $notice ) );
+		Mail::bcc( $course->students )->send( new \App\Mail\Notice( $mail ) );
 
 		flash( 'Notice posted' )->success();
 

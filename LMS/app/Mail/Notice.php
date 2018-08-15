@@ -11,18 +11,22 @@ class Notice extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $title;
     protected $message;
     protected $course;
+    public $subject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($notice)
+    public function __construct($mail)
     {
         //
-	    $this->message = $notice->message;
-	    $this->course = $notice->course_id;
+	    $this->title = $mail['title'];
+	    $this->message = $mail['message'];
+	    $this->course = $mail['course'];
+	    $this->subject = 'Notice - '.$mail['course'];
     }
 
     /**
@@ -34,6 +38,6 @@ class Notice extends Mailable
     {
 //    	dd($this->message);
         return $this->view('emails.notice')
-	        ->with(['msg' => $this->message, 'course' => $this->course]);
+	        ->with(['msg' => $this->message, 'course' => $this->course, 'title' => $this->title]);
     }
 }
