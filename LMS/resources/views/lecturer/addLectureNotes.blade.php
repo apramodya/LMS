@@ -35,7 +35,14 @@
                             <label for="attachment">Attachment</label>
                             <input name="attachment" type="file" class="form-control-file" id="attachment">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn btn-primary" href="{{ route('lecturer-course',$course->id) }}" role="tab">Cancel</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
