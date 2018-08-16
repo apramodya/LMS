@@ -29,6 +29,6 @@ class StudentAssignmentsSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses_students');
+        Schema::dropIfExists('student_assignments_submissions');
     }
 }

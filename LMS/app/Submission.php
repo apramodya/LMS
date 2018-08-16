@@ -17,4 +17,7 @@ class Submission extends Model
     public function students(){
         return $this->hasMany(Student::class);
     }
+    public function submissionsubmissions(){
+        return $this->hasMany(SubmitSubmission::class);
+    }
 }

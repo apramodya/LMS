@@ -15,6 +15,7 @@ use App\Question;
 use App\Quiz;
 use App\Submission;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
@@ -939,12 +940,29 @@ class LecturerController extends Controller {
         $path            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/bulk.zip';
 
         $files = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/';
-        $zipper = new \Chumper\Zipper\Zipper();
-        $zipper->make($path)->add($files);
-        $zipper->close();
-        return response()->download( $path )->deleteFileAfterSend(true);
+        $FileSystem = new Filesystem;
+        if (!empty($FileSystem->files($files))) {
+            $zipper = new \Chumper\Zipper\Zipper();
+            $zipper->make($path)->add($files);
+            $zipper->close();
+            return response()->download( $path )->deleteFileAfterSend(true);
+        }
+        else{
+            flash( 'No Any Uploads' )->success();
+            return redirect( route('lecturer-viewAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) );
+        }
 
 
+
+
+    }
+
+    public function viewSubmissions( $id, $id1 ) {
+
+        $course               = Course::where( 'id', '=', $id )->first();
+        $submission = Submission::where( 'id', '=', $id1 )->first();
+
+        return view( 'lecturer/viewSubmissions', [ 'course'=> $course, 'submission' => $submission] );
 
     }
 

@@ -82,6 +82,7 @@ Route::post( '/lecturer/course/{id}/forum', 'LecturerController@askQuestionAnswe
 Route::get( '/lecturer/course/{id}/view-assignmentSubmissions/{id1}', 'LecturerController@viewAssignmentSubmissions' )->name( 'lecturer-viewAssignmentSubmissions' );
 Route::get( '/lecturer/course/{id}/down-assignmentSubmission/{id1}', 'LecturerController@downloadAssignmentSubmissions' )->name( 'lecturer-downloadAssignmentSubmissions' );
 Route::get( '/lecturer/course/{id}/downall-assignmentSubmission/{id1}', 'LecturerController@downloadAllAssignmentSubmissions' )->name( 'lecturer-downloadAllAssignmentSubmissions' );
+Route::get( '/lecturer/course/{id}/view-Submissions/{id1}', 'LecturerController@viewSubmissions' )->name( 'lecturer-viewSubmissions' );
 
 /** Student Controller  */
 

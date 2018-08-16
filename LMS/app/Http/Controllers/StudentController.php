@@ -361,6 +361,10 @@ class StudentController extends Controller {
 			$submitTask->description   = $request->description;
 			$submitTask->attachment    = $fileName;
 			$submitTask->save();
+
+            $student = Student::findOrFail( $student->id );
+            $student->submissionsubmissions()->attach( $submitTask->id );
+
 		} else {
 			$submitTask                = new SubmitSubmission();
 			$submitTask->student_id    = $student->id;
@@ -370,6 +374,9 @@ class StudentController extends Controller {
 			$submitTask->description   = $request->description;
 			$submitTask->attachment    = null;
 			$submitTask->save();
+
+            $student = Student::findOrFail( $student->id );
+            $student->submissionsubmissions()->attach( $submitTask->id );
 
 		}
 

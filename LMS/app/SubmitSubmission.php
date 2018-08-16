@@ -13,8 +13,12 @@ class SubmitSubmission extends Model
     public function lecturer(){
         return $this->belongsTo(Lecturer::class);
     }
-    public function students(){
-        return $this->hasMany(Student::class);
+    function students(){
+        return $this->belongsToMany(Student::class,'student_submissions','submission_submission_id', 'student_id');
     }
+    public function submission(){
+        return $this->belongsTo(Submission::class);
+    }
+
 
 }
