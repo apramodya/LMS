@@ -113,6 +113,14 @@ Route::post( '/student/course/{courseid}/edit-task/{submissionid}', 'StudentCont
 Route::get( '/student/attendance-excuses', 'StudentController@studentAttendaceExcuses' )->name( 'student-attendace-excuses' );
 
 
+#Forum
+Route::get( '/student/course/{id}/forum', 'StudentController@viewForum' )->name( 'student-forum' );
+Route::post( '/student/course/{id}/forum', 'StudentController@askQuestionAnswer' )->name( 'student-forumQuestion' );
+
+
+
+
+
 #Student Medicals
 Route::get( '/student/exam-medical/', 'StudentController@studentExamMedicals' )->name( 'student-exam-medicals' );
 
