@@ -1,47 +1,24 @@
 <?php
 
-//broadcast message
-function broadcastSMSEmail( $msg, $course_id, $sms, $email ) {
-	$receivers = \App\Course::where( 'id', '=', $course_id )->first()->students;
-	//dd( $receivers );
-
-	if ( $sms == 1 ) {
-		foreach ( $receivers as $receiver ) {
-			print_r($msg." \n");
-			print_r("Message sent to ".$receiver->phone."\r\n");
-
-//			sms( $msg, $receiver->phone );
-		}
-	}
-	if ( $email == 1 ) {
-		foreach ( $receivers as $receiver ) {
-			print_r($msg." \n");
-			print_r("Message emailed to ".$receiver->email."\r\n");
-
-			email( $msg, $receiver->email );
-		}
-	}
-}
-
 // send text message
-function sms( $msg, $receiver ) {
+function sms( $msg, $receivers ) {
 	$user     = '94719990807';
 	$password = '2036';
 	$text     = urlencode( $msg );
-	$to       = '94719990807';
+	$to       = $receivers;
 
-	$baseurl = 'http://www.textit.biz/sendmsg';
-	$url     = $baseurl . '/?id=' . $user . '&pw=' . $password . '&to=' . $to . '&text=' . $text;
+	$baseurl = 'http://www.textit.biz/sendmsg/?id=';
+	$url     = $baseurl . $user . '&pw=' . $password . '&to=' . $to . '&text=' . $text;
 	$ret     = file( $url );
 
 	$res = explode( ':', $ret[0] );
 
 	if ( trim( $res[0] ) == 'OK' ) {
-		$msg = 'Sent';
+		$msg = 'SMS Sent';
 //		echo 'Message Sent – ID : '.$res[1];
 	} else {
 //		echo 'Sent Failed – Error : '.$res[1];
-		$msg = 'Fail';
+		$msg = 'SMS Failed';
 	}
 
 	return $msg;

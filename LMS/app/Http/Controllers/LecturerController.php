@@ -468,10 +468,19 @@ class LecturerController extends Controller {
 
 			// send email
 			Mail::bcc( $course->students )->send( new \App\Mail\Notice( $mail ) );
+			flash('Notice emailed')->info();
 		}
 
+		$receivers = [];
+		foreach ($course->students as $student) {
+			array_push($receivers, $student->phone);
+		}
+		// comma separated phone number list
+		$receivers = implode (", ", $receivers);
+
 		if ($notice->sms == 1){
-			sms($notice->description, '');
+			$msg_sms = sms($notice->description, $receivers);
+			flash($msg_sms)->info();
 		}
 
 		flash( 'Notice posted' )->success();
