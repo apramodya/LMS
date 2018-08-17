@@ -14,11 +14,11 @@ function sms( $msg, $receivers ) {
 	$res = explode( ':', $ret[0] );
 
 	if ( trim( $res[0] ) == 'OK' ) {
-		$msg = 'SMS Sent';
+		$msg = 1;
 //		echo 'Message Sent – ID : '.$res[1];
 	} else {
 //		echo 'Sent Failed – Error : '.$res[1];
-		$msg = 'SMS Failed';
+		$msg = 0;
 	}
 
 	return $msg;

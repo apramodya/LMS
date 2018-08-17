@@ -107,9 +107,25 @@ class LecturerController extends Controller {
 
 			// send email
 			Mail::bcc( $course->students )->send( new \App\Mail\Assignment( $mail ) );
+			flash( 'Assignment details emailed' )->success();
 		}
 
-		flash( 'Assignment added' )->success();
+		if ($assignment->sms == 1){
+			$receivers = [];
+			foreach ($course->students as $student) {
+				array_push($receivers, $student->phone);
+			}
+			// comma separated phone number list
+			$receivers = implode (", ", $receivers);
+
+			$msg_sms = sms($assignment->description, $receivers);
+			if ($msg_sms == 0)
+				flash('SMS Failed')->error();
+			else
+				flash('SMS Sent')->success();
+		}
+
+		flash( 'Assignment details added' )->success();
 
 		return redirect( route( 'lecturer-course', $id ) );
 	}
@@ -469,19 +485,22 @@ class LecturerController extends Controller {
 
 			// send email
 			Mail::bcc( $course->students )->send( new \App\Mail\Notice( $mail ) );
-			flash('Notice emailed')->info();
+			flash('Notice emailed')->success();
 		}
-
-		$receivers = [];
-		foreach ($course->students as $student) {
-			array_push($receivers, $student->phone);
-		}
-		// comma separated phone number list
-		$receivers = implode (", ", $receivers);
 
 		if ($notice->sms == 1){
+			$receivers = [];
+			foreach ($course->students as $student) {
+				array_push($receivers, $student->phone);
+			}
+			// comma separated phone number list
+			$receivers = implode (", ", $receivers);
+
 			$msg_sms = sms($notice->description, $receivers);
-			flash($msg_sms)->info();
+			if ($msg_sms == 0)
+				flash('SMS Failed')->error();
+			else
+				flash('SMS Sent')->success();
 		}
 
 		flash( 'Notice posted' )->success();
@@ -692,9 +711,25 @@ class LecturerController extends Controller {
 
 			// send email
 			Mail::bcc( $course->students )->send( new \App\Mail\Submission( $mail ) );
+			flash('Submission details emailed')->success();
 		}
 
-		flash( 'Submission added' )->success();
+		if ($submission->sms == 1){
+			$receivers = [];
+			foreach ($course->students as $student) {
+				array_push($receivers, $student->phone);
+			}
+			// comma separated phone number list
+			$receivers = implode (", ", $receivers);
+
+			$msg_sms = sms($submission->description, $receivers);
+			if ($msg_sms == 0)
+				flash('SMS Failed')->error();
+			else
+				flash('SMS Sent')->success();
+		}
+
+		flash( 'Submission details posted' )->success();
 
 		return redirect( route( 'lecturer-course', $id ) );
 

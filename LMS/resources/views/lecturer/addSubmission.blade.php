@@ -35,7 +35,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="start_date">Start Date</label>
-                                    <input type="date" class="form-control" min=<?php echo date('Y-m-d');?> id="start_date" name="start_date" required>
+                                    <input type="date" class="form-control" min="<?php echo date('Y-m-d');?>" id="start_date" name="start_date" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
