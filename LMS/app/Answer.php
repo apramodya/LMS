@@ -12,7 +12,7 @@ class Answer extends Model
     public function lecturers(){
         return $this->belongsToMany(Lecturer::class,'answers_lecturers','answer_id', 'lecturer_id');
     }
-    public function student(){
-        return $this->belongsTo(Student::class);
+    public function students(){
+        return $this->belongsToMany(Student::class,'answers_students','answer_id', 'student_id');
     }
 }

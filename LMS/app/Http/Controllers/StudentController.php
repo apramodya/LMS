@@ -17,6 +17,7 @@ use App\SubmitSubmission;
 use App\MedicalReports;
 use App\Forum;
 use App\Question;
+use App\Answer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -434,8 +435,7 @@ class StudentController extends Controller {
 
 	}
 
-
-	public function studentForum($id){
+    public function viewForum($id){
 
         $forum   = Forum::where( 'course_id', '=', $id )->first();
         $question = Question::where( 'forum_id', '=', $forum->id )->get();
@@ -443,21 +443,69 @@ class StudentController extends Controller {
 
         return view('student.studentForum',[ 'forum' => $forum, 'qCount' => $qCount ]);
 
+    }
+
+    public function askQuestionAnswer( Request $request, $id ) {
+
+        if ( $request->has( 'Ask' ) ) {
+            $course   = Course::findOrFail( $id );
+            $forum    = Forum::where( 'course_id', '=', $id )->first();
+            $userid   = $request->user()->id;
+            $student = Student::where( 'user_id', '=', $userid )->first();
+
+            $question           = new Question;
+            $question->forum_id = $forum->id;
+            $question->question = $request->question;
+            $question->save();
+
+//            dd($question->id);
+
+            $student = Student::findOrFail( $student->id );
+//           dd($student);
+//            $student->questions()->attach( $question->id );
+            DB::table('questions_students')->insert(
+                ['question_id' => $question->id, 'student_id' => $student->id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]
+            );
+            flash( 'Question posted' )->success();
+
+            return redirect( route( 'student-forum', $course->id ) );
+        }
+
+        if ( $request->has( 'Reply' ) ) {
+            $question = Question::findOrFail( $id );
+            $forum    = Forum::where( 'id', '=', $question->forum_id )->first();
+            $userid   = $request->user()->id;
+            $student = Student::where( 'user_id', '=', $userid )->first();
+
+            $answer              = new Answer;
+            $answer->question_id = $id;
+            $answer->answer      = $request->answer;
+            $answer->save();
+
+//            $student = Student::findOrFail( $student->id );
+//            $student->answers()->attach( $answer->id );
+
+            DB::table('answers_students')->insert(
+                ['answer_id' =>$answer->id, 'student_id' => $student->id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]
+            );
+
+            flash( 'Reply posted' )->success();
+
+            return redirect( route( 'student-forum', $forum->course_id ) );
+
+        }
+
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
-	public function studentAttendaceExcuses() {
+    public function studentAttendaceExcuses() {
 
 		$courses  = Auth::user()->students->first()->courses;
 		$userid   = Auth::user()->id;
