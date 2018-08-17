@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="jumbotron">
-            <a href="{{ route('lecturer-downloadAllAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) }}" class="btn btn-outline-primary btn-sm">Download All</a>
+            <a href="{{ route('lecturer-downloadAllSubmissions',['id' => $course->id, 'id1' => $submission->id]) }}" class="btn btn-outline-primary btn-sm">Download All</a>
             <div class="row">
                 <div class="table-responsive table-bordered">
                     <table class="table">
@@ -47,26 +47,26 @@
                         }
                         ?>
                         {{-- @foreach()--}}
-                        @foreach($assignment->assignmentsubmissions as $assignmentsubmission)
+                        @foreach($submission->submissionsubmissions as $submissionsubmission)
                             <tr class="text-center">
                                 <th scope="row">{{--{{ $loop->index + 1}}--}}</th>
-                                @foreach($assignmentsubmission->students as $student)
+                                @foreach($submissionsubmission->students as $student)
                                     <td>{{ $student->index_number }}</td>
                                 @endforeach
 
                                 <?php
-                                $secondNumber = $assignmentsubmission->created_at;
-                                $date = $assignment->end_date;
-                                $time = $assignment->end_time;
+                                $secondNumber = $submissionsubmission->created_at;
+                                $date = $submission->end_date;
+                                $time = $submission->end_time;
                                 $timestamp = strtotime($secondNumber);
                                 $Date= date('Y-m-d', $timestamp);
                                 $Time = date('H:i:s', $timestamp);
                                 ?>
 
-                                <td>{{ $assignment->assignment_id  }}</td>
+                                <td>{{ $submission->title  }}</td>
 
-                                <td>{{ substr($assignmentsubmission->created_at,0,10) }}</td>
-                                <td>{{ substr($assignmentsubmission->created_at,10,18) }}</td>
+                                <td>{{ substr($submissionsubmission->created_at,0,10) }}</td>
+                                <td>{{ substr($submissionsubmission->created_at,10,18) }}</td>
                                 <td>
                                     @if(checkDeadline($date,$time,$Date,$Time)==true)
 
@@ -81,7 +81,7 @@
 
                                 </td>
                                 <td>
-                                    <a href="{{ route('lecturer-downloadAssignmentSubmissions',['id' => $course->id, 'id1' => $assignmentsubmission->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
+                                    <a href="{{ route('lecturer-downloadSubmissions',['id' => $course->id, 'id1' => $submissionsubmission->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
                                 </td>
                                 <td>
                                     <form action="">

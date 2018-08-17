@@ -14,6 +14,7 @@ use App\Notice;
 use App\Question;
 use App\Quiz;
 use App\Submission;
+use App\SubmitSubmission;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
@@ -972,15 +973,33 @@ class LecturerController extends Controller {
         $assignment = Assignment::where( 'id', '=', $id1 )->first();
         $folder     = $course->course_id;
         $assignmentID    = $assignment->assignment_id;
-        $path            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/bulk.zip';
+        $path            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/Assignmentbulk.zip';
+        $path1            = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID;
+        $path2            = storage_path().'/app/public/Student Uploads';
 
         $files = storage_path().'/app/public/Student Uploads/AssignmentSubmissions/' . $folder . '/' . $assignmentID . '/';
         $FileSystem = new Filesystem;
-        if (!empty($FileSystem->files($files))) {
-            $zipper = new \Chumper\Zipper\Zipper();
-            $zipper->make($path)->add($files);
-            $zipper->close();
-            return response()->download( $path )->deleteFileAfterSend(true);
+        if (File::exists($path2)){
+
+            if(File::exists($path1)){
+
+                if (!empty($FileSystem->files($files))) {
+                    $zipper = new \Chumper\Zipper\Zipper();
+                    $zipper->make($path)->add($files);
+                    $zipper->close();
+                    return response()->download( $path )->deleteFileAfterSend(true);
+                }
+                else{
+                    flash( 'No Any Uploads' )->success();
+                    return redirect( route('lecturer-viewAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) );
+                }
+
+            }
+            else{
+                flash( 'No Any Uploads' )->success();
+                return redirect( route('lecturer-viewAssignmentSubmissions',['id' => $course->id, 'id1' => $assignment->id]) );
+            }
+
         }
         else{
             flash( 'No Any Uploads' )->success();
@@ -998,6 +1017,74 @@ class LecturerController extends Controller {
         $submission = Submission::where( 'id', '=', $id1 )->first();
 
         return view( 'lecturer/viewSubmissions', [ 'course'=> $course, 'submission' => $submission] );
+
+    }
+
+    public function downloadSubmissions( $id, $id1 ) {
+
+        $course     = Course::where( 'id', '=', $id )->first();
+        $submissionsubmission     = SubmitSubmission::where( 'id', '=', $id1 )->first();
+        $submission = Submission::where( 'id', '=', $submissionsubmission->submission_id )->first();
+        $folder     = $course->course_id;
+        $folder2    = $submissionsubmission->attachment;
+        $submissionID    = $submission->id;
+        $path            = storage_path().'/app/public/Student Uploads/Task Submissions/' . $folder . '/' . $submissionID . '/' .$folder2;
+        //$pathToFile = base_path() . '/public/uploads/' . $folder . '/notices/' . $folder2;
+        if ( ! empty( $folder2 ) ) {
+
+            return response()->download( $path );
+        } else {
+            flash( 'No Uploads' )->success();
+            return redirect( route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) );
+
+        }
+
+
+    }
+
+    public function downloadAllSubmissions( $id, $id1 ) {
+
+        $course     = Course::where( 'id', '=', $id )->first();
+        //$assignmentSubmissions     = AssignmentSubmission::where( 'assignment_id', '=', $id1 )->get();
+        $submission = Submission::where( 'id', '=', $id1 )->first();
+        $folder     = $course->course_id;
+        $submissionID    = $submission->id;
+        $path            = storage_path().'/app/public/Student Uploads/Task Submissions/' . $folder . '/' . $submissionID . '/taskbulk.zip';
+        $path1            = storage_path().'/app/public/Student Uploads/Task Submissions/' . $folder . '/' . $submissionID;
+        $path2            = storage_path().'/app/public/Student Uploads';
+
+        $files = storage_path().'/app/public/Student Uploads/Task Submissions/' . $folder . '/' . $submissionID . '/';
+        $files1 = storage_path().'/app/public/';
+        $FileSystem = new Filesystem;
+        if (File::exists($path2)){
+            if(File::exists($path1)){
+
+                if (!empty($FileSystem->files($files))) {
+                    $zipper = new \Chumper\Zipper\Zipper();
+                    $zipper->make($path)->add($files);
+                    $zipper->close();
+                    return response()->download( $path )->deleteFileAfterSend(true);
+                }
+                else{
+                    flash( 'No Any Uploads' )->success();
+                    return redirect( route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) );
+                }
+
+            }
+            else{
+                flash( 'No Any Uploads' )->success();
+                return redirect( route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) );
+            }
+
+        }
+        else{
+            flash( 'No Any Uploads' )->success();
+            return redirect( route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) );
+        }
+
+
+
+
 
     }
 

@@ -240,7 +240,7 @@ class StudentController extends Controller {
 		if ( $request->has( 'attachment' ) ) {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
-			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
 			$courseID        = $course->course_id;
 			$assignmentID    = $assignment->assignment_id;
 			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
@@ -253,7 +253,7 @@ class StudentController extends Controller {
 			$submitAssignment->assignment_id = $assignmentid;
 			$submitAssignment->title         = $request->title;
 			$submitAssignment->description   = $request->description;
-			$submitAssignment->attachment    = $fileName;
+			$submitAssignment->attachment    = $fileNameWithExt;
 			$submitAssignment->save();
 		} else {
 
@@ -347,7 +347,7 @@ class StudentController extends Controller {
 		if ( $request->has( 'attachment' ) ) {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
-			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
 			$courseID        = $course->course_id;
 			$submissionID    = $submisssion->id;
 			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
@@ -360,7 +360,7 @@ class StudentController extends Controller {
 			$submitTask->submission_id = $submissionid;
 			$submitTask->title         = $request->title;
 			$submitTask->description   = $request->description;
-			$submitTask->attachment    = $fileName;
+			$submitTask->attachment    = $fileNameWithExt;
 			$submitTask->save();
 
             $student = Student::findOrFail( $student->id );
@@ -399,7 +399,7 @@ class StudentController extends Controller {
 		if ( $request->has( 'attachment' ) ) {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
-			$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
+			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
 			$courseID        = $course->course_id;
 			$submissionID    = $current->submission_id;
 			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
@@ -412,7 +412,7 @@ class StudentController extends Controller {
 			$submitTask->submission_id = $submissionid;
 			$submitTask->title         = $request->title;
 			$submitTask->description   = $request->description;
-			$submitTask->attachment    = $fileName;
+			$submitTask->attachment    = $fileNameWithExt;
 			$submitTask->save();
 
 		} else {
