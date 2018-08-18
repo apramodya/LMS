@@ -14,7 +14,7 @@
                         Results Manually</a>
                     <a href="{{ route('add-results-using-csv') }}" class="list-group-item list-group-item-action">Add
                         Results Using CSV</a>
-                    <a href="{{ route('view-results') }}" class="list-group-item list-group-item-action">View
+                    <a href="{{ route('check-results') }}" class="list-group-item list-group-item-action">Check
                         Results</a>
                 </div>
             </div>

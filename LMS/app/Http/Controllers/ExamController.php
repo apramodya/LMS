@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ExamController extends Controller {
 	public function __construct() {
-		$this->middleware('auth');
+		$this->middleware( 'auth' );
 	}
 
 	public function getAddResults() {
@@ -68,11 +69,44 @@ class ExamController extends Controller {
 		return redirect( route( 'dashboard' ) );
 	}
 
-	public function getViewResults() {
-		$results = Result::all();
+	public function getCheckResults() {
 		$courses = Course::all();
 
-		return view( 'exam/viewResults', [ 'courses' => $courses, 'results' => $results ] );
+		return view( 'exam.checkResults', [ 'courses' => $courses ] );
+	}
+
+	public function getResultsByIndex( $id ) {
+		$results = Result::where( 'index_number', '=', $id )->get();
+
+		return view( 'exam.resultsByIndex', [ 'results' => $results ] );
+
+	}
+
+	public function postResultsByIndex( Request $request ) {
+		$validator = Validator::make( $request->all(), [
+			'index_number' => 'required|min:8|max:8'
+		] );
+		if ( $validator->fails() ) {
+			flash( 'Please enter a valid index number' )->error();
+
+			return redirect()->to( route( 'check-results' ) );
+		}
+
+		$id = $request['index_number'];
+
+		return redirect( route( 'get-results-by-index', $id ) );
+	}
+
+	public function getResultsByCourse( $id ) {
+		$results = Result::where( 'course_id', '=', $id )->get();
+
+		return view( 'exam.resultsByCourse', [ 'results' => $results ] );
+	}
+
+	public function postResultsByCourse( Request $request ) {
+		$id = $request['course_id'];
+
+		return redirect( route( 'get-results-by-course', $id ) );
 	}
 
 

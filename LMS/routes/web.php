@@ -79,8 +79,8 @@ Route::prefix( '/lecturer/' )->group( function () {
 		Route::get( 'down-assignmentSubmission/{id1}', 'LecturerController@downloadAssignmentSubmissions' )->name( 'lecturer-downloadAssignmentSubmissions' );
 		Route::get( 'downall-assignmentSubmission/{id1}', 'LecturerController@downloadAllAssignmentSubmissions' )->name( 'lecturer-downloadAllAssignmentSubmissions' );
 		Route::get( 'view-Submissions/{id1}', 'LecturerController@viewSubmissions' )->name( 'lecturer-viewSubmissions' );
-        Route::get( 'down-SubmitSubmission/{id1}', 'LecturerController@downloadSubmissions' )->name( 'lecturer-downloadSubmissions' );
-        Route::get( 'downall-SubmitSubmission/{id1}', 'LecturerController@downloadAllSubmissions' )->name( 'lecturer-downloadAllSubmissions' );
+		Route::get( 'down-SubmitSubmission/{id1}', 'LecturerController@downloadSubmissions' )->name( 'lecturer-downloadSubmissions' );
+		Route::get( 'downall-SubmitSubmission/{id1}', 'LecturerController@downloadAllSubmissions' )->name( 'lecturer-downloadAllSubmissions' );
 	} );
 } );
 
@@ -140,15 +140,21 @@ Route::prefix( '/student/' )->group( function () {
 Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user' );
 
 /** Exam Controller  */
-Route::get( '/add-results', 'ExamController@getAddResults' )->name( 'add-results' );
-Route::post( '/add-results', 'ExamController@postAddResults' )->name( 'add-results' );
-Route::get( '/add-results-manually', 'ExamController@getAddResults' )->name( 'add-results-manually' );
-Route::post( '/add-results-manually', 'ExamController@postAddResults' )->name( 'add-results-manually' );
-Route::get( '/add-results-using-csv', 'ExamController@getAddResultsUsingCSV' )->name( 'add-results-using-csv' );
-Route::post( '/add-results-using-csv', 'ExamController@postAddResultsUsingCSV' )->name( 'add-results-using-csv' );
-Route::get( '/add-results-to/{id}', 'ExamController@getAddResultsTo' )->name( 'add-results-to' );
-Route::post( '/add-results-to/{id}', 'ExamController@postAddResultsTo' )->name( 'add-results-to' );
-Route::get( '/view-results', 'ExamController@getViewResults' )->name( 'view-results' );
+Route::prefix( '/exam' )->group( function () {
+	Route::get( '/add-results', 'ExamController@getAddResults' )->name( 'add-results' );
+	Route::post( '/add-results', 'ExamController@postAddResults' )->name( 'add-results' );
+	Route::get( '/add-results-manually', 'ExamController@getAddResults' )->name( 'add-results-manually' );
+	Route::post( '/add-results-manually', 'ExamController@postAddResults' )->name( 'add-results-manually' );
+	Route::get( '/add-results-using-csv', 'ExamController@getAddResultsUsingCSV' )->name( 'add-results-using-csv' );
+	Route::post( '/add-results-using-csv', 'ExamController@postAddResultsUsingCSV' )->name( 'add-results-using-csv' );
+	Route::get( '/add-results-to/{id}', 'ExamController@getAddResultsTo' )->name( 'add-results-to' );
+	Route::post( '/add-results-to/{id}', 'ExamController@postAddResultsTo' )->name( 'add-results-to' );
+	Route::get( '/check-results', 'ExamController@getCheckResults' )->name( 'check-results' );
+	Route::get( '/get-results-by-index/{id}', 'ExamController@getResultsByIndex' )->name( 'get-results-by-index' );
+	Route::post( '/get-results-by-index', 'ExamController@postResultsByIndex' )->name( 'post-results-by-index' );
+	Route::get( '/get-results-by-course/{id}', 'ExamController@getResultsByCourse' )->name( 'get-results-by-course' );
+	Route::post( '/get-results-by-course', 'ExamController@postResultsByCourse' )->name( 'post-results-by-course' );
+} );
 
 /** Quiz Controller */
 Route::prefix( '/course/{id1}/quiz/{id2}/' )->group( function () {
