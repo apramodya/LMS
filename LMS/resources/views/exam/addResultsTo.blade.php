@@ -4,29 +4,33 @@
 @endsection
 @section('content')
     <div class="container">
-        <form action="{{ route('add-results-to', $course->id) }}" method="post">
-            @csrf
-            <table class="table table-responsive-md">
-                <thead class="blue-grey lighten-4">
-                <tr>
-                    <th>#</th>
-                    <th>Index Number</th>
-                    <th>Final Grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($course->students as $student)
-                    <tr>
-                        <th scope="row">{{$loop->index + 1}}</th>
-                        <td>{{ $student->index_number }}<input name="index_number" type="hidden"
-                                                               value="{{ $student->index_number }}"></td>
-                        <td style="width: 40%"><input name="final_grade" class="form-control form-control-sm"
-                                                      type="text" placeholder="Final Grade"></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-            <button type="submit" class="btn btn-outline-primary btn-sm">Add Results</button>
-        </form>
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('add-results-to', $course->id) }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <input type="text" id="index_number" name="index_number" class="form-control"
+                                       placeholder="Index Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <input type="text" id="grade" name="grade" class="form-control"
+                                       placeholder="Final Grade">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mx-md-auto">
+                            <button type="submit" class="btn btn-outline-primary btn-sm">Add Result</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

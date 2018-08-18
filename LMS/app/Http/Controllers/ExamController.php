@@ -31,10 +31,25 @@ class ExamController extends Controller {
 	}
 
 	public function postAddResultsTo( Request $request, $id ) {
+		$validator = Validator::make( $request->all(), [
+			'index_number' => 'required|min:8|max:8',
+			'grade' => 'required'
+		] );
+		if ( $validator->fails() ) {
+			flash( 'Please check again' )->error();
+
+			return redirect()->to( route( 'add-results-to', $id ) );
+		}
 
 		$course = Course::where( 'id', '=', $id )->first();
-		dd( $request );
 		$course_id = $course->course_id;
+
+		$result = new Result();
+		$result->course_id = $course_id;
+		$result->index_number = $request->index_number;
+		$result->final_grade = $request->grade;
+
+		$result->save();
 
 		flash( 'Results added' )->success();
 
