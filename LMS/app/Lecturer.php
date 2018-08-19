@@ -13,7 +13,7 @@ class Lecturer extends Model
         return $this->hasOne(Position::class,'id','position_id');
     }
     public function courses(){
-        return $this->belongsToMany(Course::class,'lecturers_courses','lecturer_id', 'course_id');
+        return $this->belongsToMany(Course::class,'lecturers_courses','lecturer_id', 'cid');
     }
     public function questions(){
         return $this->belongsToMany(Question::class,'questions_lecturers','lecturer_id', 'question_id');

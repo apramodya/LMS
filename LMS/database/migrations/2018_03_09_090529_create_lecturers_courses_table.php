@@ -16,7 +16,7 @@ class CreateLecturersCoursesTable extends Migration
         Schema::create('lecturers_courses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('lecturer_id');
-            $table->string('course_id');
+            $table->string('cid');
             $table->timestamps();
 
         });

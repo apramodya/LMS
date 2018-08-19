@@ -239,10 +239,19 @@ class AdminController extends Controller {
 
 	public function postEnrollCourse( Request $request ) {
 		$lecturer = Lecturer::findOrFail( $request->lecturer_id );
-		$lecturer->courses()->attach( $request->course_id );
+        $cid = $request->course_id;
 
-		flash('Course enrolled')->success();
-		return redirect( route( 'dashboard' ) );
+        $hasCourse = $lecturer->courses()->where('cid','=', $cid)->exists();
+        if($hasCourse){
+            flash('Already enrolled to that course')->warning();
+            return redirect( route( 'enroll-course' ) );
+        }
+        else{
+            $lecturer->courses()->attach( $cid );
+            flash('Course enrolled')->success();
+            return redirect( route( 'dashboard' ) );
+        }
+
 	}
 
 	public function forum( $id ) {

@@ -10,7 +10,7 @@ class Course extends Model
 
     // ORM
     public function lecturers(){
-        return $this->belongsToMany( Lecturer::class,'lecturers_courses', 'course_id', 'lecturer_id');
+        return $this->belongsToMany( Lecturer::class,'lecturers_courses', 'cid', 'lecturer_id');
     }
     public function students(){
         return $this->belongsToMany( Student::class,'courses_students', 'course_id', 'student_id');
