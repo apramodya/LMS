@@ -64,6 +64,20 @@
                                             </ul>
                                         </div>
                                     @endforeach
+                                    @foreach($question->students as $student)
+
+                                        <div class="mt-sm-1">
+                                            <small class="font-weight-bold text-capitalize">{{ $student->first_name }} {{ $student->last_name }}</small>
+                                        </div>
+                                        <div class="mt-sm-1">
+                                            <ul class="list-unstyled">
+                                                <li class="comment-date">
+                                                    {{ $question->created_at }}
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <div class="mb-4">
                                     <pre>Replies <span class="badge indigo">{{ count($question->answers) }}</span></pre>
@@ -92,6 +106,18 @@
                                                                 </ul>
                                                             </div>
                                                         @endforeach
+                                                            @foreach($answer->students as $student)
+                                                                <a>
+                                                                    <small class="font-weight-bold text-capitalize">{{ $student->first_name }} {{ $student->last_name }}</small>
+                                                                </a>
+                                                                <div class="mt-1">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="comment-date">
+                                                                            {{ $answer->created_at }}
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            @endforeach
                                                         <p class="grey-text">{{ $answer->answer }}</p>
                                                     </div>
                                                     <!--/.Content column-->
