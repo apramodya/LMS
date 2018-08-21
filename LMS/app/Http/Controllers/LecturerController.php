@@ -40,6 +40,11 @@ class LecturerController extends Controller {
 		return view( 'lecturer/course', [ 'course' => $course ] );
 	}
 
+	public function getResults(){
+		return view( 'lecturer.courseResults' );
+
+	}
+
 	public function addAssignment( $id ) {
 		$course = Course::where( 'id', '=', $id )->first();
 

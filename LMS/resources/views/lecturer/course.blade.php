@@ -30,7 +30,7 @@
                                     <dt class="col-md-3">Course Details</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item"><strong>{{ $course->name }}</strong>
+                                            <li class="list-group-flush">{{ $course->name }}
                                                 | {{ $course->course_id }}</li>
                                         </ul>
                                     </dd>
@@ -43,11 +43,12 @@
                                             @if(countLecturers($course->course_id) >= 1)
                                                 @foreach($course->lecturers as $lecturer)
                                                     @if(($lecturer->position_id) < 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                        <li class="list-group-flush text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
+                                                <li class="list-group-flush text-capitalize">No Lecturers Assigned Yet
+                                                </li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -60,11 +61,11 @@
                                             @if(countInstructors($course->course_id) >= 1)
                                                 @foreach($course->lecturers as $lecturer)
                                                     @if(($lecturer->position_id) == 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                        <li class="list-group-flush text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Instructors Assigned
+                                                <li class="list-group-flush text-capitalize">No Instructors Assigned
                                                     Yet
                                                 </li>
                                             @endif
@@ -415,15 +416,16 @@
                     <div class="tab-pane fade" id="quizzes" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($course->quizzes as $quiz)
-                            <li class="list-group-item">
-                                <strong>{{ $quiz->quiz_name }}</strong>
-                                <br>
-                                <a href="{{ route('view-quiz', [$course->id, $quiz->id]) }}" class="btn btn-outline-primary btn-sm">Go to</a>
-                                {{--<a href="#" class="btn btn-outline-primary btn-sm">Edit</a>--}}
-                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                <p class="font-italic">Published on {{ now() }}</p>
-                                <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
-                            </li>
+                                <li class="list-group-item">
+                                    <strong>{{ $quiz->quiz_name }}</strong>
+                                    <br>
+                                    <a href="{{ route('view-quiz', [$course->id, $quiz->id]) }}"
+                                       class="btn btn-outline-primary btn-sm">Go to</a>
+                                    {{--<a href="#" class="btn btn-outline-primary btn-sm">Edit</a>--}}
+                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    <p class="font-italic">Published on {{ now() }}</p>
+                                    <p class="font-italic">Deadline <span class="red-text">{{ now() }}</span></p>
+                                </li>
                             @endforeach
                         </ul>
                     </div>

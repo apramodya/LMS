@@ -23,19 +23,18 @@
                         </div>
 
                         <!-- Card body -->
-                        <div id="info" class="collapse " role="tabpanel" aria-labelledby="headingOne"
+                        <div id="info" class="collapse" role="tabpanel" aria-labelledby="headingOne"
                              data-parent="#accordionEx">
                             <div class="card-body">
                                 <dl class="row">
                                     <dt class="col-md-3">Course Details</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <li class="list-group-item"><strong>{{ $course->name }}</strong>
-                                                | {{ $course->course_id }}</li>
+                                            <li class="list-group-flush">{{ $course->name }}
+                                                    | {{ $course->course_id }}</li>
                                         </ul>
                                     </dd>
                                 </dl>
-                                {{--<button class=""--}}
                                 <hr class="bg-dark">
                                 <dl class="row">
                                     <dt class="col-md-3">Lecturers Assigned</dt>
@@ -44,11 +43,12 @@
                                             @if(countLecturers($course->course_id) >= 1)
                                                 @foreach($course->lecturers as $lecturer)
                                                     @if(($lecturer->position_id) < 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                        <li class="list-group-flush text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Lecturers Assigned Yet</li>
+                                                <li class="list-group-flush text-capitalize">No Lecturers Assigned Yet
+                                                </li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -61,11 +61,13 @@
                                             @if(countInstructors($course->course_id) >= 1)
                                                 @foreach($course->lecturers as $lecturer)
                                                     @if(($lecturer->position_id) == 5)
-                                                        <li class="list-group-item text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
+                                                        <li class="list-group-flush text-capitalize">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</li>
                                                     @endif
                                                 @endforeach
                                             @else
-                                                <li class="list-group-item text-capitalize">No Instructors Assigned Yet</li>
+                                                <li class="list-group-flush text-capitalize">No Instructors Assigned
+                                                    Yet
+                                                </li>
                                             @endif
                                         </ul>
                                     </dd>
@@ -80,7 +82,8 @@
             </div>
 
             <div class="col-md-2">
-                <a href="{{route('student-forum',['courseid' => $course->id])}}" class="btn btn-primary btn-sm  ">Forum</a>
+                <a href="{{route('student-forum',['courseid' => $course->id])}}"
+                   class="btn btn-primary btn-sm  ">Forum</a>
 
                 {{--<a href="{{route('student-forum',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm  ">Forum</a>--}}
 
@@ -100,13 +103,15 @@
                         <a class="nav-link" data-toggle="tab" href="#notes" role="tab">Lecture Notes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments <span class="badge badge-pill badge-danger">New</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments <span
+                                    class="badge badge-pill badge-danger">New</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Tasks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes <span class="badge badge-pill badge-danger">New</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes <span
+                                    class="badge badge-pill badge-danger">New</span></a>
                     </li>
                 </ul>
                 <!-- Tab panels -->
@@ -116,11 +121,12 @@
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($notices as $notice)
-                                @if($notice->attachment==!NULL)
+                                @if($notice->attachment==!null)
                                     <li class="list-group-item">
                                         <strong>{{$notice->title}}</strong>
                                         <p> {{ $notice->description }} </p>
-                                        <a href="{{route('downloadNotice',['courseid' => $course->id,'noticeid' => $notice->id])}}" class="btn btn-primary btn-sm">Download</a>
+                                        <a href="{{route('downloadNotice',['courseid' => $course->id,'noticeid' => $notice->id])}}"
+                                           class="btn btn-primary btn-sm">Download</a>
                                         <p class="font-italic">Published on {{$notice->created_at}} </p>
                                     </li>
                                 @else
@@ -140,11 +146,12 @@
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($lectureNotes as $lectureNote)
-                                @if($lectureNote->attachment==!NULL)
+                                @if($lectureNote->attachment==!null)
                                     <li class="list-group-item">
                                         <strong>{{$lectureNote->title}}</strong>
                                         <p>{{$lectureNote->description}}</p>
-                                        <a href="{{route('downloadLectureNote',['courseid' => $course->id,'$lectureNoteid' => $lectureNote->id])}}" class="btn btn-primary btn-sm">Download</a>
+                                        <a href="{{route('downloadLectureNote',['courseid' => $course->id,'$lectureNoteid' => $lectureNote->id])}}"
+                                           class="btn btn-primary btn-sm">Download</a>
                                         <p class="font-italic">Published {{ $lectureNote->created_at }}</p>
                                     </li>
                                 @else
@@ -165,75 +172,94 @@
                         <ul class="list-group list-group-flush">
                             @if(count($results)==0)
                                 @foreach($assignments as $assignment)
-                                    @if($assignment->attachment==!NULL)
-                                        <li class="list-group-item list-group-item-danger" >
+                                    @if($assignment->attachment==!null)
+                                        <li class="list-group-item list-group-item-danger">
                                             <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                             <p>{{$assignment->description}}</p>
-                                            <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
+                                            <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
+                                               class="btn btn-primary btn-sm">Download</a>
                                             <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
                                             <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                            <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                            <p class="font-italic">Deadline: <span
+                                                        class="red-text">{{$assignment->end_date}} </span> at <span
+                                                        class="red">  {{$assignment->end_time}}</span></p>
                                         </li>
                                     @else
-                                        <li class="list-group-item list-group-item-danger" >
+                                        <li class="list-group-item list-group-item-danger">
                                             <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                             <p>{{$assignment->description}}</p>
                                             <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
                                             <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
                                             <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                            <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                            <p class="font-italic">Deadline: <span
+                                                        class="red-text">{{$assignment->end_date}} </span> at <span
+                                                        class="red">  {{$assignment->end_time}}</span></p>
                                         </li>
                                     @endif
 
                                 @endforeach
                             @else
                                 @foreach($assignments as $assignment)
-                                    <?php $count=0;  ?>
+									<?php $count = 0;  ?>
                                     @foreach($results as $result)
-                                        <?php $count=$count+1;  ?>
+										<?php $count = $count + 1;  ?>
                                         @if($result->assignment_id == $assignment->id)
 
-                                            @if($assignment->attachment==!NULL)
-                                                <li class="list-group-item list-group-item-success" >
+                                            @if($assignment->attachment==!null)
+                                                <li class="list-group-item list-group-item-success">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
-                                                    <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
-                                                    <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Edit Submission</a>
+                                                    <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
+                                                       class="btn btn-primary btn-sm">Download</a>
+                                                    <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
+                                                       class="btn btn-primary btn-sm">Edit Submission</a>
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                    <p class="font-italic">Deadline: <span
+                                                                class="red-text">{{$assignment->end_date}} </span> at
+                                                        <span class="red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @else
-                                                <li class="list-group-item list-group-item-success" >
+                                                <li class="list-group-item list-group-item-success">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
-                                                    <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Edit Submission</a>
+                                                    <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
+                                                       class="btn btn-primary btn-sm">Edit Submission</a>
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                    <p class="font-italic">Deadline: <span
+                                                                class="red-text">{{$assignment->end_date}} </span> at
+                                                        <span class="red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @endif
 
                                         @elseif(count($results)==$count)
-                                            @if($assignment->attachment==!NULL)
-                                                <li class="list-group-item list-group-item-danger" >
+                                            @if($assignment->attachment==!null)
+                                                <li class="list-group-item list-group-item-danger">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
-                                                    <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}" class="btn btn-primary btn-sm">Download</a>
-                                                    <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
+                                                    <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
+                                                       class="btn btn-primary btn-sm">Download</a>
+                                                    <a href="#" class="btn btn-primary btn-sm disabled ">Edit
+                                                        Submission</a>
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                    <p class="font-italic">Deadline: <span
+                                                                class="red-text">{{$assignment->end_date}} </span> at
+                                                        <span class="red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @else
-                                                <li class="list-group-item list-group-item-danger" >
+                                                <li class="list-group-item list-group-item-danger">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
-                                                    <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
+                                                    <a href="#" class="btn btn-primary btn-sm disabled ">Edit
+                                                        Submission</a>
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
-                                                    <p class="font-italic">Deadline: <span class="red-text">{{$assignment->end_date}} </span> at <span class="red">  {{$assignment->end_time}}</span></p>
+                                                    <p class="font-italic">Deadline: <span
+                                                                class="red-text">{{$assignment->end_date}} </span> at
+                                                        <span class="red">  {{$assignment->end_time}}</span></p>
                                                 </li>
 
                                             @endif
@@ -249,13 +275,16 @@
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($submissions as $submission)
-                                @if($submission->attachment==!NULL)
+                                @if($submission->attachment==!null)
                                     <li class="list-group-item">
                                         <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
                                         <p>{{$submission->description}}</p>
-                                        <a href="{{route('downloadSubmission',['courseid' => $course->id,'submissionid' => $submission->id])}}" class="btn btn-primary btn-sm">Download</a>
+                                        <a href="{{route('downloadSubmission',['courseid' => $course->id,'submissionid' => $submission->id])}}"
+                                           class="btn btn-primary btn-sm">Download</a>
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
-                                        <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                                        <p class="font-italic">Deadline <span
+                                                    class="red-text">{{ $submission->end_date }} </span> at <span
+                                                    class="red">{{$submission->end_time}}</span></p>
                                     </li>
 
                                 @else
@@ -264,7 +293,9 @@
                                         <p>{{$submission->description}}</p>
                                         <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
-                                        <p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>
+                                        <p class="font-italic">Deadline <span
+                                                    class="red-text">{{ $submission->end_date }} </span> at <span
+                                                    class="red">{{$submission->end_time}}</span></p>
                                     </li>
                                 @endif
 
@@ -285,9 +316,11 @@
 
                                     {{--<a href="{{route('student-quiz-get')}}" class="btn btn-primary btn-sm ">Take Quiz</a>--}}
                                     <p class="font-italic">Published:{{$quiz->created_at}}</p>
-                                    <p class="font-italic">Deadline: <span class="red-text">{{$quiz->end_date}} </span> at <span class="red">  {{$quiz->end_time}}</span></p>
+                                    <p class="font-italic">Deadline: <span class="red-text">{{$quiz->end_date}} </span>
+                                        at <span class="red">  {{$quiz->end_time}}</span></p>
 
-                                    <a href="{{route('Quiz-Student',['quizid' => $quiz->id])}}" class="btn btn-primary sm disabled">Take Quiz</a>
+                                    <a href="{{route('Quiz-Student',['quizid' => $quiz->id])}}"
+                                       class="btn btn-primary sm disabled">Take Quiz</a>
                                     {{--<p class="font-italic">Deadline <span class="red-text">{{ $submission->end_date }} </span> at <span class="red">{{$submission->end_time}}</span></p>--}}
                                 </li>
                             @endforeach

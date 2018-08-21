@@ -81,6 +81,9 @@ Route::prefix( '/lecturer/' )->group( function () {
 		Route::get( 'view-Submissions/{id1}', 'LecturerController@viewSubmissions' )->name( 'lecturer-viewSubmissions' );
 		Route::get( 'down-SubmitSubmission/{id1}', 'LecturerController@downloadSubmissions' )->name( 'lecturer-downloadSubmissions' );
 		Route::get( 'downall-SubmitSubmission/{id1}', 'LecturerController@downloadAllSubmissions' )->name( 'lecturer-downloadAllSubmissions' );
+//		results
+		Route::get( 'view-results', 'LecturerController@getResults' )->name( 'view-results' );
+
 	} );
 } );
 
