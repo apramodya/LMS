@@ -13,6 +13,7 @@ use App\Lecturer;
 use App\Notice;
 use App\Question;
 use App\Quiz;
+use App\Result;
 use App\Submission;
 use App\SubmitSubmission;
 use Chumper\Zipper\Facades\Zipper;
@@ -1086,12 +1087,38 @@ class LecturerController extends Controller {
             flash( 'No Any Uploads' )->success();
             return redirect( route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) );
         }
+    }
 
+    public function checkResults() {
 
+        $courses = Auth::user()->lecturers->first()->courses;
 
+        return view( 'lecturer/checkResultsCourse', [ 'courses' => $courses ] );
 
 
     }
+    public function getResultsByCourse( $id ) {
+        $results = Result::where( 'course_id', '=', $id )->get();
+        $resul = Result::where( 'course_id', '=', $id )->first();
+
+        if($results->isEmpty()){
+            flash( 'No Results Added Yet' )->warning();
+            return redirect( route('lecturer-check-resultsLecturer') );
+        }
+        else{
+
+            return view( 'lecturer/courseResults', [ 'results' => $results, 'resul' => $resul ] );
+        }
+
+    }
+
+    public function postResultsByCourse( Request $request ) {
+        $id = $request['course_id'];
+
+        return redirect( route( 'lecturer-get-results-by-course', $id ) );
+    }
+
+
 
 
 }

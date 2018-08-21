@@ -36,6 +36,10 @@ Route::prefix( '/lecturer/' )->group( function () {
 	Route::prefix( 'courses' )->group( function () {
 		Route::get( '', 'LecturerController@courses' )->name( 'lecturer-courses' );
 		Route::get( '/unenroll-course', 'LecturerController@unenrollCourse' )->name( 'lecturer-unenroll-courses' );
+        //		results
+        Route::get( 'check-resultsLecturer', 'LecturerController@checkResults' )->name( 'lecturer-check-resultsLecturer' );
+        Route::get( '/get-results-by-course/{id}', 'LecturerController@getResultsByCourse' )->name( 'lecturer-get-results-by-course' );
+        Route::post( '/get-results-by-course', 'LecturerController@postResultsByCourse' )->name( 'lecturer-post-results-by-course' );
 	} );
 	Route::prefix( '/course/{id}/' )->group( function () {
 		Route::get( '', 'LecturerController@getCourse' )->name( 'lecturer-course' );

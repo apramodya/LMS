@@ -6,6 +6,7 @@
     <div class="container">
         <div class="">
             <div class="jumbotron">
+                <h1>{{ $resul->course_id }}</h1>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <caption>List of Results</caption>
@@ -17,11 +18,13 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($results as $result)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>15000028</td>
-                                <td>C</td>
+                                <th scope="row">{{ $loop->index + 1}}</th>
+                                <td>{{ $result->index_number }}</td>
+                                <td>{{ $result->final_grade }}</td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

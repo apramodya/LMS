@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action">View Submissions</a>
+                    <a href="{{ route('lecturer-check-resultsLecturer') }}" class="list-group-item list-group-item-action">View Results</a>
                 </div>
             </div>
         </div>
