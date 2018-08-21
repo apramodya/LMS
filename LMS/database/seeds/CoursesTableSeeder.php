@@ -18,6 +18,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '1',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -27,6 +28,7 @@ class CoursesTableSeeder extends Seeder
 	        'year'           => '1',
 	        'semester'       => '1',
 	        'degree'         => 'cs',
+            'credits'        => '3',
         ]);
         $course->save();
 	    $course = new \App\Course([
@@ -36,6 +38,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '1',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -45,6 +48,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '1',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -54,6 +58,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -63,6 +68,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -72,6 +78,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -81,6 +88,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -90,6 +98,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -99,6 +108,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -108,6 +118,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -117,6 +128,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -126,6 +138,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '4',
 		    'degree'         => 'cs',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -135,6 +148,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '4',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -144,6 +158,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '4',
 		    'degree'         => 'cs',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 
@@ -154,6 +169,7 @@ class CoursesTableSeeder extends Seeder
 	        'year'           => '1',
 	        'semester'       => '1',
 	        'degree'         => 'is',
+            'credits'        => '3',
         ]);
         $course->save();
 	    $course = new \App\Course([
@@ -163,6 +179,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '1',
 		    'degree'         => 'is',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -172,6 +189,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'is',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -181,6 +199,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '1',
 		    'semester'       => '2',
 		    'degree'         => 'is',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -190,6 +209,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'is',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -199,6 +219,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '3',
 		    'degree'         => 'is',
+            'credits'        => '2',
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -208,6 +229,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '4',
 		    'degree'         => 'is',
+            'credits'        => '2'
 	    ]);
 	    $course->save();
 	    $course = new \App\Course([
@@ -217,6 +239,7 @@ class CoursesTableSeeder extends Seeder
 		    'year'           => '2',
 		    'semester'       => '4',
 		    'degree'         => 'is',
+            'credits'        => '3',
 	    ]);
 	    $course->save();
     }
