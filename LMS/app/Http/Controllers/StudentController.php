@@ -49,6 +49,7 @@ class StudentController extends Controller {
         $gpa = 0;
         $totalCredits =0 ;
         $cgpa =0;
+        $gpaFinal=0;
 
         foreach($courses as $course) {
             foreach ($results as $result) {
@@ -105,7 +106,9 @@ class StudentController extends Controller {
                         $totalCredits = $totalCredits + $course->credits;
                         $cgpa = $cgpa+ $course->credits*0.00;
                     }
+
                     $gpa = $cgpa/$totalCredits;
+                    $gpaFinal = floor($gpa * 10000) / 10000;
 
                 }}
         }
@@ -115,7 +118,7 @@ class StudentController extends Controller {
 
             'results'=>$results,
             'student'=>$student,
-            'gpa'=>$gpa,
+            'gpaFinal'=>$gpaFinal,
 //
         ]);
     }

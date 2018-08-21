@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <div class="row">
                             {{--gpa--}}
-                            <div class="col-md-8"> <h4>Current GPA: {{$gpa}}</h4></div>
+                            <div class="col-md-8"> <h4>Current GPA: {{$gpaFinal}}</h4></div>
                         </div>
                         <div class="row">
                             {{--rank--}}
