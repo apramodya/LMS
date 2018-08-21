@@ -13,6 +13,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Course Code</th>
+                            <th scope="col">Final Mark</th>
                             <th scope="col">Final Grade</th>
                         </tr>
                         </thead>
@@ -21,6 +22,7 @@
                             <tr>
                                 <th scope="row">{{ $loop->index + 1}}</th>
                                 <td>{{ $result->course_id }}</td>
+                                <td>{{ $result->final_mark }}</td>
                                 <td>{{ $result->final_grade }}</td>
                             </tr>
                         @endforeach

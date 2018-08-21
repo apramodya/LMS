@@ -19,8 +19,8 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <div class="form-group">
-                                <input type="text" id="grade" name="grade" class="form-control"
-                                       placeholder="Final Grade">
+                                <input type="text" id="mark" name="mark" class="form-control"
+                                       placeholder="Final Mark">
                             </div>
                         </div>
                     </div>

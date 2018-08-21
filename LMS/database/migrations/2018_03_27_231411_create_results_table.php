@@ -17,7 +17,8 @@ class CreateResultsTable extends Migration
             $table->increments('id');
             $table->string('course_id');
             $table->integer('index_number');
-            $table->string('final_grade');
+            $table->string('final_grade')->nullable();
+	        $table->string('final_mark');
             $table->timestamps();
         });
     }

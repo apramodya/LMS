@@ -51,7 +51,7 @@ class ExamController extends Controller {
 		$result = new Result();
 		$result->course_id = $course_id;
 		$result->index_number = $request->index_number;
-		$result->final_grade = $request->grade;
+		$result->final_mark = $request->mark;
 
 		$result->save();
 
@@ -79,7 +79,7 @@ class ExamController extends Controller {
 				$item               = new Result;
 				$item->course_id    = $course_id;
 				$item->index_number = $result->index_number;
-				$item->final_grade  = $result->final_grade;
+				$item->final_mark  = $result->final_mark;
 				$item->save();
 			}
 		}
