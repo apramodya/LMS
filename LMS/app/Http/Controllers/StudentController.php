@@ -41,9 +41,41 @@ class StudentController extends Controller {
 	}
 
 	public function getGpa() {
-		return view( 'student.gpa');
 
-	}
+        $userid  = Auth::user()->id;
+        $student = Student::where( 'user_id', '=', $userid )->first();
+        $courses = Course::all();
+        $results = Result::where( 'index_number', '=', $student->index_number )->get();
+        $gpa = 0;
+        $totalCredits =0 ;
+        $cgpa =0;
+
+        foreach($courses as $course) {
+            foreach ($results as $result) {
+                if ($result->course_id == $course->course_id) {
+                    $totalCredits = $totalCredits + $course->credits;
+                    $cgpa = $course->credits*final_grade;
+                    $gpa = $cgpa/$totalCredits;
+
+                }
+
+                                }
+
+        }
+        dd($credits);
+
+		return view( 'student.gpa',['student'=> $student,
+
+//            'semesterSevens'=>$semesterSevens,
+//            'semesterEights'=>$semesterEights,
+            'results'=>$results,
+            'courses'=>$courses,
+            'gpa'=>$gpa,
+//            'results'=>$results
+        ]);
+    }
+
+
 
     public function viewStudentResults() {
 

@@ -12,6 +12,23 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+
+                            {{--@foreach($courses as $course)--}}
+
+                                {{--@foreach($results as $result)--}}
+                                    {{--@if($result->course_id == $course->course_id)--}}
+                                        {{--<?php $gpa=$gpa + $course->credits ?>--}}
+
+
+                                            {{--{{dd($gpa)}}--}}
+                                    {{--@endif--}}
+
+                                {{--@endforeach--}}
+
+                            {{--@endforeach--}}
+
+
+
                             {{--gpa--}}
                             <div class="col-md-3">3.2</div>
                         </div>
