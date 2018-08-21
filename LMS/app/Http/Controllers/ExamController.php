@@ -51,7 +51,7 @@ class ExamController extends Controller {
 		$result = new Result();
 		$result->course_id = $course_id;
 		$result->index_number = $request->index_number;
-		$result->final_mark = $request->mark;
+		$result->final_grade = $request->grade;
 
 		$result->save();
 
@@ -79,7 +79,7 @@ class ExamController extends Controller {
 				$item               = new Result;
 				$item->course_id    = $course_id;
 				$item->index_number = $result->index_number;
-				$item->final_mark  = $result->final_mark;
+				$item->final_grade  = $result->final_grade;
 				$item->save();
 			}
 		}
@@ -139,6 +139,9 @@ class ExamController extends Controller {
         $semesterFours = Course::where('semester','=','4')->get();
         $semesterFives = Course::where('semester','=','5')->get();
         $semesterSixs = Course::where('semester','=','6')->get();
+        $semesterSevens = Course::where('semester','=','7')->get();
+        $semesterEights = Course::where('semester','=','8')->get();
+
         $results = Result::where( 'index_number', '=', $student->index_number )->get();
 //        dd($semesterOnes);
 
@@ -149,7 +152,8 @@ class ExamController extends Controller {
             'semesterFours'=>$semesterFours,
             'semesterFives'=>$semesterFives,
             'semesterSixs'=>$semesterSixs,
-
+            'semesterSevens'=>$semesterSevens,
+            'semesterEights'=>$semesterEights,
             'results'=>$results
             ]);
 
