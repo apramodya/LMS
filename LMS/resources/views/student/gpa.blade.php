@@ -8,29 +8,12 @@
             <div class="col-md-6 offset-3">
                 <div class="card">
                     <div class="card-header">
-                        <span>GPA of 15000028</span>
+                        <span> <strong>Overview of {{$student->first_name}} {{$student->last_name}}</strong> </span>
                     </div>
                     <div class="card-body">
                         <div class="row">
-
-                            {{--@foreach($courses as $course)--}}
-
-                                {{--@foreach($results as $result)--}}
-                                    {{--@if($result->course_id == $course->course_id)--}}
-                                        {{--<?php $gpa=$gpa + $course->credits ?>--}}
-
-
-                                            {{--{{dd($gpa)}}--}}
-                                    {{--@endif--}}
-
-                                {{--@endforeach--}}
-
-                            {{--@endforeach--}}
-
-
-
                             {{--gpa--}}
-                            <div class="col-md-3">3.2</div>
+                            <div class="col-md-8"> <h4>Current GPA: {{$gpa}}</h4></div>
                         </div>
                         <div class="row">
                             {{--rank--}}

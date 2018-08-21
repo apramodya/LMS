@@ -53,25 +53,70 @@ class StudentController extends Controller {
         foreach($courses as $course) {
             foreach ($results as $result) {
                 if ($result->course_id == $course->course_id) {
-                    $totalCredits = $totalCredits + $course->credits;
-                    $cgpa = $course->credits*final_grade;
+                    if($result->final_grade == 'A+'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa + $course->credits*4.25;
+                    }
+                    if($result->final_grade == 'A'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa + $course->credits*4.0;
+                    }
+                    if($result->final_grade == 'A-'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa + $course->credits*3.75;
+                    }
+                    if($result->final_grade == 'B+'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*3.25;
+                    }
+                    if($result->final_grade == 'B'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*3.0;
+                    }
+                    if($result->final_grade == 'B-'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*2.75;
+                    }
+                    if($result->final_grade == 'C+'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*2.25;
+                    }
+                    if($result->final_grade == 'C'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*2.0;
+                    }
+                    if($result->final_grade == 'C-'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*1.75;
+                    }
+                    if($result->final_grade == 'D+'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*1.25;
+                    }
+                    if($result->final_grade == 'D'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*1.00;
+                    }
+                    if($result->final_grade == 'D-'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*0.75;
+                    }
+                    if($result->final_grade == 'E'){
+                        $totalCredits = $totalCredits + $course->credits;
+                        $cgpa = $cgpa+ $course->credits*0.00;
+                    }
                     $gpa = $cgpa/$totalCredits;
 
-                }
-
-                                }
-
+                }}
         }
-        dd($credits);
+//        dd($gpa);
 
 		return view( 'student.gpa',['student'=> $student,
 
-//            'semesterSevens'=>$semesterSevens,
-//            'semesterEights'=>$semesterEights,
             'results'=>$results,
-            'courses'=>$courses,
+            'student'=>$student,
             'gpa'=>$gpa,
-//            'results'=>$results
+//
         ]);
     }
 
