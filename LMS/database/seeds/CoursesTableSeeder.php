@@ -88,7 +88,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Data Structures and Algorithms III',
 		    'enrollment_key' => 'SCS2101',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -97,7 +97,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Software Engineering II',
 		    'enrollment_key' => 'SCS2103',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -106,7 +106,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Programming III',
 		    'enrollment_key' => 'SCS2104',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -115,7 +115,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Computer Networks I',
 		    'enrollment_key' => 'SCS2105',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -124,7 +124,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Operating Systems I',
 		    'enrollment_key' => 'SCS2106',
 		    'year'           => '2',
-		    'semester'       => '2',
+		    'semester'       => '4',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -133,7 +133,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Mathematical Methods III',
 		    'enrollment_key' => 'SCS2107',
 		    'year'           => '2',
-		    'semester'       => '2',
+		    'semester'       => '4',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -142,7 +142,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Programming IV',
 		    'enrollment_key' => 'SCS2108',
 		    'year'           => '2',
-		    'semester'       => '2',
+		    'semester'       => '4',
 		    'degree'         => 'cs',
 	    ]);
 	    $course->save();
@@ -188,7 +188,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Software Engineering',
 		    'enrollment_key' => 'IS2001',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'is',
 	    ]);
 	    $course->save();
@@ -197,7 +197,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Marketing',
 		    'enrollment_key' => 'IS2003',
 		    'year'           => '2',
-		    'semester'       => '1',
+		    'semester'       => '3',
 		    'degree'         => 'is',
 	    ]);
 	    $course->save();
@@ -206,7 +206,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'IT Project Management',
 		    'enrollment_key' => 'IS2007',
 		    'year'           => '2',
-		    'semester'       => '2',
+		    'semester'       => '4',
 		    'degree'         => 'is',
 	    ]);
 	    $course->save();
@@ -215,7 +215,7 @@ class CoursesTableSeeder extends Seeder
 		    'name'           => 'Computer Networks',
 		    'enrollment_key' => 'IS2011',
 		    'year'           => '2',
-		    'semester'       => '2',
+		    'semester'       => '4',
 		    'degree'         => 'is',
 	    ]);
 	    $course->save();

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Student;
 use App\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller {
 	public function __construct() {
@@ -43,6 +45,8 @@ class ExamController extends Controller {
 
 		$course = Course::where( 'id', '=', $id )->first();
 		$course_id = $course->course_id;
+
+//		dd($course->semester);
 
 		$result = new Result();
 		$result->course_id = $course_id;
@@ -123,6 +127,35 @@ class ExamController extends Controller {
 
 		return redirect( route( 'get-results-by-course', $id ) );
 	}
+
+    public function viewStudentResults() {
+
+        $userid  = Auth::user()->id;
+//        dd($userid);
+        $student = Student::where( 'user_id', '=', $userid )->first();
+        $semesterOnes = Course::where('semester','=','1')->get();
+        $semesterTwos = Course::where('semester','=','2')->get();
+        $semesterThrees = Course::where('semester','=','3')->get();
+        $semesterFours = Course::where('semester','=','4')->get();
+        $semesterFives = Course::where('semester','=','5')->get();
+        $semesterSixs = Course::where('semester','=','6')->get();
+        $results = Result::where( 'index_number', '=', $student->index_number )->get();
+//        dd($semesterOnes);
+
+        return view( 'student.results',['student'=> $student,
+            'semesterOnes'=>$semesterOnes,
+            'semesterTwos'=>$semesterTwos,
+            'semesterThrees'=>$semesterThrees,
+            'semesterFours'=>$semesterFours,
+            'semesterFives'=>$semesterFives,
+            'semesterSixs'=>$semesterSixs,
+
+            'results'=>$results
+            ]);
+
+    }
+
+
 
 
 }

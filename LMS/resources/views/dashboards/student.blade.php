@@ -21,16 +21,16 @@
                     <a href="{{ route('student-exam-medicals') }}" class="list-group-item list-group-item-action">Submit
                         Medicals</a>
                 </div>
+
                 <div class="list-group">
-                    <a href="{{ route('student-results') }}" class="list-group-item list-group-item-action">Check
-                        Results</a>
+                    <a href="{{ route('student-exam-results') }}" class="list-group-item list-group-item-action">Exam Results</a>
                 </div>
                 <div class="list-group">
                     <a href="{{ route('student-gpa') }}" class="list-group-item list-group-item-action">Check GPA</a>
                 </div>
-            </div>
 
-        </div>
+            </div>
+            </div>
     </div>
 
     <div class="col-md-6">

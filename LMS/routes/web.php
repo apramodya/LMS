@@ -81,9 +81,6 @@ Route::prefix( '/lecturer/' )->group( function () {
 		Route::get( 'view-Submissions/{id1}', 'LecturerController@viewSubmissions' )->name( 'lecturer-viewSubmissions' );
 		Route::get( 'down-SubmitSubmission/{id1}', 'LecturerController@downloadSubmissions' )->name( 'lecturer-downloadSubmissions' );
 		Route::get( 'downall-SubmitSubmission/{id1}', 'LecturerController@downloadAllSubmissions' )->name( 'lecturer-downloadAllSubmissions' );
-//		results
-		Route::get( 'view-results', 'LecturerController@getResults' )->name( 'view-results' );
-
 	} );
 } );
 
@@ -92,8 +89,8 @@ Route::prefix( '/student/' )->group( function () {
 	Route::get( 'courses', 'StudentController@courses' )->name( 'student-courses' );
 
 	# results
-	Route::get( 'results', 'StudentController@getResults' )->name( 'student-results' );
-	Route::post( 'results', 'StudentController@postResults' )->name( 'student-results' );
+//	Route::get( 'results', 'StudentController@getResults' )->name( 'student-results' );
+//	Route::post( 'results', 'StudentController@postResults' )->name( 'student-results' );
 	Route::get( 'gpa', 'StudentController@getGpa' )->name( 'student-gpa' );
 	Route::post( 'gpa', 'StudentController@postGpa' )->name( 'student-gpa' );
 	#course routes
@@ -140,6 +137,9 @@ Route::prefix( '/student/' )->group( function () {
 	Route::get( 'enroll-course/{id}', 'StudentController@enrollCourse' )->name( 'student-enroll-course' );
 	#UnEnroll
 	Route::get( 'unenroll-course', 'StudentController@unEnrollCourse' )->name( 'student-unenroll-course' );
+
+	#Exam results
+    Route::get( 'student-exam-results', 'ExamController@viewStudentResults' )->name( 'student-exam-results' );
 
 } );
 
