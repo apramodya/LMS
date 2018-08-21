@@ -45,6 +45,41 @@ class StudentController extends Controller {
 
 	}
 
+    public function viewStudentResults() {
+
+        $userid  = Auth::user()->id;
+//        dd($userid);
+        $student = Student::where( 'user_id', '=', $userid )->first();
+        $semesterOnes = Course::where('semester','=','1')->get();
+        $semesterTwos = Course::where('semester','=','2')->get();
+        $semesterThrees = Course::where('semester','=','3')->get();
+        $semesterFours = Course::where('semester','=','4')->get();
+        $semesterFives = Course::where('semester','=','5')->get();
+        $semesterSixs = Course::where('semester','=','6')->get();
+        $semesterSevens = Course::where('semester','=','7')->get();
+        $semesterEights = Course::where('semester','=','8')->get();
+
+        $results = Result::where( 'index_number', '=', $student->index_number )->get();
+//        dd($semesterOnes);
+
+        return view( 'student.results',['student'=> $student,
+            'semesterOnes'=>$semesterOnes,
+            'semesterTwos'=>$semesterTwos,
+            'semesterThrees'=>$semesterThrees,
+            'semesterFours'=>$semesterFours,
+            'semesterFives'=>$semesterFives,
+            'semesterSixs'=>$semesterSixs,
+            'semesterSevens'=>$semesterSevens,
+            'semesterEights'=>$semesterEights,
+            'results'=>$results
+        ]);
+
+    }
+
+
+
+
+
 //	results end
 
 	public function courses() {

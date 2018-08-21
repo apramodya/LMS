@@ -85,13 +85,18 @@ Route::prefix( '/lecturer/' )->group( function () {
 } );
 
 /** Student Controller  */
-Route::prefix( '/student/' )->group( function () {
+    Route::prefix( '/student/' )->group( function () {
 	Route::get( 'courses', 'StudentController@courses' )->name( 'student-courses' );
 
-	# results
+	# Exam results
 //	Route::get( 'results', 'StudentController@getResults' )->name( 'student-results' );
 //	Route::post( 'results', 'StudentController@postResults' )->name( 'student-results' );
-	Route::get( 'gpa', 'StudentController@getGpa' )->name( 'student-gpa' );
+
+    Route::get( 'student-exam-results', 'StudentController@viewStudentResults' )->name( 'student-exam-results' );
+
+
+
+    Route::get( 'gpa', 'StudentController@getGpa' )->name( 'student-gpa' );
 	Route::post( 'gpa', 'StudentController@postGpa' )->name( 'student-gpa' );
 	#course routes
 	Route::prefix( 'course/' )->group( function () {
@@ -138,9 +143,7 @@ Route::prefix( '/student/' )->group( function () {
 	#UnEnroll
 	Route::get( 'unenroll-course', 'StudentController@unEnrollCourse' )->name( 'student-unenroll-course' );
 
-	#Exam results
-    Route::get( 'student-exam-results', 'ExamController@viewStudentResults' )->name( 'student-exam-results' );
-
+	
 } );
 
 
