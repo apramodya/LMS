@@ -88,7 +88,12 @@ Route::prefix( '/lecturer/' )->group( function () {
 Route::prefix( '/student/' )->group( function () {
 	Route::get( 'courses', 'StudentController@courses' )->name( 'student-courses' );
 
-	// course routes
+	# results
+	Route::get( 'results', 'StudentController@getResults' )->name( 'student-results' );
+	Route::post( 'results', 'StudentController@postResults' )->name( 'student-results' );
+	Route::get( 'gpa', 'StudentController@getGpa' )->name( 'student-gpa' );
+	Route::post( 'gpa', 'StudentController@postGpa' )->name( 'student-gpa' );
+	#course routes
 	Route::prefix( 'course/' )->group( function () {
 		Route::get( '{id}', 'StudentController@getCourse' )->name( 'student-course' );
 		#Assignment Submissions

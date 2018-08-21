@@ -10,6 +10,7 @@ use App\LectureNote;
 use App\Notice;
 use App\Quiz;
 use App\QuizQuestion;
+use App\Result;
 use App\Student;
 use App\Submission;
 use App\SubmitAssignment;
@@ -26,8 +27,25 @@ Use PDF;
 
 class StudentController extends Controller {
 	public function __construct() {
-		$this->middleware('auth');
+		$this->middleware( 'auth' );
 	}
+
+//	results start
+	public function getResults() {
+		$userid = Auth::user()->id;
+		$id     = Student::where( 'user_id', '=', $userid )->first()->index_number;
+
+		$results = Result::where( 'index_number', '=', $id )->get();
+
+		return view( 'student.results', [ 'results' => $results ] );
+	}
+
+	public function getGpa() {
+		return view( 'student.gpa');
+
+	}
+
+//	results end
 
 	public function courses() {
 		$courses = Auth::user()->students->first()->courses;
@@ -53,15 +71,16 @@ class StudentController extends Controller {
 
 		$quiz = Quiz::where( 'course_id', '=', $id )->get();
 
-		return view( 'student/course', [ 'course'       => $course,
-		                                 'assignments'  => $assignments,
-		                                 'notices'      => $notices,
-		                                 'lectureNotes' => $lectureNotes,
-		                                 'submissions'  => $submissions,
-		                                 'results'      => $results,
-		                                 'count'        => $count,
-		                                 'res'          => $res,
-		                                 'quizes'       => $quiz
+		return view( 'student/course', [
+			'course'       => $course,
+			'assignments'  => $assignments,
+			'notices'      => $notices,
+			'lectureNotes' => $lectureNotes,
+			'submissions'  => $submissions,
+			'results'      => $results,
+			'count'        => $count,
+			'res'          => $res,
+			'quizes'       => $quiz
 		] );
 	}
 
@@ -73,12 +92,12 @@ class StudentController extends Controller {
 
 	public function showQuizz( $id ) {
 		$quiz      = Quiz::where( 'id', '=', $id )->first();
-		$questions = QuizQuestion::where( 'quiz_id','=', $id )->get();
+		$questions = QuizQuestion::where( 'quiz_id', '=', $id )->get();
 
 		return view( 'student/showQuiz', [ 'quiz' => $quiz, 'questions' => $questions ] );
 	}
 
-    public function showThisQuiz( Request $request ) {
+	public function showThisQuiz( Request $request ) {
 //        $course = Course::where( 'course_id', '=', $id )->first();
 
 //        $answer = QuizQuestion::where()
@@ -90,20 +109,22 @@ class StudentController extends Controller {
 //        return 123;
 
 //        return view( 'student/submitQuiz', [ 'course' => $course ] );
-    }
+	}
 
 
 	public function courseAction() {
-        $userid  = Auth::user()->id;
-        $student = Student::where( 'user_id', '=', $userid )->first();
+		$userid          = Auth::user()->id;
+		$student         = Student::where( 'user_id', '=', $userid )->first();
 		$courses         = Course::all();
-		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id','student_id' )->get();
+		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id', 'student_id' )->get();
 		$courseCount     = count( $enrolledCourses );
 
-		return view( 'student/student-enroll-course', [ 'courses'         => $courses,
-		                                                'enrolledCourses' => $enrolledCourses,
-		                                                'courseCount'     => $courseCount,
-                                                        'student'         => $student] );
+		return view( 'student/student-enroll-course', [
+			'courses'         => $courses,
+			'enrolledCourses' => $enrolledCourses,
+			'courseCount'     => $courseCount,
+			'student'         => $student
+		] );
 	}
 
 //    public function postEnrollCourse(Request $request){
@@ -122,7 +143,8 @@ class StudentController extends Controller {
 		$course  = Course::findOrFail( $id );
 		$course->students()->attach( $student->id );
 
-		flash('Course enrolled')->success();
+		flash( 'Course enrolled' )->success();
+
 		return redirect( route( 'student-course-action' ) );
 	}
 
@@ -133,7 +155,8 @@ class StudentController extends Controller {
 		$student = Student::where( 'user_id', '=', $userid )->first();
 		$course->students()->detach( $student->id );
 
-		flash('Course unenrolled')->success();
+		flash( 'Course unenrolled' )->success();
+
 		return redirect( route( 'student-course-action' ) );
 	}
 
@@ -156,9 +179,10 @@ class StudentController extends Controller {
 ////        $date1 = new \DateTime("now");
 //
 //        return $end;
-		return view( 'student/submitAssignment', [ 'course'     => $course,
-		                                           'assignment' => $assignment,
-		                                           'result'     => $result
+		return view( 'student/submitAssignment', [
+			'course'     => $course,
+			'assignment' => $assignment,
+			'result'     => $result
 		] );
 	}
 
@@ -173,9 +197,9 @@ class StudentController extends Controller {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
 			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
-			$courseID        = $course->course_id;
-			$assignmentID    = $assignment->assignment_id;
-			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
+			$courseID     = $course->course_id;
+			$assignmentID = $assignment->assignment_id;
+			$path         = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
 
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
@@ -188,8 +212,8 @@ class StudentController extends Controller {
 			$submitAssignment->attachment    = $fileNameWithExt;
 			$submitAssignment->save();
 
-            $student = Student::findOrFail( $student->id );
-            $student->assignmentsubmissions()->attach( $submitAssignment->id );
+			$student = Student::findOrFail( $student->id );
+			$student->assignmentsubmissions()->attach( $submitAssignment->id );
 
 		} else {
 
@@ -202,12 +226,13 @@ class StudentController extends Controller {
 			$submitAssignment->attachment    = null;
 			$submitAssignment->save();
 
-            $student = Student::findOrFail( $student->id );
-            $student->assignmentsubmissions()->attach( $submitAssignment->id );
+			$student = Student::findOrFail( $student->id );
+			$student->assignmentsubmissions()->attach( $submitAssignment->id );
 
 		}
 
-		flash('Assignment submitted')->success();
+		flash( 'Assignment submitted' )->success();
+
 		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 
 	}
@@ -222,9 +247,10 @@ class StudentController extends Controller {
 		$currentassignment = $assignment->id;
 		$result            = AssignmentSubmission::where( 'student_id', '=', $currentstudent )->where( 'assignment_id', '=', $currentassignment )->first();
 
-		return view( 'student/editSubmissionAssignment', [ 'course'     => $course,
-		                                                   'assignment' => $assignment,
-		                                                   'result'     => $result
+		return view( 'student/editSubmissionAssignment', [
+			'course'     => $course,
+			'assignment' => $assignment,
+			'result'     => $result
 		] );
 
 	}
@@ -241,9 +267,9 @@ class StudentController extends Controller {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
 			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
-			$courseID        = $course->course_id;
-			$assignmentID    = $assignment->assignment_id;
-			$path            = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
+			$courseID     = $course->course_id;
+			$assignmentID = $assignment->assignment_id;
+			$path         = 'public/Student Uploads/AssignmentSubmissions/' . $courseID . '/' . $assignmentID;
 
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
@@ -268,7 +294,8 @@ class StudentController extends Controller {
 
 		}
 
-		flash('Assignment edited')->success();
+		flash( 'Assignment edited' )->success();
+
 		return redirect( route( 'student-submitAssignment-get', [ 'id' => $course->id, 'id1' => $assignment->id ] ) );
 	}
 
@@ -331,9 +358,10 @@ class StudentController extends Controller {
 		$currentSubmission = $submission->id;
 		$result            = SubmitSubmission::where( 'student_id', '=', $currentStudent )->where( 'submission_id', '=', $currentSubmission )->first();
 
-		return view( 'student/submitSubmission', [ 'course'     => $course,
-		                                           'submission' => $submission,
-		                                           'result'     => $result
+		return view( 'student/submitSubmission', [
+			'course'     => $course,
+			'submission' => $submission,
+			'result'     => $result
 		] );
 	}
 
@@ -348,9 +376,9 @@ class StudentController extends Controller {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
 			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
-			$courseID        = $course->course_id;
-			$submissionID    = $submisssion->id;
-			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+			$courseID     = $course->course_id;
+			$submissionID = $submisssion->id;
+			$path         = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
 
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
@@ -363,8 +391,8 @@ class StudentController extends Controller {
 			$submitTask->attachment    = $fileNameWithExt;
 			$submitTask->save();
 
-            $student = Student::findOrFail( $student->id );
-            $student->submissionsubmissions()->attach( $submitTask->id );
+			$student = Student::findOrFail( $student->id );
+			$student->submissionsubmissions()->attach( $submitTask->id );
 
 		} else {
 			$submitTask                = new SubmitSubmission();
@@ -376,14 +404,16 @@ class StudentController extends Controller {
 			$submitTask->attachment    = null;
 			$submitTask->save();
 
-            $student = Student::findOrFail( $student->id );
-            $student->submissionsubmissions()->attach( $submitTask->id );
+			$student = Student::findOrFail( $student->id );
+			$student->submissionsubmissions()->attach( $submitTask->id );
 
 		}
 
-		flash('Submission submitted')->success();
-		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
-		                                                        'submissionid' => $submisssion->id
+		flash( 'Submission submitted' )->success();
+
+		return redirect( route( 'student-submit-submissions', [
+			'courseid'     => $course->id,
+			'submissionid' => $submisssion->id
 		] ) );
 	}
 
@@ -400,9 +430,9 @@ class StudentController extends Controller {
 
 			$fileNameWithExt = $request->file( 'attachment' )->getClientOriginalName();
 			//$fileName        = pathinfo( $fileNameWithExt, PATHINFO_FILENAME );
-			$courseID        = $course->course_id;
-			$submissionID    = $current->submission_id;
-			$path            = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
+			$courseID     = $course->course_id;
+			$submissionID = $current->submission_id;
+			$path         = 'public/Student Uploads/Task Submissions/' . $courseID . '/' . $submissionID;
 
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
@@ -427,85 +457,91 @@ class StudentController extends Controller {
 			$submitTask->save();
 		}
 
-		flash('Submission edited')->success();
-		return redirect( route( 'student-submit-submissions', [ 'courseid'     => $course->id,
-		                                                        'submissionid' => $submissionid
+		flash( 'Submission edited' )->success();
+
+		return redirect( route( 'student-submit-submissions', [
+			'courseid'     => $course->id,
+			'submissionid' => $submissionid
 		] ) );
 //        return redirect(route('student-submit-submissions', ['courseid' => $course->id, 'submissionid' => $submisssion->id]));
 
 	}
 
-    public function viewForum($id){
+	public function viewForum( $id ) {
 
-        $forum   = Forum::where( 'course_id', '=', $id )->first();
-        $question = Question::where( 'forum_id', '=', $forum->id )->get();
-        $qCount   = $question->count();
+		$forum    = Forum::where( 'course_id', '=', $id )->first();
+		$question = Question::where( 'forum_id', '=', $forum->id )->get();
+		$qCount   = $question->count();
 
-        return view('student.studentForum',[ 'forum' => $forum, 'qCount' => $qCount ]);
+		return view( 'student.studentForum', [ 'forum' => $forum, 'qCount' => $qCount ] );
 
-    }
+	}
 
-    public function askQuestionAnswer( Request $request, $id ) {
+	public function askQuestionAnswer( Request $request, $id ) {
 
-        if ( $request->has( 'Ask' ) ) {
-            $course   = Course::findOrFail( $id );
-            $forum    = Forum::where( 'course_id', '=', $id )->first();
-            $userid   = $request->user()->id;
-            $student = Student::where( 'user_id', '=', $userid )->first();
+		if ( $request->has( 'Ask' ) ) {
+			$course  = Course::findOrFail( $id );
+			$forum   = Forum::where( 'course_id', '=', $id )->first();
+			$userid  = $request->user()->id;
+			$student = Student::where( 'user_id', '=', $userid )->first();
 
-            $question           = new Question;
-            $question->forum_id = $forum->id;
-            $question->question = $request->question;
-            $question->save();
+			$question           = new Question;
+			$question->forum_id = $forum->id;
+			$question->question = $request->question;
+			$question->save();
 
 //            dd($question->id);
 
-            $student = Student::findOrFail( $student->id );
+			$student = Student::findOrFail( $student->id );
 //           dd($student);
 //            $student->questions()->attach( $question->id );
-            DB::table('questions_students')->insert(
-                ['question_id' => $question->id, 'student_id' => $student->id,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ]
-            );
-            flash( 'Question posted' )->success();
+			DB::table( 'questions_students' )->insert(
+				[
+					'question_id' => $question->id,
+					'student_id'  => $student->id,
+					'created_at'  => date( 'Y-m-d H:i:s' ),
+					'updated_at'  => date( 'Y-m-d H:i:s' )
+				]
+			);
+			flash( 'Question posted' )->success();
 
-            return redirect( route( 'student-forum', $course->id ) );
-        }
+			return redirect( route( 'student-forum', $course->id ) );
+		}
 
-        if ( $request->has( 'Reply' ) ) {
-            $question = Question::findOrFail( $id );
-            $forum    = Forum::where( 'id', '=', $question->forum_id )->first();
-            $userid   = $request->user()->id;
-            $student = Student::where( 'user_id', '=', $userid )->first();
+		if ( $request->has( 'Reply' ) ) {
+			$question = Question::findOrFail( $id );
+			$forum    = Forum::where( 'id', '=', $question->forum_id )->first();
+			$userid   = $request->user()->id;
+			$student  = Student::where( 'user_id', '=', $userid )->first();
 
-            $answer              = new Answer;
-            $answer->question_id = $id;
-            $answer->answer      = $request->answer;
-            $answer->save();
+			$answer              = new Answer;
+			$answer->question_id = $id;
+			$answer->answer      = $request->answer;
+			$answer->save();
 
 //            $student = Student::findOrFail( $student->id );
 //            $student->answers()->attach( $answer->id );
 
-            DB::table('answers_students')->insert(
-                ['answer_id' =>$answer->id, 'student_id' => $student->id,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ]
-            );
+			DB::table( 'answers_students' )->insert(
+				[
+					'answer_id'  => $answer->id,
+					'student_id' => $student->id,
+					'created_at' => date( 'Y-m-d H:i:s' ),
+					'updated_at' => date( 'Y-m-d H:i:s' )
+				]
+			);
 
-            flash( 'Reply posted' )->success();
+			flash( 'Reply posted' )->success();
 
-            return redirect( route( 'student-forum', $forum->course_id ) );
+			return redirect( route( 'student-forum', $forum->course_id ) );
 
-        }
-
-
-    }
+		}
 
 
-    public function studentAttendaceExcuses() {
+	}
+
+
+	public function studentAttendaceExcuses() {
 
 		$courses  = Auth::user()->students->first()->courses;
 		$userid   = Auth::user()->id;
@@ -538,13 +574,13 @@ class StudentController extends Controller {
 			$request->file( 'attachment' )->storeAs( $path, $fileNameWithExt );
 
 			$report             = new MedicalReports();
-            $report->student_id = $student->id;
-            $report->course_id  = $request->course_id;
-            $report->year       = $request->input( 'years' );
-            $report->semester   = $request->input( 'semester' );
-            $report->causes     = $request->causes;
-            $report->remarks    = $request->remarks;
-            $report->attachment = $fileName;
+			$report->student_id = $student->id;
+			$report->course_id  = $request->course_id;
+			$report->year       = $request->input( 'years' );
+			$report->semester   = $request->input( 'semester' );
+			$report->causes     = $request->causes;
+			$report->remarks    = $request->remarks;
+			$report->attachment = $fileName;
 
 			$report->save();
 
@@ -562,10 +598,12 @@ class StudentController extends Controller {
 
 		}
 
-		flash('Medical submitted')->success();
-		return view( 'student/MedicalReport', [ 'lastID'  => $lastInsertedID,
-		                                        'medical' => $medical,
-		                                        'student' => $student
+		flash( 'Medical submitted' )->success();
+
+		return view( 'student/MedicalReport', [
+			'lastID'  => $lastInsertedID,
+			'medical' => $medical,
+			'student' => $student
 		] );
 	}
 
