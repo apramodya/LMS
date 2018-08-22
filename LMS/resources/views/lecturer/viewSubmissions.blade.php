@@ -19,7 +19,6 @@
                             <th scope="col">Submitted Time</th>
                             <th scope="col">Submission Status</th>
                             <th scope="col">Actions</th>
-                            <th scope="col">Give Marks</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,18 +81,6 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('lecturer-downloadSubmissions',['id' => $course->id, 'id1' => $submissionsubmission->id]) }}" class="btn btn-outline-primary btn-sm">Download</a>
-                                </td>
-                                <td>
-                                    <form action="">
-                                        <div class="row">
-                                            <div class="col-md-4 offset-md-2">
-                                                <input class="form-control form-control-sm" type="number" placeholder="Marks given">
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm">Mark</button>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
