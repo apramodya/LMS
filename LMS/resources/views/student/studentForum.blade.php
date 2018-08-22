@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <div class="" style="padding-left: 60px; padding-top: 60px">
                         <pre>Questions asked <span class="badge indigo">{{ $qCount }}</span></pre>
-                        <pre>Replies given <span class="badge indigo">{{ null }}</span></pre>
+                        {{--<pre>Replies given <span class="badge indigo">{{ null }}</span></pre>--}}
                     </div>
                 </div>
                 <div class="col-md-7 offset-1">

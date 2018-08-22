@@ -42,6 +42,8 @@ class EmailController extends Controller
     	Mail::to($receiver)->send(new StudentEmail($mail));
 	    flash( 'Message emailed' )->success();
 
+	    return redirect(route('email-user'));
+
     }
 
 }

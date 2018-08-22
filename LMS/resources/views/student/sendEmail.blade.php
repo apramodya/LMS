@@ -20,7 +20,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="to"><strong>To: </strong></label>
-                                    <input type="text" class="form-control" id="to" name="to" required>
+                                    <input type="text" class="form-control" id="to" name="to" required placeholder="Receiver's Index Number">
 
                                 </div>
                             </div>
