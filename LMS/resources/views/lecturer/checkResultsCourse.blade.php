@@ -5,6 +5,7 @@
 @section('content')
     <div class="container">
         <div class="jumbotron">
+            <h5>Enrolled Courses Of Lecturer</h5>
             <div class="row">
                 <div class="col-md-8 offset-2">
                     <form method="post" action="{{ route('lecturer-post-results-by-course') }}">
