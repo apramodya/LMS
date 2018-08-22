@@ -99,24 +99,24 @@ body {font-family: Verdana, sans-serif;} */
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6"><h5 style="font-weight: 500;">Site Announcements</h5><br>
+                @foreach($announcements as $announcement)
                 <div class="card">
                     <div class="card-header">
-                        Site Announcements
+                        {{ $announcement->title }}
+                        @if(isNew($announcement->created_at))
+                            <span class="badge badge-pill badge-primary ">New</span>
+                        @endif
                     </div>
-                    @foreach($announcements as $announcement)
                         <div class="card-body">
-                            <h5 class="card-title">{{ $announcement->title }}
-                                @if(isNew($announcement->created_at))
-                                    <span class="badge badge-pill badge-danger ">New</span>
-                                @endif
+                            <h5 class="card-title">
                             </h5>
                             <p class="card-text">{{ $announcement->content }}</p>
                             <p>Published on {{ $announcement->created_at }}</p>
                         </div>
-                        <hr class="black">
-                    @endforeach
                 </div>
+                    <br>
+                @endforeach
             </div>
             <div class="col-md-3">
                 <div class="card">
