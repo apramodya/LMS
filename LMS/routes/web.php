@@ -163,6 +163,7 @@ Route::prefix( '/lecturer/' )->group( function () {
 
 /**Email Controller */
 Route::get( '/student/email-user', 'EmailController@getEmail' )->name( 'email-user' );
+Route::post( '/student/email-user', 'EmailController@sendEmail' )->name( 'email-user' );
 
 /** Exam Controller  */
 Route::prefix( '/exam' )->group( function () {
