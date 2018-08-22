@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div  style ="padding-top: 25px;"class="col-md-8">
+            <div style="padding-top: 25px;" class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
 
@@ -46,27 +46,14 @@
                                     @endif
                                 </div>
                             </div>
-
                             <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"
-                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="col-sm-6 offset-4">
+                                    <button type="submit" class="btn btn-primary btn-sm">
                                         {{ __('Login') }}
                                     </button>
-
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                    <button type="reset" class="btn btn-primary btn-sm">
+                                        {{ __('Reset') }}
+                                    </button>
                                 </div>
                             </div>
                         </form>
