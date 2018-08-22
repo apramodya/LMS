@@ -7,14 +7,18 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-8 offset-2">
-                    <form method="post" action="" enctype="multipart/form-data">
+                    <form method="post" action="{{route('submit-feedback') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-10 offset-1">
                                 <div class="form-group">
                                     <label for="course">Course</label>
                                     <select name="course" id="course" class="form-control">
-                                        <option value="">Programming I</option>
+                                        <?php $count = 0; ?>
+                                        @foreach($courses as $course)
+                                           <?php $count=$count+1; ?>
+                                            <option value="$count">{{$course->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -23,9 +27,15 @@
                             <div class="col-10 offset-1">
                                 <div class="form-group">
                                     <label for="lecturer">Lecturer</label>
+
                                     <select name="lecturer" id="lecturer" class="form-control">
-                                        <option value="">Prof. Naveen Perera</option>
+                                        <?php $coun = 0; ?>
+                                        @foreach($lecturers as $lecturer)
+                                                <?php $coun=$coun+1; ?>
+                                        <option value="$count">{{$lecturer->first_name}} {{$lecturer->last_name}}</option>
+                                        @endforeach
                                     </select>
+
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,9 @@ use App\Assignment;
 use App\AssignmentSubmission;
 use App\Course;
 use App\EnrollStudent;
+use App\Feedback;
 use App\LectureNote;
+use App\Lecturer;
 use App\Notice;
 use App\Quiz;
 use App\QuizQuestion;
@@ -32,14 +34,38 @@ class StudentController extends Controller {
 
     public function studentFeedback() {
 
-	    return view('student.feedback');
+        $userid          = Auth::user()->id;
+        $student         = Student::where( 'user_id', '=', $userid )->first();
+        $courses         = Course::where('year','=',$student->year)->get();
+        $lecturers       = Lecturer::all();
+
+	    return view('student.feedback',['courses'=>$courses,
+            'lecturers'=>$lecturers
+        ]);
+    }
+
+
+    public function storeFeedback(Request $request) {
+
+        $storeFeedback                = new Feedback();
+        $storeFeedback->course    =   $request->input( 'course' );
+        $storeFeedback->lecturer     = $request->input( 'lecturer' );
+        $storeFeedback->lec_impression	= $request->q1;
+        $storeFeedback->course_impression     = $request->q2;
+        $storeFeedback->suggestions     = $request->q3;
+
+        $storeFeedback->save();
+
+        return redirect( route( 'student-feedback-forum' ) );
+
+
+
     }
 
 //	results start
 	public function getResults() {
 		$userid = Auth::user()->id;
 		$id     = Student::where( 'user_id', '=', $userid )->first()->index_number;
-
 		$results = Result::where( 'index_number', '=', $id )->get();
 
 		return view( 'student.results', [ 'results' => $results ] );
