@@ -12,7 +12,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Course ID</th>
-                    <th scope="col">year</th>
+                    <th scope="col">Year</th>
                 </tr>
                 </thead>
                 <tbody>
