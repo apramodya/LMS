@@ -61,10 +61,75 @@ class ExamController extends Controller {
 		$grades->e     = $request->e;
 
 		$grades->update();
+		flash( 'Grades updated' )->success();
 
-		flash( 'Grades added' )->success();
+		$results = Result::all();
 
-		return redirect( route( 'apply-grades' ) );
+		foreach ( $results as $result ) {
+//			$result = Result::where('id','=',$result->id)->first();
+			$result = Result::findOrFail($result->id);
+
+			if ($grades->e <= $result->final_mark && $result->final_mark < $grades->dmin ){
+				$result->final_grade = 'E';
+				$result->update();
+			}
+			elseif ($grades->dmin <= $result->final_mark && $result->final_mark < $grades->d ){
+				$result->final_grade = 'D-';
+				$result->update();
+			}
+			elseif ($grades->d <= $result->final_mark && $result->final_mark < $grades->dplus ){
+				$result->final_grade = 'D';
+				$result->update();
+			}
+			elseif ($grades->dplus <= $result->final_mark && $result->final_mark < $grades->cmin ){
+				$result->final_grade = 'D+';
+				$result->update();
+			}
+			elseif ($grades->cmin <= $result->final_mark && $result->final_mark < $grades->c ){
+				$result->final_grade = 'C-';
+				$result->update();
+			}
+			elseif ($grades->c <= $result->final_mark && $result->final_mark < $grades->cplus ){
+				$result->final_grade = 'C';
+				$result->update();
+			}
+			elseif ($grades->cplus <= $result->final_mark && $result->final_mark < $grades->bmin ){
+				$result->final_grade = 'C+';
+				$result->update();
+			}
+			elseif ($grades->bmin <= $result->final_mark && $result->final_mark < $grades->b ){
+				$result->final_grade = 'B-';
+				$result->update();
+			}
+			elseif ($grades->b <= $result->final_mark && $result->final_mark < $grades->bplus ){
+				$result->final_grade = 'B';
+				$result->update();
+			}
+			elseif ($grades->bplus <= $result->final_mark && $result->final_mark < $grades->amin ){
+				$result->final_grade = 'B+';
+				$result->update();
+			}
+			elseif ($grades->amin <= $result->final_mark && $result->final_mark < $grades->a ){
+				$result->final_grade = 'A-';
+				$result->update();
+			}
+			elseif ($grades->a <= $result->final_mark && $result->final_mark < $grades->aplus ){
+				$result->final_grade = 'A';
+				$result->update();
+			}
+			elseif ($grades->aplus <= $result->final_mark && $result->final_mark <= 100 ){
+				$result->final_grade = 'A+';
+				$result->update();
+			}
+			else{
+				$result->final_grade = 'F';
+				$result->update();
+			}
+
+		}
+		flash( 'Grades updated for results' )->info();
+
+		return redirect( route( 'dashboard' ) );
 	}
 
 	public function getAddResults() {
