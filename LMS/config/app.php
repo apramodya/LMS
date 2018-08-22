@@ -165,6 +165,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Softon\Sms\SmsServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
         'Zip' => ZanySoft\Zip\ZipFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
 
     ],
