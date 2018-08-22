@@ -22,6 +22,14 @@
                             <div class="col-md-3">60</div>
                         </div>
                     </div>
+
+                    {{--@foreach($age as $x=>$x_value)--}}
+
+                        {{--{{$x}} {{$x_value}}--}}
+
+
+                    {{--@endforeach--}}
+
                 </div>
             </div>
         </div>
