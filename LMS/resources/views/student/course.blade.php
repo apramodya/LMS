@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Course Name
+    {{$course->name}}
 @endsection
 @section('content')
     <div class="container">

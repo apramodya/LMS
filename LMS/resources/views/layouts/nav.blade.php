@@ -48,7 +48,7 @@
 @auth
     <div class="">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">{{ ucfirst(auth()->user()->type) }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">{{ (auth()->user()->type) }}</a></li>
             <li class="breadcrumb-item active"><a href="#">@yield('title')</a></li>
         </ol>
     </div>
