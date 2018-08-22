@@ -13,7 +13,8 @@ $positions = \App\Position::all();
                 <div class="col-md-8">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="reg-student-tab" data-toggle="tab" href="#reg-student"
+                            <a class="nav-item nav-link active" id="reg-student-tab" data-toggle="tab"
+                               href="#reg-student"
                                role="tab" aria-controls="nav-home" aria-selected="true">Register Student</a>
                             <a class="nav-item nav-link" id="reg-lecturer-tab" data-toggle="tab" href="#reg-lecturer"
                                role="tab" aria-controls="nav-profile" aria-selected="false">Register Lecturer</a>

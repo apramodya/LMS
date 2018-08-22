@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('phone');
             $table->integer('registration_year');
 	        $table->string('academic_year')->nullable();
-            $table->string('year')->nullable();
+            $table->string('year')->default(1);
             $table->integer('index_number');
             $table->string('degree');
             $table->integer('user_id');

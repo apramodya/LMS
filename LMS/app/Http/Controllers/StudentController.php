@@ -334,7 +334,8 @@ class StudentController extends Controller {
 	public function courseAction() {
 		$userid          = Auth::user()->id;
 		$student         = Student::where( 'user_id', '=', $userid )->first();
-		$courses         = Course::where('year','=',$student->year)->get();
+		$degree = $student->degree;
+		$courses         = Course::where('year','=',$student->year)->where('degree','=',$degree)->get();
 		$enrolledCourses = DB::table( 'courses_students' )->select( 'course_id', 'student_id' )->get();
 		$courseCount     = count( $enrolledCourses );
 
