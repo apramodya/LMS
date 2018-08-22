@@ -103,15 +103,16 @@
                         <a class="nav-link" data-toggle="tab" href="#notes" role="tab">Lecture Notes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments <span
-                                    class="badge badge-pill badge-danger">New</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments </a>
+
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Tasks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes <span
-                                    class="badge badge-pill badge-danger">New</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes </a>
+
                     </li>
                 </ul>
                 <!-- Tab panels -->
@@ -174,7 +175,11 @@
                                 @foreach($assignments as $assignment)
                                     @if($assignment->attachment != NULL)
                                         <li class="list-group-item list-group-item-danger">
-                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                @if(isNew($assignment->created_at))
+                                                    <span class="badge badge-pill badge-primary ">New</span>
+                                                @endif
+                                            </a>
                                             <p>{{$assignment->description}}</p>
                                             <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
                                                class="btn btn-primary btn-sm">Download</a>
@@ -186,7 +191,11 @@
                                         </li>
                                     @else
                                         <li class="list-group-item list-group-item-danger">
-                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                            <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                @if(isNew($assignment->created_at))
+                                                    <span class="badge badge-pill badge-primary ">New</span>
+                                                @endif
+                                            </a>
                                             <p>{{$assignment->description}}</p>
                                             <a href="#" class="btn btn-outline-primary btn-sm">Download Info</a>
                                             <a href="#" class="btn btn-primary btn-sm disabled ">Edit Submission</a>
@@ -207,7 +216,11 @@
 
                                             @if($assignment->attachment != null)
                                                 <li class="list-group-item list-group-item-success">
-                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                        @if(isNew($assignment->created_at))
+                                                            <span class="badge badge-pill badge-primary ">New</span>
+                                                        @endif
+                                                    </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
                                                        class="btn btn-primary btn-sm">Download</a>
@@ -221,7 +234,11 @@
                                                 @break
                                             @else
                                                 <li class="list-group-item list-group-item-success">
-                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                        @if(isNew($assignment->created_at))
+                                                            <span class="badge badge-pill badge-primary ">New</span>
+                                                        @endif
+                                                    </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                                     <a href="{{route('student-editAssignmentSubmission',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
@@ -237,7 +254,11 @@
                                         @elseif(count($results)==$count)
                                             @if($assignment->attachment != NULL)
                                                 <li class="list-group-item list-group-item-danger">
-                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                        @if(isNew($assignment->created_at))
+                                                            <span class="badge badge-pill badge-primary ">New</span>
+                                                        @endif
+                                                    </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="{{route('downloadAssignment',['courseid' => $course->id,'assignmentid' => $assignment->id])}}"
                                                        class="btn btn-primary btn-sm">Download</a>
@@ -251,7 +272,11 @@
                                                 @break
                                             @else
                                                 <li class="list-group-item list-group-item-danger">
-                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
+                                                    <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}}
+                                                        @if(isNew($assignment->created_at))
+                                                            <span class="badge badge-pill badge-primary ">New</span>
+                                                        @endif
+                                                    </a>
                                                     <p>{{$assignment->description}}</p>
                                                     <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                                     <a href="#" class="btn btn-primary btn-sm disabled ">Edit
@@ -277,7 +302,11 @@
                             @foreach($submissions as $submission)
                                 @if($submission->attachment !=NULL)
                                     <li class="list-group-item">
-                                        <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
+                                        <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong>
+                                            @if(isNew($submission->created_at))
+                                                <span class="badge badge-pill badge-primary ">New</span>
+                                            @endif
+                                        </a>
                                         <p>{{$submission->description}}</p>
                                         <a href="{{route('downloadSubmission',['courseid' => $course->id,'submissionid' => $submission->id])}}"
                                            class="btn btn-primary btn-sm">Download</a>
@@ -289,7 +318,11 @@
 
                                 @else
                                     <li class="list-group-item">
-                                        <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
+                                        <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong>
+                                            @if(isNew($submission->created_at))
+                                                <span class="badge badge-pill badge-primary ">New</span>
+                                            @endif
+                                        </a>
                                         <p>{{$submission->description}}</p>
                                         <a href="#" class="btn btn-primary btn-sm disabled">Download</a>
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
