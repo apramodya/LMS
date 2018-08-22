@@ -312,6 +312,7 @@ class LecturerController extends Controller {
 
 			File::makeDirectory( $path, 0775, true, true );
 
+            $lecturenote->attachment = NULL;
 			$lecturenote->save();
 		}
 
@@ -470,7 +471,8 @@ class LecturerController extends Controller {
 			$notice->attachment = $fileName;
 			$notice->save();
 
-		} else {
+		} else
+		    {
 
 			$notice              = new Notice;
 			$notice->course_id   = $id;
@@ -484,6 +486,7 @@ class LecturerController extends Controller {
 			$path   = base_path() . '/public/uploads/' . $folder . '/notices';
 
 			File::makeDirectory( $path, 0775, true, true );
+                $notice->attachment = NULL;
 			$notice->save();
 		}
 

@@ -102,7 +102,7 @@
                                             <a href="{{ route('lecturer-addAssignment',$course->id) }}"
                                                class="btn btn-primary">Add Assignment</a>
                                             <a href="{{ route('lecturer-addSubmission',$course->id) }}"
-                                               class="btn btn-primary">Add Submission</a>
+                                               class="btn btn-primary">Add Tasks</a>
                                             <a href="{{ route('lecturer-addQuiz',$course->id) }}"
                                                class="btn btn-primary">Add Quiz</a>
                                             <a href="{{ route('lecturer-addNotice',$course->id) }}"
@@ -136,7 +136,7 @@
                         <a class="nav-link" data-toggle="tab" href="#assignments" role="tab">Assignments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Submissions</a>
+                        <a class="nav-link" data-toggle="tab" href="#submissions" role="tab">Tasks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#quizzes" role="tab">Quizzes</a>
@@ -356,7 +356,7 @@
                                        data-target="#deleteSubmission-{{ $submission->id }}"
                                        data-id1="{{ $submission->id }}" data-id="{{ $course->id }}">Delete</a>
                                     <a href="{{ route('lecturer-viewSubmissions',['id' => $course->id, 'id1' => $submission->id]) }}"
-                                       class="btn btn-outline-primary btn-sm">View Submissions</a>
+                                       class="btn btn-outline-primary btn-sm">View Tasks</a>
                                     <p class="font-italic">Published
                                         on {{ $submission->start_date }} {{ $submission->start_time }}</p>
                                     <p class="font-italic">Deadline <span

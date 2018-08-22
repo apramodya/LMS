@@ -338,7 +338,7 @@ class StudentController extends Controller {
 			$submitAssignment->assignment_id = $assignmentid;
 			$submitAssignment->title         = $request->title;
 			$submitAssignment->description   = $request->description;
-			$submitAssignment->attachment    = null;
+			$submitAssignment->attachment    = NULL;
 			$submitAssignment->save();
 
 			$student = Student::findOrFail( $student->id );
@@ -516,7 +516,7 @@ class StudentController extends Controller {
 			$submitTask->submission_id = $submissionid;
 			$submitTask->title         = $request->title;
 			$submitTask->description   = $request->description;
-			$submitTask->attachment    = null;
+			$submitTask->attachment    = NULL;
 			$submitTask->save();
 
 			$student = Student::findOrFail( $student->id );

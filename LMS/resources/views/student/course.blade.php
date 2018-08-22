@@ -121,7 +121,7 @@
                     <div class="tab-pane fade in show active" id="notices" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($notices as $notice)
-                                @if($notice->attachment==!null)
+                                @if($notice->attachment != NULL)
                                     <li class="list-group-item">
                                         <strong>{{$notice->title}}</strong>
                                         <p> {{ $notice->description }} </p>
@@ -146,7 +146,7 @@
                     <div class="tab-pane fade" id="notes" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($lectureNotes as $lectureNote)
-                                @if($lectureNote->attachment==!null)
+                                @if($lectureNote->attachment != NULL)
                                     <li class="list-group-item">
                                         <strong>{{$lectureNote->title}}</strong>
                                         <p>{{$lectureNote->description}}</p>
@@ -172,7 +172,7 @@
                         <ul class="list-group list-group-flush">
                             @if(count($results)==0)
                                 @foreach($assignments as $assignment)
-                                    @if($assignment->attachment==!null)
+                                    @if($assignment->attachment != NULL)
                                         <li class="list-group-item list-group-item-danger">
                                             <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                             <p>{{$assignment->description}}</p>
@@ -205,7 +205,7 @@
 										<?php $count = $count + 1;  ?>
                                         @if($result->assignment_id == $assignment->id)
 
-                                            @if($assignment->attachment==!null)
+                                            @if($assignment->attachment != null)
                                                 <li class="list-group-item list-group-item-success">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
@@ -235,7 +235,7 @@
                                             @endif
 
                                         @elseif(count($results)==$count)
-                                            @if($assignment->attachment==!null)
+                                            @if($assignment->attachment != NULL)
                                                 <li class="list-group-item list-group-item-danger">
                                                     <a href="{{route('student-submitAssignment-get',['courseid' => $course->id,'assignmentid' => $assignment->id])}}">{{$assignment->assignment_id}} </a>
                                                     <p>{{$assignment->description}}</p>
@@ -275,7 +275,7 @@
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($submissions as $submission)
-                                @if($submission->attachment==!null)
+                                @if($submission->attachment !=NULL)
                                     <li class="list-group-item">
                                         <a href="{{route('student-submit-submissions',['courseid' => $course->id,'submissionid' => $submission->id])}}"><strong>{{$submission->title}}</strong></a>
                                         <p>{{$submission->description}}</p>

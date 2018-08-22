@@ -26,7 +26,7 @@
                                                 <li class="list-group-item"><strong>{{$semesterOne->name}}</strong>
                                     <span class="small">{{$semesterOne->course_id}}</span>
                                     <span class="float-right font-weight-bold"><strong>{{$result->final_grade}}</strong></span>
-                                </li>
+                                                </li>
                                         @endif
                                         @endforeach
 
