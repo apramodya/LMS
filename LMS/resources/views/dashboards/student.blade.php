@@ -17,6 +17,11 @@
                     <a href="{{route('student-attendace-excuses')}}" class="list-group-item list-group-item-action">Request
                         Excuses For Attendance</a>
                 </div>
+
+                <div class="list-group">
+                    <a href="{{route('student-feedback-forum')}}" class="list-group-item list-group-item-action">Submit                       Feedback Form</a>
+                </div>
+
                 <div class="list-group">
                     <a href="{{ route('student-exam-medicals') }}" class="list-group-item list-group-item-action">Submit
                         Medicals</a>

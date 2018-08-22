@@ -151,6 +151,9 @@ Route::prefix( '/lecturer/' )->group( function () {
 	#UnEnroll
 	Route::get( 'unenroll-course', 'StudentController@unEnrollCourse' )->name( 'student-unenroll-course' );
 
+    #Student Feedback
+	Route::get( 'feedback-forum', 'StudentController@studentFeedback' )->name( 'student-feedback-forum' );
+
 	
 } );
 

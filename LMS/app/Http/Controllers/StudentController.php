@@ -30,6 +30,11 @@ class StudentController extends Controller {
 		$this->middleware( 'auth' );
 	}
 
+    public function studentFeedback() {
+
+	    return view('student.feedback');
+    }
+
 //	results start
 	public function getResults() {
 		$userid = Auth::user()->id;
@@ -111,7 +116,7 @@ class StudentController extends Controller {
             }
 	                }
 
-        dd($sortedRanks);
+     //   dd($sortedRanks);
 // *********************************
         $userid  = Auth::user()->id;
         $student = Student::where( 'user_id', '=', $userid )->first();
