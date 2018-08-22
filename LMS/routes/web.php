@@ -176,6 +176,8 @@ Route::prefix( '/exam' )->group( function () {
 	Route::post( '/get-results-by-index', 'ExamController@postResultsByIndex' )->name( 'post-results-by-index' );
 	Route::get( '/get-results-by-course/{id}', 'ExamController@getResultsByCourse' )->name( 'get-results-by-course' );
 	Route::post( '/get-results-by-course', 'ExamController@postResultsByCourse' )->name( 'post-results-by-course' );
+	Route::get( '/apply-grades', 'ExamController@getApplyGrades' )->name( 'apply-grades' );
+	Route::post( '/apply-grades', 'ExamController@postApplyGrades' )->name( 'apply-grades' );
 } );
 
 /** Quiz Controller */
