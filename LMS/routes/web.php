@@ -40,6 +40,10 @@ Route::prefix( '/lecturer/' )->group( function () {
         Route::get( 'check-resultsLecturer', 'LecturerController@checkResults' )->name( 'lecturer-check-resultsLecturer' );
         Route::get( '/get-results-by-course/{id}', 'LecturerController@getResultsByCourse' )->name( 'lecturer-get-results-by-course' );
         Route::post( '/get-results-by-course', 'LecturerController@postResultsByCourse' )->name( 'lecturer-post-results-by-course' );
+        //      enrolled students
+        Route::get( 'check-enrolledStudents', 'LecturerController@checkEnrolledStudents' )->name( 'lecturer-check-enrolledStudents' );
+        Route::get( '/get-students-by-course/{id}', 'LecturerController@getStudentsByCourse' )->name( 'lecturer-get-students-by-course' );
+        Route::post( '/get-students-by-course', 'LecturerController@postStudentsByCourse' )->name( 'lecturer-post-students-by-course' );
 	} );
 	Route::prefix( '/course/{id}/' )->group( function () {
 		Route::get( '', 'LecturerController@getCourse' )->name( 'lecturer-course' );

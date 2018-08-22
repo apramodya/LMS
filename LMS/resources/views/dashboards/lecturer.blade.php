@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action">Enrolled Students</a>
+                    <a href="{{ route('lecturer-check-enrolledStudents') }}" class="list-group-item list-group-item-action">Enrolled Students</a>
                 </div>
             </div>
         </div>

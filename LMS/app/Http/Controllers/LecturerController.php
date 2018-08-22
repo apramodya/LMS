@@ -246,7 +246,7 @@ class LecturerController extends Controller {
 			return response()->download( $pathToFile );
 
 		} else {
-
+            flash( 'No uploads' )->success();
 			return redirect( route( 'lecturer-course', $id ) );
 		}
 
@@ -413,6 +413,7 @@ class LecturerController extends Controller {
 		if ( ! empty ( $folder2 ) ) {
 			return response()->download( $pathToFile );
 		} else {
+            flash( 'No uploads' )->success();
 			return redirect( route( 'lecturer-course', $id ) );
 		}
 
@@ -610,6 +611,7 @@ class LecturerController extends Controller {
 
 			return response()->download( $pathToFile );
 		} else {
+            flash( 'No uploads' )->success();
 			return redirect( route( 'lecturer-course', $id ) );
 		}
 
@@ -849,6 +851,7 @@ class LecturerController extends Controller {
 
 			return response()->download( $pathToFile );
 		} else {
+            flash( 'No uploads' )->success();
 			return redirect( route( 'lecturer-course', $id ) );
 		}
 
@@ -1116,6 +1119,36 @@ class LecturerController extends Controller {
         $id = $request['course_id'];
 
         return redirect( route( 'lecturer-get-results-by-course', $id ) );
+    }
+
+    public function checkEnrolledStudents() {
+
+        $courses = Auth::user()->lecturers->first()->courses;
+
+        return view( 'lecturer/checkStudentsCourse', [ 'courses' => $courses ] );
+
+    }
+    public function getStudentsByCourse( $id ) {
+        $course = Course::where( 'id', '=', $id )->first();
+        $count = 0;
+        foreach ($course->students as $student){
+            $student->id;
+            $count = $count +1 ;
+        }
+        if($count==0){
+            flash( 'No Students Enrolled Yet' )->success();
+            return redirect( route( 'lecturer-check-enrolledStudents') );
+        }
+        else{
+            return view( 'lecturer/courseEnrolledStudents', [ 'course' => $course,'count' => $count] );
+        }
+
+    }
+
+    public function postStudentsByCourse( Request $request ) {
+        $id = $request['course_id'];
+
+        return redirect( route( 'lecturer-get-students-by-course', $id ) );
     }
 
 
