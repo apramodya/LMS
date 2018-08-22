@@ -40,8 +40,77 @@ class StudentController extends Controller {
 		return view( 'student.results', [ 'results' => $results ] );
 	}
 
-	public function getGpa() {
 
+
+
+
+	public function getGpa() {
+	    $studs = Student::all();
+        $studCourses = Course::all();
+        $age = array();
+
+	    foreach($studs as $stud){
+            $studResults = Result::where( 'index_number', '=', $stud->index_number )->get();
+//            foreach($studCourses as $studCourse) {
+//                foreach ($studResults as $studResult) {
+//                }}
+
+            $Sgpa = 0; $StotalCredits =0 ; $Scgpa =0; $SgpaFinal=0;
+
+            if($studResults != NULL) {
+                foreach ($studCourses as $studCourse) {
+                    foreach ($studResults as $studResult) {
+                        if ($studResult->course_id == $studCourse->course_id) {
+                            if ($studResult->final_grade == 'A+') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 4.25;
+                            }
+                            if ($studResult->final_grade == 'A') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 4.00;
+                            }
+                            if ($studResult->final_grade == 'A-') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 3.75;
+                            }
+                            if ($studResult->final_grade == 'B+') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 3.25;
+                            }
+                            if ($studResult->final_grade == 'B') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 3.00;
+                            }
+                            if ($studResult->final_grade == 'B-') {
+                                $StotalCredits = $StotalCredits + $studCourse->credits;
+                                $Scgpa = $Scgpa + $studCourse->credits * 2.75;
+                            }
+
+
+                        }
+                    }
+                }
+
+                $Sgpa = $Scgpa / $StotalCredits;
+                $SgpaFinal = floor($Sgpa * 10000) / 10000;
+//            dd($SgpaFinal);
+
+//            $age=array($stud->index_number=>$SgpaFinal);
+                $age[$stud->index_number] = $SgpaFinal;
+//            array_push($age,$stud->index_number,$SgpaFinal);
+
+//
+
+
+//            foreach ($Offer as $key => $value) {
+//                $offerArray[$key] = $value[4];
+//            }
+
+            }
+	                }
+
+      //  dd($age);
+// *********************************
         $userid  = Auth::user()->id;
         $student = Student::where( 'user_id', '=', $userid )->first();
         $courses = Course::all();
@@ -117,8 +186,9 @@ class StudentController extends Controller {
 		return view( 'student.gpa',['student'=> $student,
 
             'results'=>$results,
-            'student'=>$student,
+//            'student'=>$student,
             'gpaFinal'=>$gpaFinal,
+            'age'=>$age,
 //
         ]);
     }
