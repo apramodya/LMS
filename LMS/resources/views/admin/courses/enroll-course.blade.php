@@ -13,8 +13,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="course">Course</label>
-                                    <select class="form-control" id="course" name="course_id">
-                                        <option>Choose</option>
+                                    <select class="custom-select" id="course" name="course_id" required>
+                                        <option value="" disabled selected>Choose</option>
                                         @foreach($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->name }}
                                                 | {{ $course->course_id }}</option>
@@ -27,8 +27,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="lecturer">Lecturer</label>
-                                    <select class="form-control text-capitalize" id="lecturer" name="lecturer_id">
-                                        <option>Choose</option>
+                                    <select class="custom-select text-capitalize" id="lecturer" name="lecturer_id" required>
+                                        <option value="" disabled selected>Choose</option>
                                         @foreach($lecturers as $lecturer)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->first_name }} {{ $lecturer->last_name }}</option>
                                         @endforeach

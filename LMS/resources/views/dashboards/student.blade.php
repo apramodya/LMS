@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action">View Users </a>
+                    <a href="" class="disabled list-group-item list-group-item-action">View Users </a>
                 </div>
 
             </div>

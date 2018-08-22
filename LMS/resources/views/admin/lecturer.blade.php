@@ -36,30 +36,34 @@
                     </div>
                     <div class="card-body">
                         <!--Table-->
-                        <table class="table">
+                        @if(!$lecturer->courses->isEmpty())
+                            <table class="table">
 
-                            <!--Table head-->
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Course Name</th>
-                                <th>Course ID</th>
-                            </tr>
-                            </thead>
-                            <!--Table head-->
-                            <!--Table body-->
-                            <tbody>
-                            @foreach($lecturer->courses as $course)
+                                <!--Table head-->
+                                <thead>
                                 <tr>
-                                    <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td class="font-weight-bold"><a href="{{ route('admin-course', $course->course_id) }}">{{ $course->name }}</a></td>
-                                    <td>{{ $course->course_id }}</td>
+                                    <th>#</th>
+                                    <th>Course Name</th>
+                                    <th>Course ID</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                            <!--Table body-->
+                                </thead>
+                                <!--Table head-->
+                                <!--Table body-->
+                                <tbody>
+                                @foreach($lecturer->courses as $course)
+                                    <tr>
+                                        <th scope="row">{{ $loop->index + 1 }}</th>
+                                        <td class="font-weight-bold"><a href="{{ route('admin-course', $course->course_id) }}">{{ $course->name }}</a></td>
+                                        <td>{{ $course->course_id }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <!--Table body-->
 
-                        </table>
+                            </table>
+                            @else
+                            {{ 'No courses enrolled' }}
+                            @endif
                         <!--Table-->
                     </div>
                 </div>
