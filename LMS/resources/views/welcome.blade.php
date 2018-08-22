@@ -94,8 +94,8 @@ body {font-family: Verdana, sans-serif;} */
                         Downloads
                     </div>
                     <div class="card-body">
-                        <p>UNDERGRADUATE TIME TABLE - SEMESTER 1 - 2018</p>
-                        <p>UNDERGRADUATE ACADEMIC CALENDAR - 2017</p>
+                        <a>UNDERGRADUATE TIME TABLE - SEMESTER 1 - 2018</a>
+                        <a>UNDERGRADUATE ACADEMIC CALENDAR - 2017</a>
                     </div>
                 </div>
             </div>

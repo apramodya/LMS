@@ -27,11 +27,35 @@
 
                         {{--{{$x}} {{$x_value}}--}}
 
-
+{{--{{$rank}}--}}
                     {{--@endforeach--}}
 
                 </div>
             </div>
         </div>
+<br>
+
+        <div class="card">
+            <div class="card-header">
+                <span><strong>Student Ranking</strong></span>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <?php $count = 0; ?>
+                                    @foreach($sortedRanks as $key => $sortedRank)
+                             <?php   $count = $count + 1 ?>
+                                    <li class="list-group-item"><strong>#{{$count}} {{$key}}</strong>
+                                        {{--<span class="small">John Doe</span>--}}
+                                        <span class="float-right font-weight-bold"><strong>{{$sortedRank}}</strong></span>
+                                    </li>
+                                    @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 @endsection

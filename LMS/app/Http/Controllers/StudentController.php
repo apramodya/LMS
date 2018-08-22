@@ -47,7 +47,7 @@ class StudentController extends Controller {
 	public function getGpa() {
 	    $studs = Student::all();
         $studCourses = Course::all();
-        $age = array();
+        $rank = array();
 
 	    foreach($studs as $stud){
             $studResults = Result::where( 'index_number', '=', $stud->index_number )->get();
@@ -96,12 +96,14 @@ class StudentController extends Controller {
 //            dd($SgpaFinal);
 
 //            $age=array($stud->index_number=>$SgpaFinal);
-                $age[$stud->index_number] = $SgpaFinal;
+                $rank[$stud->index_number] = $SgpaFinal;
 //            array_push($age,$stud->index_number,$SgpaFinal);
 
 //
 
 
+                $sortedRanks = collect($rank)->sortBy($SgpaFinal[0])->reverse()->toArray();
+//                dd($sortedRanks);
 //            foreach ($Offer as $key => $value) {
 //                $offerArray[$key] = $value[4];
 //            }
@@ -109,7 +111,7 @@ class StudentController extends Controller {
             }
 	                }
 
-      //  dd($age);
+        dd($sortedRanks);
 // *********************************
         $userid  = Auth::user()->id;
         $student = Student::where( 'user_id', '=', $userid )->first();
@@ -181,14 +183,15 @@ class StudentController extends Controller {
 
                 }}
         }
-//        dd($gpa);
+//        dd($rank);
 
 		return view( 'student.gpa',['student'=> $student,
 
             'results'=>$results,
 //            'student'=>$student,
             'gpaFinal'=>$gpaFinal,
-            'age'=>$age,
+            'rank'=>$rank,
+        'sortedRanks'=>$sortedRanks,
 //
         ]);
     }
