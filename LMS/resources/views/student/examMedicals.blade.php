@@ -29,7 +29,7 @@
                             </div>
                             </div>
                     <div class="row">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="degree"><strong>Degree</strong></label>
                                     <input type="text" class="form-control" id="degree" name="degree" disabled value="{{$student->degree}}">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="semester"><strong>Semester</strong></label>
                                     <select class="form-control" id="semester" name="semester">
@@ -67,7 +67,7 @@
                                 $count=0;
                                 @foreach($courses as $course)
                                     $count=$count+1;
-                                <option value="$count">{{$course->name}}</option>
+                                <option value="$count">{{$course->name}} {{$course->course_id}}</option>
 
                                     @endforeach
 
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="col-4">
-                                <label for="name"><strong>Registration Number</strong></label>
+                                <label for="name"><strong>Index Number</strong></label>
                                 <input type="text" class="form-control" id="registration" name="registration" disabled value="{{$student->index_number}}">
                             </div>
 
