@@ -28,19 +28,19 @@
                         @if($courseCount!=null)
                         @foreach($enrolledCourses as $enrolledCourse)
                             @if(($enrolledCourse->course_id == $course->id) && ($enrolledCourse->student_id == $student->id))
-                                <td> <a class="btn btn-blue disabled">Enroll</a></td>
-                                <td><a class="btn btn red passID" data-toggle="modal" data-target="#unenrollmodel" data-id="{{ $course->id }}">un enroll</a></td>
+                                <td> <a class="btn btn-blue btn-md disabled">Enroll</a></td>
+                                <td><a class="btn btn red btn-md passID" data-toggle="modal" data-target="#unenrollmodel" data-id="{{ $course->id }}">un enroll</a></td>
                             @else
                                 <?php $count=$count+1;  ?>
                                 @if($courseCount == $count)
-                                        <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue">Enroll</a></td>
-                                        <td><a class="btn btn red disabled">unenroll</a></td>
+                                        <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue btn-md">Enroll</a></td>
+                                        <td><a class="btn btn red btn-md disabled =">unenroll</a></td>
                                     @endif
                                     @endif
                         @endforeach
                         @else
-                            <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue">Enroll</a></td>
-                            <td><a class="btn btn red disabled">unenroll</a></td>
+                            <td> <a href="{{route('student-enroll-course',['id'=>$course->id])}}" class="btn btn-blue btn-md">Enroll</a></td>
+                            <td><a class="btn btn red  btn-md disabled  ">unenroll</a></td>
                         @endif
                     </tr>
                 @endforeach
