@@ -3,6 +3,89 @@
     Home
 @endsection
 @section('content')
+<style>
+/* * {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;} */
+
+.month {
+    padding: 7px 25px;
+    width: 100%;
+    background: #4f323b94;
+    text-align: center;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 12.6%;
+    color: #666;
+    text-align: center;
+}
+
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+}
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 12.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:12px;
+    color: #777;
+}
+
+.days li .active {
+    padding: 5px;
+    background: #655b8c9e;
+    color: white !important
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+    .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+    .weekdays li, .days li {width: 12.5%;}
+    .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+    .weekdays li, .days li {width: 12.2%;}
+}
+</style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
@@ -38,65 +121,67 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
-                        Exam Results
+                        Calender
                     </div>
                     <div class="card-body">
                         <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                data-target="#collapseOne" aria-expanded="false"
-                                                aria-controls="collapseOne">
-                                            Year 4
-                                        </button>
-                                    </h5>
-                                </div>
+                        <div class="month"> 
+  <ul>
+    <li class="prev">&#10094;</li>
+    <li class="next">&#10095;</li>
+    <li style="font-size:14px">August<br><span style="font-size:14px">2017</span></li>
+  </ul>
+</div>
 
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                     data-parent="#accordion">
-                                    <div class="card-body">
-                                        ...
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                data-target="#collapseTwo" aria-expanded="false"
-                                                aria-controls="collapseTwo">
-                                            Year 3
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                     data-parent="#accordion">
-                                    <div class="card-body">
-                                        ...
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                data-target="#collapseThree" aria-expanded="false"
-                                                aria-controls="collapseThree">
-                                            Year 2
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                     data-parent="#accordion">
-                                    <div class="card-body">
-                                        ...
-                                    </div>
-                                </div>
-                            </div>
+<ul class="weekdays">
+  <li>Mo</li>
+  <li>Tu</li>
+  <li>We</li>
+  <li>Th</li>
+  <li>Fr</li>
+  <li>Sa</li>
+  <li>Su</li>
+</ul>
+
+<ul class="days"> 
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  <li>10</li>
+  <li>11</li>
+  <li>12</li>
+  <li>13</li>
+  <li>14</li>
+  <li>15</li>
+  <li>16</li>
+  <li>17</li>
+  <li>18</li>
+  <li>19</li>
+  <li>20</li>
+  <li>21</li>
+  <li>22</li>
+  <li><span class="active">23</span></li>
+  <li>24</li>
+  <li>25</li>
+  <li>26</li>
+  <li>27</li>
+  <li>28</li>
+  <li>29</li>
+  <li>30</li>
+  <li>31</li>
+  
+</ul> 
+                            
                         </div>
                     </div>
                 </div>
+               
             </div>
         </div>
     </div>
