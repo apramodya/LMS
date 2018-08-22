@@ -16,6 +16,7 @@
                         Results Using CSV</a>
                     <a href="{{ route('check-results') }}" class="list-group-item list-group-item-action">Check
                         Results</a>
+                    <a href="{{ route('apply-grades') }}" class="list-group-item list-group-item-action">Apply Grades</a>
                 </div>
             </div>
         </div>
