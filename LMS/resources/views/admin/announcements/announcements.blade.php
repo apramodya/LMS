@@ -26,7 +26,7 @@
                                 <dd class="col-sm-9">{{ $announcement->created_at }}</dd>
                             </dl>
                             @if(($announcement->attachment) != null)
-                                <a href="{{ $announcement->attachment }}" class="btn btn-primary">Download</a>
+                                {{--<a href="{{ $announcement->attachment }}" class="btn btn-primary">Download</a>--}}
                             @endif
                         </div>
                     </div>
