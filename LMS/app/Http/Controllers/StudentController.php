@@ -32,6 +32,18 @@ class StudentController extends Controller {
 		$this->middleware( 'auth' );
 	}
 
+
+    public function listStudents(){
+        $students = Student::all();
+
+
+        return view('student.studentList',
+            ['students'=>$students
+//            'lecturers'=>$lecturers
+        ]
+        );
+        }
+
     public function studentFeedback() {
 
         $userid          = Auth::user()->id;

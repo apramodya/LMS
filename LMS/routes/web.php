@@ -156,7 +156,7 @@ Route::prefix( '/lecturer/' )->group( function () {
 
 	Route::post( 'feedback-forumn', 'StudentController@storeFeedback' )->name( 'submit-feedback' );
 
-
+    Route::get( 'list-students', 'StudentController@listStudents' )->name( 'list-students' );
 	
 } );
 
