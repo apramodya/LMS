@@ -2,8 +2,8 @@
 
 // send text message
 function sms( $msg, $receivers ) {
-	$user     = '94719990807';
-	$password = '2036';
+	$user     = '94766806341';
+	$password = '1592';
 	$text     = urlencode( $msg );
 	$to       = $receivers;
 

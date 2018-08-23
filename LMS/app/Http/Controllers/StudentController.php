@@ -91,6 +91,8 @@ class StudentController extends Controller {
 	    $studs = Student::all();
         $studCourses = Course::all();
         $rank = array();
+        $index = Auth::user()->username;
+
 
 	    foreach($studs as $stud){
             $studResults = Result::where( 'index_number', '=', $stud->index_number )->get();
@@ -239,10 +241,11 @@ class StudentController extends Controller {
 		return view( 'student.gpa',['student'=> $student,
 
             'results'=>$results,
-//            'student'=>$student,
+            'userid'=>$userid,
             'gpaFinal'=>$gpaFinal,
             'rank'=>$rank,
         'sortedRanks'=>$sortedRanks,
+            'index'=>$index,
 //
         ]);
     }
