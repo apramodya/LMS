@@ -133,9 +133,17 @@ class StudentController extends Controller {
                         }
                     }
                 }
+                if($StotalCredits == 0){
+                    $SgpaFinal == 0 ;
+                }
 
-                $Sgpa = $Scgpa / $StotalCredits;
-                $SgpaFinal = floor($Sgpa * 10000) / 10000;
+                else{
+                    $Sgpa = $Scgpa / $StotalCredits;
+                    $SgpaFinal = floor($Sgpa * 10000) / 10000;
+
+                }
+
+
 //            dd($SgpaFinal);
 
 //            $age=array($stud->index_number=>$SgpaFinal);

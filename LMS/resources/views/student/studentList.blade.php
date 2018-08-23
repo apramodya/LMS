@@ -12,7 +12,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Index #</th>
-                    
+
 
                     <th scope="col">Degree</th>
                 </tr>
