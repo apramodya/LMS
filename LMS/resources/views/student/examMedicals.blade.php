@@ -102,7 +102,7 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="remarks"><strong>Remarks [Optional]</strong></label>
+                                    <label for="remarks"><strong>Remarks</strong></label>
                                     <textarea type="text" class="form-control" id="remarks" name="remarks"
                                               required></textarea>
 

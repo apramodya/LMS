@@ -67,6 +67,7 @@ class StudentController extends Controller {
         $storeFeedback->suggestions     = $request->q3;
 
         $storeFeedback->save();
+        flash( 'Feedback Submitted' )->success();
 
         return redirect( route( 'student-feedback-forum' ) );
 

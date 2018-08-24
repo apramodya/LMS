@@ -187,7 +187,7 @@
                                             <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                             <p class="font-italic">Deadline: <span
                                                         class="red-text">{{$assignment->end_date}} </span> at <span
-                                                        class="red">  {{$assignment->end_time}}</span></p>
+                                                        class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                         </li>
                                     @else
                                         <li class="list-group-item list-group-item-danger">
@@ -202,7 +202,7 @@
                                             <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                             <p class="font-italic">Deadline: <span
                                                         class="red-text">{{$assignment->end_date}} </span> at <span
-                                                        class="red">  {{$assignment->end_time}}</span></p>
+                                                        class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                         </li>
                                     @endif
 
@@ -229,7 +229,7 @@
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                                     <p class="font-italic">Deadline: <span
                                                                 class="red-text">{{$assignment->end_date}} </span> at
-                                                        <span class="red">  {{$assignment->end_time}}</span></p>
+                                                        <span class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @else
@@ -246,7 +246,7 @@
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                                     <p class="font-italic">Deadline: <span
                                                                 class="red-text">{{$assignment->end_date}} </span> at
-                                                        <span class="red">  {{$assignment->end_time}}</span></p>
+                                                        <span class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @endif
@@ -267,7 +267,7 @@
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                                     <p class="font-italic">Deadline: <span
                                                                 class="red-text">{{$assignment->end_date}} </span> at
-                                                        <span class="red">  {{$assignment->end_time}}</span></p>
+                                                        <span class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                                 </li>
                                                 @break
                                             @else
@@ -284,7 +284,7 @@
                                                     <p class="font-italic">Published:{{$assignment->created_at}}</p>
                                                     <p class="font-italic">Deadline: <span
                                                                 class="red-text">{{$assignment->end_date}} </span> at
-                                                        <span class="red">  {{$assignment->end_time}}</span></p>
+                                                        <span class="badge-pill red">  {{$assignment->end_time}}</span></p>
                                                 </li>
 
                                             @endif
@@ -296,7 +296,6 @@
                     </div>
 
                     <!--/.Panel 3-->
-                    <!--Panel 4-->
                     <div class="tab-pane fade" id="submissions" role="tabpanel">
                         <ul class="list-group list-group-flush">
                             @foreach($submissions as $submission)
@@ -313,7 +312,7 @@
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
                                         <p class="font-italic">Deadline <span
                                                     class="red-text">{{ $submission->end_date }} </span> at <span
-                                                    class="red">{{$submission->end_time}}</span></p>
+                                                    class="badge-pill red">{{$submission->end_time}}</span></p>
                                     </li>
 
                                 @else
@@ -328,7 +327,7 @@
                                         <p class="font-italic">Published:{{$submission->created_at}}</p>
                                         <p class="font-italic">Deadline <span
                                                     class="red-text">{{ $submission->end_date }} </span> at <span
-                                                    class="red">{{$submission->end_time}}</span></p>
+                                                    class="badge-pill red">{{$submission->end_time}}</span></p>
                                     </li>
                                 @endif
 

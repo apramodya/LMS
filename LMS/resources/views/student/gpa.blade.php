@@ -79,11 +79,12 @@
                                             {{--<span class="small">John Doe</span>--}}
                                             <span class="float-right font-weight-bold"><strong>{{$sortedRank}}</strong></span>
                                         </li>
-                                        @endif
+                                        @else
                                         <li class="list-group-item"><strong>#{{$count}} {{$key}}</strong>
                                             {{--<span class="small">John Doe</span>--}}
                                             <span class="float-right font-weight-bold"><strong>{{$sortedRank}}</strong></span>
                                         </li>
+                                        @endif
                                         @endforeach
                         </ul>
                     </div>

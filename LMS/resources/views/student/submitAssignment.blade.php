@@ -40,9 +40,9 @@
                                     <dd class="col-md-8">
                                         <ul>
                                             @if($result== !NULL)
-                                                <span class="rgba-green-strong"><strong>Submitted For Grading</strong></span>
+                                                <span class="badge-pill orange"><strong>Submitted For Grading</strong></span>
                                             @else
-                                                <span class="rgba-red-strong"><strong>Not Submitted Yet</strong></span>
+                                                <span class="badge-pill red"><strong>Not Submitted Yet</strong></span>
                                              @endif
                                         </ul>
                                     </dd>
@@ -52,7 +52,7 @@
                                     <dt class="col-md-3">Time Left</dt>
                                     <dd class="col-md-8">
                                         <ul>
-                                            <span class="rgba-purple-strong" id="countdown"></span>
+                                            <span class="badge-pill info-color" id="countdown"></span>
                                         </ul>
 
                                         <script>

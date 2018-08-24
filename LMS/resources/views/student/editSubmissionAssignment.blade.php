@@ -50,14 +50,7 @@
                                         </dd>
                                     </dl>
                                     <hr class="bg-dark">
-                                    <dl class="row">
-                                        <dt class="col-md-3">Time</dt>
-                                        <dd class="col-md-8">
-                                            <ul>
-
-                                            </ul>
-                                        </dd>
-                                    </dl>
+                                    {{----}}
                                 </div>
                             </div>
                         </div>

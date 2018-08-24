@@ -94,8 +94,8 @@ body {font-family: Verdana, sans-serif;} */
                         Downloads
                     </div>
                     <div class="card-body">
-                        <a>UNDERGRADUATE TIME TABLE - SEMESTER 1 - 2018</a>
-                        <a>UNDERGRADUATE ACADEMIC CALENDAR - 2017</a>
+                        <a href={{base_path() . "/public/uploads/handbook.pdf"}}>UNDERGRADUATE TIME TABLE - SEMESTER 1 - 2018</a>
+                        <a href="">UNDERGRADUATE ACADEMIC CALENDAR - 2017</a>
                     </div>
                 </div>
             </div>
